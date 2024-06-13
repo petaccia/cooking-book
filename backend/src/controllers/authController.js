@@ -59,17 +59,17 @@ exports.login = async (req, res) => {
 exports.loginWithGoogle = async (req, res) => {
   try {
     const { tokenId } = req.body;
-    const response = await client.verifyIdToken({
+    const ticket = await client.verifyIdToken({
       idToken: tokenId,
       audience: process.env.GOOGLE_CLIENT_ID,
     });
-    const { email, name } = response.payload;
+    const { email, name } = ticket.getPayload();
     let user = await User.findOne({ email });
     if (!user) {
       // Créer un nouvel utilisateur si aucun utilisateur n'existe avec cette adresse e-mail
       const hashedPassword = await hashPassword("password"); // Vous pouvez utiliser un mot de passe par défaut ou générer un mot de passe aléatoire
-      const newUser = new User({ pseudo: name, email, password: hashedPassword });
-      user = await newUser.save();
+      user = new User({ pseudo: name, email, password: hashedPassword });
+      await user.save();
     }
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
     await User.findByIdAndUpdate(user._id, { token });
