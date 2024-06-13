@@ -2,7 +2,7 @@ import axios from "axios";
 
 const UrlBack = import.meta.env.VITE_BACK_URL;
 
-export const signup = async () => {
+export const signUp = async (pseudo, email, password) => {
   try {
     const response = await axios.post(`${UrlBack}/auth/signup`, {
       pseudo,
@@ -14,8 +14,6 @@ export const signup = async () => {
     }
   } catch (error) {
     console.log('Une erreur est survenue pour la création de l\'utilisateur :', error);
-  }
-  finally {
-    console.log('Fin de la création de l\'utilisateur')
+    throw new Error('Une erreur vient du serveur :', error);
   }
 };
