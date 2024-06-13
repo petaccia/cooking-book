@@ -33,6 +33,12 @@ const userSchema = new mongoose.Schema({
         type: String,
     },
 
+    // champs googleId
+    googleId: {
+        type: String,
+        unique: true,
+    },
+
     // champs de l'adresse
     address: [
         { 
@@ -67,6 +73,9 @@ const userSchema = new mongoose.Schema({
         default: Date.now, // date actuelle
     },  
     
+},
+{
+    timestamps: true,
 });
 
 const User = mongoose.model("User", userSchema);
