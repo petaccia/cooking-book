@@ -43,6 +43,12 @@ const userSchema = new mongoose.Schema({
         unique: true,
     },
 
+    // champs facebookId
+    facebookId: {
+        type: String,
+        unique: true,
+    },
+
     // champs de l'adresse
     address: [
         { 

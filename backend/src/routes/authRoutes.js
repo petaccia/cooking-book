@@ -14,6 +14,20 @@ router.get('/google/callback', passport.authenticate('google', {
   successRedirect: process.env.FRONTEND_URL
 }));
 
+// Routes de Facebook
+router.get('/facebook', passport.authenticate('facebook', { scope: ['email'] }));
+router.get('/facebook/callback', passport.authenticate('facebook', {
+  failureRedirect: '/auth/login/failed',
+  successRedirect: process.env.FRONTEND_URL
+}));
+
+// Route de déconnexion
+router.get('/logout', (req, res) => {
+  req.logout();
+  res.redirect(process.env.FRONTEND_URL);
+});
+
+// Route en cas d'échec d'authentification
 router.get('/login/failed', (req, res) => {
   res.status(401).json({
     success: false,
@@ -21,6 +35,7 @@ router.get('/login/failed', (req, res) => {
   });
 });
 
+// Route en cas de succès d'authentification
 router.get('/login/success', (req, res) => {
   if (req.user) {
     res.status(200).json({
@@ -29,11 +44,6 @@ router.get('/login/success', (req, res) => {
       user: req.user,
     });
   }
-});
-
-router.get('/logout', (req, res) => {
-  req.logout();
-  res.redirect(process.env.FRONTEND_URL);
 });
 
 module.exports = router;

@@ -8,7 +8,7 @@ const router = require("./routes");
 const connectDB = require("./database/config");
 
 // Importer Passport google
-require("./passport/passportGoogle");
+require("./passport/passportLogin");
 
 const app = express();
 
