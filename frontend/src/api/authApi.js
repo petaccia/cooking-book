@@ -13,17 +13,18 @@ export const signUp = async (pseudo, email, password) => {
       return response.data;
     }
   } catch (error) {
-    console.log('Une erreur est survenue pour la création de l\'utilisateur :', error);
+    console.log('Une erreur est survenue pour la création de l\'utilisateur :', error);
     throw new Error('Une erreur vient du serveur :', error);
   }
 };
-
 
 export const login = async (email, password) => {
   try {
     const response = await axios.post(`${UrlBack}/auth/login`, {
       email,
       password,
+    }, {
+      withCredentials: true,
     });
     if (response.data !== null && response.data !== undefined && response.data !== "" && response.status === 200) {
       return response.data;
@@ -33,3 +34,10 @@ export const login = async (email, password) => {
     throw new Error('Une erreur vient du serveur :', error);
   }
 };
+
+// Connexion avec Google
+export const loginWithGoogle = () => {
+  window.open(`${UrlBack}/auth/google`, '_self');
+}
+     
+    
