@@ -6,7 +6,9 @@ const userSchema = new mongoose.Schema({
     // champs du pseudo
     pseudo: {
         type: String,
-        required: true,
+        required: function() {
+            return !this.googleId; // si googleId n'est pas renseigné, alors le pseudo est obligatoire
+        },
         unique: true,
     },
 
@@ -25,7 +27,9 @@ const userSchema = new mongoose.Schema({
     // champs du mot de passe
     password: {
         type: String,
-        required: true,
+        required: function() {
+            return !this.googleId; // si googleId n'est pas renseigné, alors le mot de passe est obligatoire
+        },
     },
 
     // champs de l'image
