@@ -53,15 +53,15 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 z-0">
       <div
-        className="absolute inset-0 bg-cover bg-center"
+        className="absolute inset-0 bg-cover bg-center "
         style={{
           backgroundImage: 'url(https://images.unsplash.com/photo-1504674900247-0877df9cc836)',
           filter: 'brightness(0.5)',
         }}
       ></div>
-      <div className="relative bg-white p-8 rounded shadow-md w-full max-w-md z-10">
+      <div className="relative bg-white p-8 rounded shadow-md w-full max-w-md ">
         <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Connexion</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-4">
