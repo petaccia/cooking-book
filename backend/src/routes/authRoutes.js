@@ -14,13 +14,6 @@ router.get('/google/callback', passport.authenticate('google', {
   successRedirect: process.env.FRONTEND_URL
 }));
 
-// Routes de Facebook
-router.get('/facebook', passport.authenticate('facebook', { scope: ['email'] }));
-router.get('/facebook/callback', passport.authenticate('facebook', {
-  failureRedirect: '/auth/login/failed',
-  successRedirect: process.env.FRONTEND_URL
-}));
-
 // Route de déconnexion
 router.get('/logout', (req, res) => {
   req.logout();
