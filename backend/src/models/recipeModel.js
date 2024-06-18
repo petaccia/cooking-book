@@ -43,7 +43,9 @@ const recipeSchema = new mongoose.Schema({
 
   // champs de l'auteur
   author: {type: mongoose.Schema.Types.ObjectId, ref: "User"},
-});
+},
+
+{timestamps: true}); // ajouter la date et l'heure au moment de l'enregistrement
 
 const Recipe = mongoose.model("Recipe", recipeSchema);
 module.exports = Recipe;
