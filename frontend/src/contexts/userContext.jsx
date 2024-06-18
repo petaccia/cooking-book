@@ -1,29 +1,28 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { getCurrentUser } from '../api';
+import { useLoaderData } from 'react-router-dom';
 
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const initialUser = useLoaderData();
+  const [user, setUser] = useState(initialUser);
+
+  const login = async (credentials) => {
+    const user = await loginUser(credentials);
+    setUser(user);
+  };
 
   useEffect(() => {
-    const fetchCurrentUser = async () => {
-      try {
-      const currentUser = await getCurrentUser();
-      if (currentUser) {
-        setUser(currentUser);
-      }
-    } catch (error) {
-      console.error('Une erreur est survenue pour la connexion de l\'utilisateur :', error);
-    } finally {
-      setLoading(false);
-    }
+    setUser(user);
+  }, [user]);
+
+  const logout = () => {
+    setUser(null);
+    localStorage.removeItem('token');
   };
-    fetchCurrentUser();
-  }, []);
+
   return (
-    <UserContext.Provider value={{ user, setUser, loading }}>
+    <UserContext.Provider value={{ user,  login, logout }}>
       {children}
     </UserContext.Provider>
   );
