@@ -31,7 +31,7 @@ const Login = () => {
       .then((response) => {
         toast.success('Connexion réussie !');
         console.log(response);
-        navigate('/profile'); // Rediriger vers le profil après une connexion réussie
+        navigate('/'); // Rediriger vers le profil après une connexion réussie
       })
       .catch((error) => {
         toast.error('Erreur lors de la connexion');
@@ -42,9 +42,9 @@ const Login = () => {
   const handleLoginGoogle = () => {
     loginWithGoogle()
       .then((response) => {
-        toast.success('Connexion Google désé !');
+        toast.success('Connexion Google établie !');
         console.log(response);
-        navigate('/profile'); // Rediriger vers le profil après une connexion spécie
+        navigate('/'); // Rediriger vers le profil après une connexion spécie
       })
       .catch((error) => {
         toast.error('Erreur lors de la connexion Google');
