@@ -2,7 +2,7 @@ const recipesData = [
   {
     title: "Spaghetti Carbonara",
     description: "Un classique italien crémeux et délicieux.",
-    image: "carbonara.jpg",
+    image: "https://fthmb.tqn.com/AmtBki2yVYtxFyDoH6PpU6-RYag=/3888x2592/filters:fill(auto,1)/italian-food--pasta-alla-carbonara-111648900-5a4fd617ec2f640037f8cf3d.jpg",
     tcookingTime: 20,
     level: "Facile",
     ingredients: [
@@ -18,7 +18,7 @@ const recipesData = [
   {
     title: "Salade César",
     description: "Une salade croquante avec une sauce crémeuse.",
-    image: "caesar_salad.jpg",
+    image: "https://www.marecette.ch/wp-content/uploads/2020/05/salade-cesar.jpg",
     tcookingTime: 15,
     level: "Facile",
     ingredients: [
@@ -34,7 +34,7 @@ const recipesData = [
   {
     title: "Poulet Tikka Masala",
     description: "Poulet mariné dans une sauce épicée et crémeuse.",
-    image: "tikka_masala.jpg",
+    image: "https://theviewfromgreatisland.com/wp-content/uploads/2013/06/028-002.jpg",
     tcookingTime: 40,
     level: "Moyen",
     ingredients: [
@@ -50,7 +50,7 @@ const recipesData = [
   {
     title: "Quiche Lorraine",
     description: "Une quiche classique avec du bacon et du fromage.",
-    image: "quiche_lorraine.jpg",
+    image: "http://marfel.es/wp-content/uploads/2016/08/quiche-lorraine.jpg",
     tcookingTime: 60,
     level: "Facile",
     ingredients: [
@@ -66,7 +66,7 @@ const recipesData = [
   {
     title: "Ratatouille",
     description: "Un plat de légumes provençal.",
-    image: "ratatouille.jpg",
+    image: "https://fac.img.pmdstatic.net/fit/http.3A.2F.2Fprd2-bone-image.2Es3-website-eu-west-1.2Eamazonaws.2Ecom.2Ffac.2F2018.2F07.2F30.2Fa41d540a-ac3a-44ce-adcf-3702cdd2db2e.2Ejpeg/1200x675/quality/80/crop-from/center/ratatouille-provencale.jpeg",
     tcookingTime: 50,
     level: "Facile",
     ingredients: [
@@ -83,7 +83,7 @@ const recipesData = [
   {
     title: "Soupe à l'oignon",
     description: "Une soupe réconfortante avec des oignons caramélisés.",
-    image: "soupe_oignon.jpg",
+    image: "https://assets.afcdn.com/recipe/20191109/102147_w1024h768c1cx2144cy1424cxt0cyt0cxb4288cyb2848.jpg",
     tcookingTime: 30,
     level: "Facile",
     ingredients: [
@@ -99,7 +99,7 @@ const recipesData = [
   {
     title: "Curry de légumes",
     description: "Un curry végétarien épicé et savoureux.",
-    image: "curry_legumes.jpg",
+    image: "https://img.mesrecettesfaciles.fr/wp-content/uploads/2018/04/currylegumes-1000x500.jpg",
     tcookingTime: 45,
     level: "Moyen",
     ingredients: [
@@ -115,7 +115,7 @@ const recipesData = [
   {
     title: "Tarte Tatin",
     description: "Une tarte renversée aux pommes caramélisées.",
-    image: "tarte_tatin.jpg",
+    image: "https://assets.afcdn.com/recipe/20180503/79001_w1944h1242c1cx2880cy1920.jpg",
     tcookingTime: 60,
     level: "Difficile",
     ingredients: [
@@ -130,7 +130,7 @@ const recipesData = [
   {
     title: "Bouillabaisse",
     description: "Une soupe de poisson provençale.",
-    image: "bouillabaisse.jpg",
+    image: "http://img.taste.com.au/xevn8hx3/taste/2016/11/bouillabaisse-78546-1.jpeg",
     tcookingTime: 90,
     level: "Difficile",
     ingredients: [
@@ -146,7 +146,7 @@ const recipesData = [
   {
     title: "Gâteau au chocolat",
     description: "Un dessert riche et fondant.",
-    image: "gateau_chocolat.jpg",
+    image: "https://www.iutbethune.org/wp-content/uploads/2022/10/Fondant-au-chocolat.jpg",
     tcookingTime: 45,
     level: "Facile",
     ingredients: [
@@ -162,7 +162,7 @@ const recipesData = [
   {
     title: "Bœuf Bourguignon",
     description: "Un ragoût de bœuf mijoté au vin rouge.",
-    image: "boeuf_bourguignon.jpg",
+    image: "https://ichef.bbci.co.uk/food/ic/food_16x9_1600/recipes/boeuf_bourguignon_25475_16x9.jpg",
     tcookingTime: 180,
     level: "Difficile",
     ingredients: [
@@ -178,7 +178,7 @@ const recipesData = [
   {
     title: "Tajine de poulet",
     description: "Un plat marocain épicé avec des olives et des citrons confits.",
-    image: "tajine_poulet.jpg",
+    image: "https://perfectlyprovence.co/wp-content/uploads/2020/05/chicken-tagine.jpg",
     tcookingTime: 90,
     level: "Moyen",
     ingredients: [
@@ -194,7 +194,7 @@ const recipesData = [
   {
     title: "Risotto aux champignons",
     description: "Un plat crémeux de riz avec des champignons.",
-    image: "risotto_champignons.jpg",
+    image: "https://img.passeportsante.net/1000x526/2021-03-29/i101004-.jpeg",
     tcookingTime: 35,
     level: "Moyen",
     ingredients: [
@@ -210,7 +210,7 @@ const recipesData = [
   {
     title: "Lasagnes",
     description: "Un plat italien de pâtes en couches avec de la viande et de la sauce.",
-    image: "lasagnes.jpg",
+    image: "https://i.notrefamille.com/1800x0/smart/2020/11/26/42006-large.jpg",
     tcookingTime: 60,
     level: "Moyen",
     ingredients: [
@@ -226,7 +226,7 @@ const recipesData = [
   {
     title: "Couscous",
     description: "Un plat nord-africain avec de la semoule et des légumes.",
-    image: "couscous.jpg",
+    image: "https://assets.afcdn.com/recipe/20200828/113350_w1024h768c1cx2880cy1920.jpg",
     tcookingTime: 75,
     level: "Moyen",
     ingredients: [
@@ -242,7 +242,7 @@ const recipesData = [
   {
     title: "Pâtes aux crevettes",
     description: "Un plat de pâtes rapide avec des crevettes et de l'ail.",
-    image: "pates_crevettes.jpg",
+    image: "https://touslesgouts.com/wp-content/uploads/2019/12/P%C3%A2tes-aux-crevettes-avec-sauce-cr%C3%A9meuse-%C3%A0-la-mozzarella.jpg",
     tcookingTime: 25,
     level: "Facile",
     ingredients: [
@@ -258,7 +258,7 @@ const recipesData = [
   {
     title: "Chili con carne",
     description: "Un ragoût épicé de viande et de haricots.",
-    image: "chili_con_carne.jpg",
+    image: "https://www.easymarket.pf/wp-content/uploads/2016/10/chili-con-carne.jpg",
     tcookingTime: 60,
     level: "Moyen",
     ingredients: [
@@ -274,7 +274,7 @@ const recipesData = [
   {
     title: "Paella",
     description: "Un plat espagnol de riz avec des fruits de mer.",
-    image: "paella.jpg",
+    image: "https://themediterraneanchick.com/wp-content/uploads/2020/09/IMG_0825-1-scaled.jpg",
     tcookingTime: 90,
     level: "Difficile",
     ingredients: [
@@ -290,7 +290,7 @@ const recipesData = [
   {
     title: "Poulet rôti",
     description: "Un classique poulet rôti avec des herbes.",
-    image: "poulet_roti.jpg",
+    image: "https://mesdelices.fr/wp-content/uploads/2018/04/poulet-r%C3%B4ti.jpg",
     tcookingTime: 120,
     level: "Facile",
     ingredients: [
@@ -306,7 +306,7 @@ const recipesData = [
   {
     title: "Blanquette de veau",
     description: "Un ragoût de veau crémeux avec des carottes et des champignons.",
-    image: "blanquette_de_veau.jpg",
+    image: "https://www.breizhveau.bzh/wp-content/uploads/2019/12/breizhveau-recette-2019-12-28-blanquette-veau.jpg",
     tcookingTime: 150,
     level: "Difficile",
     ingredients: [
@@ -322,7 +322,7 @@ const recipesData = [
   {
     title: "Tiramisu",
     description: "Un dessert italien avec du café et du mascarpone.",
-    image: "tiramisu.jpg",
+    image: "https://www.pastaweb.de/wp-content/uploads/2016/06/tiramisu.jpg",
     tcookingTime: 30,
     level: "Facile",
     ingredients: [
@@ -339,7 +339,7 @@ const recipesData = [
   {
     title: "Gazpacho",
     description: "Une soupe froide espagnole de tomates.",
-    image: "gazpacho.jpg",
+    image: "https://assets.bonappetit.com/photos/57aca0e0f1c801a1038bc671/master/pass/summer-gazpacho.jpg",
     tcookingTime: 20,
     level: "Facile",
     ingredients: [
