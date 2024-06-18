@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import './App.css';
+import { UserProvider } from './contexts/UserContext';
 import SignUp from './components/auth/signUp/SignUp';
 import Login from './components/auth/login/Login';
 import Profile from './pages/profile/profile';
@@ -9,6 +9,7 @@ import Home from './pages/home/Home';
 
 function App() {
   return (
+    <UserProvider>
     <Router>
       <div className="min-h-screen flex flex-col relative">
         <Navbar />
@@ -22,6 +23,7 @@ function App() {
         </div>
       </div>
     </Router>
+    </UserProvider>
   );
 }
 
