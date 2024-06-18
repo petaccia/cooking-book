@@ -2,7 +2,7 @@ import React from 'react';
 
 const CardRecipe = ({ recipe }) => {
   return (
-    <div className="max-w-80 bg-white rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105">
+    <div className="max-w-80 bg-white rounded-lg shadow-lg shadow-gray-900 overflow-hidden transition-transform transform hover:scale-105">
       <div className="relative">
         <img
           src={recipe.image}
