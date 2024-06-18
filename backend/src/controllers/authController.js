@@ -1,7 +1,7 @@
 // controllers/authController.js
 const { hashPassword, comparePassword } = require("../security/bcrypt");
 const User = require("../models/userModel");
-const jwt = require("jsonwebtoken");
+const { generateToken, verifyToken } = require("../security/jwt");
 
 
 // Fonction d'inscription de l'utilisateur
@@ -27,55 +27,96 @@ exports.signup = async (req, res) => {
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
+
+    // Vérification des champs obligatoires
+    if (!email || !password) {
+      return res.status(400).json({
+        status: 400,
+        message: "Veuillez renseigner tous les champs",
+      });
+    }
+
+    // Recherche de l'utilisateur par email
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(401).json({ message: "Utilisateur non existant" });
-    }
-    const isMatch = await comparePassword(password, user.password);
-    if (!isMatch) {
-      return res.status(401).json({ message: "Mot de passe incorrect" });
+      return res.status(401).json({
+        status: 401,
+        message: "Email ou mot de passe incorrect",
+      });
     }
 
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
+    // Vérification du mot de passe
+    const passwordMatch = await comparePassword(password, user.password);
+    if (!passwordMatch) {
+      return res.status(401).json({
+        status: 401,
+        message: "Email ou mot de passe incorrect",
+      });
+    }
 
-    res.setHeader("Authorization", `Bearer ${token}`);
-    res.status(200).json({ message: "Connexion réussie", token, userId: user._id });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+    // Génération du token JWT
+    const payload = { userId: user._id };
+    const secret = process.env.JWT_SECRET;
+    const options = { expiresIn: "1h" };
+    const token = generateToken(payload, secret, options);
+
+    // Réponse avec le token et configuration du cookie
+    return res.cookie("token", token, { httpOnly: true }).json({
+      status: 200,
+      message: "Connexion réussie",
+      token,
+    });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({
+      status: 500,
+      message: "Une erreur est survenue lors de la connexion",
+      error: err.message,
+    });
   }
 };
 
 
 // Fonction de récupération des informations de l'utilisateur
 exports.getCurrentUser = async (req, res) => {
-  const { token } = req.cookie
+  const { token } = req.cookies; // Récupération du token depuis les cookies
 
-  // Vérification du token
+  // Vérification du token
   if (!token) {
     return res.status(401).json({
       status: 401,
-      message: "Utilisateur non connecté, token manquant"
+      message: "Utilisateur non connecté, token manquant",
     });
   }
 
   try {
-    // rechercher l'utilisateur dans la base de données
-    const { userId } = jwt.verify(token, process.env.JWT_SECRET);
+    // Vérification et décodage du token
+    const { isValid, payload, error } = verifyToken(token, process.env.JWT_SECRET);
+
+    if (!isValid) {
+      return res.status(401).json({
+        status: 401,
+        message: "Token invalide",
+        error: error.message,
+      });
+    }
+
+    const { userId } = payload;
     const user = await User.findById(userId);
     if (!user) {
-      return res.status(404).json({ message: "Utilisateur non trouveé" });
+      return res.status(404).json({ message: "Utilisateur non trouvé" });
     }
-    // renvoyer les informations de l'utilisateur
+
+    // Renvoi des informations de l'utilisateur
     res.status(200).json({
       status: 200,
       user,
-      token
     });
   } catch (error) {
     res.status(500).json({
       status: 500,
       message: "Une erreur est survenue",
-      error: error.message
+      error: error.message,
     });
   }
 };
