@@ -7,6 +7,7 @@ const recipeSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
+    trim: true, // supprimer les espaces avant et apres le titre
   },
 
   // champs de la description
@@ -20,13 +21,15 @@ const recipeSchema = new mongoose.Schema({
   },
 
   // champs du temps
-  time: {
+  tcookingTime: {
     type: Number,
+    default: 0 //  valeur par défaut si aucune n'est fournie
   },
 
   // champs du niveau
   level: {
     type: String,
+    default: "Facile" //  valeur par défaut si aucune n'est fournie
   },
 
   // champs des ingredients
