@@ -39,5 +39,21 @@ export const login = async (email, password) => {
 export const loginWithGoogle = () => {
   window.open(`${UrlBack}/auth/google`, '_self');
 }
+
+// Récupèrer les informations de l'utilisateur connecté
+export const getCurrentUser = async () => {
+  try {
+    const response = await axios.get(`${UrlBack}/auth/currentUser`, {
+      withCredentials: true,
+    });
+    console.log(response.data);
+    if (response.data !== null && response.data !== undefined && response.data !== "" && response.status === 200) {
+      return response.data;
+    }
+  } catch (error) {
+    console.log('Une erreur est survenue pour la connexion de l\'utilisateur :', error);
+    throw new Error('Une erreur vient du serveur :', error);
+  }
+};
      
     
