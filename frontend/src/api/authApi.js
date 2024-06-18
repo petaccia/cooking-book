@@ -18,7 +18,7 @@ export const signUp = async (pseudo, email, password) => {
   }
 };
 
-export const login = async (email, password) => {
+export const loginUser = async (email, password) => {
   try {
     const response = await axios.post(`${UrlBack}/auth/login`, {
       email,
