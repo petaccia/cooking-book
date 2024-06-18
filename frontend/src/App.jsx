@@ -1,28 +1,17 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { UserProvider } from './contexts/UserContext';
-import SignUp from './components/auth/signUp/SignUp';
-import Login from './components/auth/login/Login';
-import Profile from './pages/profile/profile';
 import Navbar from './components/navbar/Navbar';
-import Home from './pages/home/Home';
+import { UserProvider } from './contexts/UserContext';
+import { Outlet } from 'react-router-dom';
 
 function App() {
   return (
     <UserProvider>
-    <Router>
-      <div className="min-h-screen flex flex-col relative">
+      <div>
         <Navbar />
-        <div className="flex-grow">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/profile" element={<Profile />} />
-          </Routes>
+        <div>
+          <Outlet />
         </div>
       </div>
-    </Router>
     </UserProvider>
   );
 }

@@ -5,7 +5,7 @@ import * as yup from 'yup';
 import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { login, loginWithGoogle } from '../../../api';
+import { loginUser, loginWithGoogle } from '../../../api';
 
 const Login = () => {
   const defaultValues = {
@@ -27,7 +27,7 @@ const Login = () => {
 
   const onSubmit = (data) => {
     const { email, password } = data;
-    login(email, password)
+    loginUser(email, password)
       .then((response) => {
         toast.success('Connexion réussie !');
         console.log(response);
