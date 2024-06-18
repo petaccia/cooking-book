@@ -44,3 +44,38 @@ exports.login = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+
+// Fonction de récupération des informations de l'utilisateur
+exports.getCurrentUser = async (req, res) => {
+  const { token } = req.cookie
+
+  // Vérification du token
+  if (!token) {
+    return res.status(401).json({
+      status: 401,
+      message: "Utilisateur non connecté, token manquant"
+    });
+  }
+
+  try {
+    // rechercher l'utilisateur dans la base de données
+    const { userId } = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "Utilisateur non trouveé" });
+    }
+    // renvoyer les informations de l'utilisateur
+    res.status(200).json({
+      status: 200,
+      user,
+      token
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: 500,
+      message: "Une erreur est survenue",
+      error: error.message
+    });
+  }
+};
