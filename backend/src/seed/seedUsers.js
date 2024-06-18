@@ -1,9 +1,9 @@
 // seedUsers.js
 require('dotenv').config();
 const mongoose = require('mongoose');
-const User = require('../src/models/userModel');
-const connectDB = require('../src/database/config');
-const userData = require('../data/userData');
+const User = require('../models/userModel');
+const connectDB = require('../database/config');
+const userData = require('../../data/userData');
 
 const createUsers = async () => {
   try {

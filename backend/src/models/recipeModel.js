@@ -8,6 +8,7 @@ const recipeSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true, // supprimer les espaces avant et apres le titre
+    unique: true, // le titre doit être unique
   },
 
   // champs de la description
@@ -33,7 +34,7 @@ const recipeSchema = new mongoose.Schema({
   },
 
   // champs des ingredients
-  ingredients: {type: mongoose.Schema.Types.ObjectId, ref: "Ingredient"},
+  ingredients: [{type: mongoose.Schema.Types.ObjectId, ref: "Ingredient"}],
 
   // champs des etapes
   steps: {
@@ -42,10 +43,10 @@ const recipeSchema = new mongoose.Schema({
   
 
   // champs de l'auteur
-  author: {type: mongoose.Schema.Types.ObjectId, ref: "User"},
+  author: [{type: mongoose.Schema.Types.ObjectId, ref: "User"}],
 },
 
-{timestamps: true}); // ajouter la date et l'heure au moment de l'enregistrement
+{timestamps: true}); // ajouter la date et l'heure de la création et de la modification
 
 const Recipe = mongoose.model("Recipe", recipeSchema);
 module.exports = Recipe;
