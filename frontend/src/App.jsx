@@ -5,6 +5,7 @@ import SignUp from './components/auth/signUp/SignUp';
 import Login from './components/auth/login/Login';
 import Profile from './pages/profile/profile';
 import Navbar from './components/navbar/Navbar';
+import Home from './pages/home/Home';
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
         <Navbar />
         <div className="flex-grow">
           <Routes>
-            <Route path="/" element={<Login />} />
+            <Route path="/" element={<Home />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<Login />} />
             <Route path="/profile" element={<Profile />} />
