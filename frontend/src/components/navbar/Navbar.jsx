@@ -1,63 +1,80 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { UserContext } from '../../contexts/UserContext';
 
 const Navbar = () => {
+  const { user, logout } = useContext(UserContext);
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
+
   return (
-    <nav className=" w-full  fixed top-0 left-0 bg-orange-600 py-4 z-10">
+    <nav className="w-full fixed top-0 left-0 bg-orange-600 py-4 z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className=" flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <Link to="/" className="text-white font-bold text-xl">
               Cooking Book
             </Link>
           </div>
           <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-4">
-              <Link
-                to="/"
-                className="text-white hover:bg-orange-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-              >
-                Accueil
-              </Link>
-              <Link
-                to="/recipes"
-                className="text-white hover:bg-orange-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-              >
-                Recettes
-              </Link>
-              <Link
-                to="/about"
-                className="text-white hover:bg-orange-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-              >
-                À propos
-              </Link>
-            </div>
+            {user ? (
+              <>
+                <div className="ml-10 flex items-baseline space-x-4">
+                  <Link
+                    to="/"
+                    className="text-white hover:bg-orange-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                  >
+                    Accueil
+                  </Link>
+                  <Link
+                    to="/recipes"
+                    className="text-white hover:bg-orange-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                  >
+                    Recettes
+                  </Link>
+                  <Link
+                    to="/about"
+                    className="text-white hover:bg-orange-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                  >
+                    À propos
+                  </Link>
+                  <button
+                    onClick={handleLogout}
+                    className="text-white hover:bg-orange-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                  >
+                    Se déconnecter
+                  </button>
+                </div>
+              </>
+            ) : (
+              <div className="ml-4 flex items-center md:ml-6">
+                <Link
+                  to="/login"
+                  className="text-white hover:bg-orange-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  Se connecter
+                </Link>
+                <Link
+                  to="/signup"
+                  className="bg-white text-orange-500 hover:bg-orange-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium ml-4"
+                >
+                  S'inscrire
+                </Link>
+              </div>
+            )}
           </div>
-          <div className="hidden md:block">
-            <div className="ml-4 flex items-center md:ml-6">
-              <Link
-                to="/login"
-                className="text-white hover:bg-orange-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-              >
-                Se connecter
-              </Link>
-              <Link
-                to="/signup"
-                className="bg-white text-orange-500 hover:bg-orange-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium ml-4"
-              >
-                S'inscrire
-              </Link>
-            </div>
-          </div>
-          <div className="-mr-2 flex md:hidden ">
+          <div className="-mr-2 flex md:hidden">
             <button
               onClick={toggleMenu}
               type="button"
@@ -77,7 +94,7 @@ const Navbar = () => {
       </div>
 
       <div className={`md:hidden transition duration-300 ${isOpen ? 'h-screen' : 'hidden'}`} id="mobile-menu">
-        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 ">
+        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
           <Link
             to="/"
             className="text-white hover:bg-orange-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
@@ -111,20 +128,31 @@ const Navbar = () => {
               <div className="text-sm font-medium text-orange-300">tom@example.com</div>
             </div>
           </div>
-          <div className="mt-3 px-2 space-y-1">
-            <Link
-              to="/login"
-              className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-orange-700 hover:text-white"
-            >
-              Se connecter
-            </Link>
-            <Link
-              to="/signup"
-              className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-orange-700 hover:text-white"
-            >
-              S'inscrire
-            </Link>
-          </div>
+          {user ? (
+            <div className="mt-3 px-2">
+              <button
+                onClick={handleLogout}
+                className="block w-full px-3 py-2 rounded-md text-base font-medium text-white hover:bg-orange-700 hover:text-white"
+              >
+                Se déconnecter
+              </button>
+            </div>
+          ) : (
+            <div className="mt-3 px-2 space-y-1">
+              <Link
+                to="/login"
+                className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-orange-700 hover:text-white"
+              >
+                Se connecter
+              </Link>
+              <Link
+                to="/signup"
+                className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-orange-700 hover:text-white"
+              >
+                S'inscrire
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </nav>
