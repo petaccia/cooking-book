@@ -25,8 +25,10 @@ exports.signup = async (req, res) => {
 
 // Fonction de connexion de l'utilisateur
 exports.login = async (req, res) => {
+  console.log("données de connexion recues du client :", req.body);
   try {
     const { email, password } = req.body;
+    console.log("email et password recues dans le req :", req.body.email, req.body.password);
 
     // Vérification des champs obligatoires
     if (!email || !password) {
@@ -34,10 +36,12 @@ exports.login = async (req, res) => {
         status: 400,
         message: "Veuillez renseigner tous les champs",
       });
+
     }
 
     // Recherche de l'utilisateur par email
     const user = await User.findOne({ email });
+    console.log("utilsateur trouve :", user);
     if (!user) {
       return res.status(401).json({
         status: 401,
@@ -47,6 +51,7 @@ exports.login = async (req, res) => {
 
     // Vérification du mot de passe
     const passwordMatch = await comparePassword(password, user.password);
+    console.log("passwordMatch vérifie :", passwordMatch);
     if (!passwordMatch) {
       return res.status(401).json({
         status: 401,
