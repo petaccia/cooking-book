@@ -10,6 +10,7 @@ function App() {
     <UserProvider>
       <Navbar />
       <Layout> 
+        <Outlet />
       </Layout>
     </UserProvider>
   );
