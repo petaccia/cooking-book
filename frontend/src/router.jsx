@@ -5,12 +5,14 @@ import SignUp from "./components/auth/signUp/SignUp";
 import Login from "./components/auth/login/Login";
 import Profile from "./pages/profile/profile";
 import App from "./App";
+import { Loader } from "./loader";
 
 const router = createBrowserRouter([
 
   {
     path: "/",
     element: <App />,
+    loader: Loader,
     children: [
       {
         index: true,

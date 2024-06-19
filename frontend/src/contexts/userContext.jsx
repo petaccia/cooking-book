@@ -1,28 +1,44 @@
-import React, { createContext, useEffect, useState } from 'react';
-import { useLoaderData } from 'react-router-dom';
+// UserContext.jsx
+import React, { createContext, useState, useEffect } from 'react';
+import { Loader } from '../loader';
 
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const initialUser = useLoaderData();
-  const [user, setUser] = useState(initialUser);
-
-  const login = async (credentials) => {
-    const user = await loginUser(credentials);
-    setUser(user);
-  };
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    setUser(user);
-  }, [user]);
+    const loadUser = async () => {
+      try {
+        const { user } = await Loader();
+        setUser(user);
+      } catch (error) {
+        console.error('Erreur lors du chargement de l\'utilisateur actuel :', error);
+      }
+    };
+
+    loadUser();
+  }, []);
+
+  const login = async (credentials) => {
+    try {
+      const response = await loginUser(credentials.email, credentials.password);
+      setUser(response);
+      localStorage.setItem('user', JSON.stringify(response));
+    } catch (error) {
+      console.error('Erreur lors de la connexion :', error);
+      throw error;
+    }
+  };
 
   const logout = () => {
     setUser(null);
+    localStorage.removeItem('user');
     localStorage.removeItem('token');
   };
 
   return (
-    <UserContext.Provider value={{ user,  login, logout }}>
+    <UserContext.Provider value={{ user, login, logout }}>
       {children}
     </UserContext.Provider>
   );
