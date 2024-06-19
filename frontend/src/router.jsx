@@ -1,4 +1,5 @@
-import React, {Suspense, lazy} from "react";
+// router.jsx
+import React, { Suspense, lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 const Home = lazy(() => import("./pages/home/Home"));
 const SignUp = lazy(() => import("./components/auth/signUp/SignUp"));
@@ -7,46 +8,58 @@ const Profile = lazy(() => import("./pages/profile/profile"));
 const App = lazy(() => import("./App"));
 const ErrorPage = lazy(() => import("./components/Error/ErrorPage/ErrorPage"));
 const Loader = lazy(() => import("./components/loader/Laoder"));
+import { UserProvider } from './contexts/UserContext';
 
 const router = createBrowserRouter([
-
   {
     path: "/",
-    element: <App />,
-    errorElement: <ErrorPage />,
+    element: (
+      <Suspense fallback={<Loader />}>
+        <UserProvider>
+          <App />
+        </UserProvider>
+      </Suspense>
+    ),
+    errorElement: (
+      <Suspense fallback={<Loader />}>
+        <ErrorPage />
+      </Suspense>
+    ),
     children: [
       {
         index: true,
-        element: 
-        <Suspense fallback={<Loader/>} >
-          <Home />
-        </Suspense>
+        element: (
+          <Suspense fallback={<Loader />}>
+            <Home />
+          </Suspense>
+        ),
       },
       {
         path: "/signup",
-        element: 
-        <Suspense fallback={<Loader/>} >
-        <SignUp />,
-        </Suspense>
+        element: (
+          <Suspense fallback={<Loader />}>
+            <SignUp />
+          </Suspense>
+        ),
       },
       {
         path: "/login",
-        element: 
-        <Suspense fallback={<Loader/>} >
-        <Login />,
-        </Suspense>
+        element: (
+          <Suspense fallback={<Loader />}>
+            <Login />
+          </Suspense>
+        ),
       },
       {
         path: "/profile",
-        element: 
-        <Suspense fallback={<Loader/>} >
-        <Profile />,
-        </Suspense>
+        element: (
+          <Suspense fallback={<Loader />}>
+            <Profile />
+          </Suspense>
+        ),
       },
-    ]
+    ],
   },
-
- 
 ]);
 
 export default router;
