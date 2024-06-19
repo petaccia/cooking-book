@@ -1,7 +1,6 @@
 // UserContext.jsx
 import React, { createContext, useState, useEffect } from 'react';
-import { Loader } from '../loader';
-import { loginUser } from '../api';
+import { loginUser, getCurrentUser } from '../api';
 
 export const UserContext = createContext();
 
@@ -11,7 +10,7 @@ export const UserProvider = ({ children }) => {
   useEffect(() => {
     const loadUser = async () => {
       try {
-        const { user } = await Loader();
+        const { user } = await getCurrentUser();
         setUser(user);
       } catch (error) {
         console.error('Erreur lors du chargement de l\'utilisateur actuel :', error);
