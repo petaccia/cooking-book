@@ -29,7 +29,7 @@ const Home = () => {
         <p className="text-white text-lg">Explorer les délicieuses recettes.</p>
       </div>
 
-      <div className="max-w-screen-lg mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
+      <div className="max-w-screen-lg mx-auto grid justify-items-center grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
         {loading ? (
           <div className="flex items-center justify-center col-span-full">
             <div className="loader border-t-4 border-blue-500 rounded-full w-12 h-12 animate-spin"></div>
