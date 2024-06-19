@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { loginUser, loginWithGoogle } from '../../../api';
+import {  loginWithGoogle } from '../../../api';
+import { UserContext} from '../../../contexts/UserContext';
 
 const Login = () => {
+  const { login } = useContext(UserContext);
   const defaultValues = {
     email: '',
     password: '',
@@ -25,30 +27,32 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  const onSubmit = (data) => {
-    const { email, password } = data;
-    loginUser(email, password)
-      .then((response) => {
-        toast.success('Connexion réussie !');
-        console.log(response);
-        navigate('/'); 
-        toast.error('Erreur lors de la connexion');
-        console.log(error);
-      });
+  const onSubmit = async (credentials) => {
+    console.log("Cookies avant la connexion :", document.cookie);
+    try {
+      const response = await login(credentials);
+      console.log("reponse du serveur :", response);
+      toast.success('Connexion établie !');
+      console.log(response);
+      navigate('/');
+    } catch (error) {
+      toast.error('Erreur lors de la connexion');
+      console.log(error);
+    }
   };
 
-  const handleLoginGoogle = () => {
-    loginWithGoogle()
-      .then((response) => {
-        toast.success('Connexion Google établie !');
-        console.log(response);
-        navigate('/'); // Rediriger vers le profil après une connexion spécie
-      })
-      .catch((error) => {
-        toast.error('Erreur lors de la connexion Google');
-        console.log(error);
-      });
+  const handleLoginGoogle =  async () => {
+    try {
+      const response = await loginWithGoogle();
+      toast.success('Connexion Google établie !');
+      console.log(response);
+      navigate('/');
+    } catch (error) {
+      toast.error('Erreur lors de la connexion Google');
+      console.log(error);
+    }
   };
+  
 
   return (
     <div className="flex items-center justify-center h-screen">

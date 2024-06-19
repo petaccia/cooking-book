@@ -26,9 +26,7 @@ export const loginUser = async (email, password) => {
     }, {
       withCredentials: true,
     });
-    if (response.data !== null && response.data !== undefined && response.data !== "" && response.status === 200) {
       return response.data;
-    }
   } catch (error) {
     console.log('Une erreur est survenue pour la connexion de l\'utilisateur :', error);
     throw new Error('Une erreur vient du serveur :', error);
@@ -42,14 +40,13 @@ export const loginWithGoogle = () => {
 
 // Récupèrer les informations de l'utilisateur connecté
 export const getCurrentUser = async () => {
+  console.log("Connexion de l'utilisateur" );
   try {
     const response = await axios.get(`${UrlBack}/auth/currentUser`, {
       withCredentials: true,
     });
-    console.log(response.data);
-    if (response.data !== null && response.data !== undefined && response.data !== "" && response.status === 200) {
+    console.log("Reponse du serveur pour la connexion dans l'api front", response.data);
       return response.data;
-    }
   } catch (error) {
     console.log('Une erreur est survenue pour la connexion de l\'utilisateur :', error);
     throw new Error('Une erreur vient du serveur :', error);
