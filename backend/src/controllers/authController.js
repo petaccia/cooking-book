@@ -67,6 +67,7 @@ exports.login = async (req, res) => {
 
     // Réponse avec le token et configuration du cookie
     return res.cookie("token", token, { httpOnly: true }).json({
+      id: user._id,
       status: 200,
       message: "Connexion réussie",
       token,
