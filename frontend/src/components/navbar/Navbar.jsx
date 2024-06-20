@@ -55,7 +55,7 @@ const Navbar = () => {
                   Se déconnecter
                 </button>
                 <Link
-                  to="/profile"
+                  to="/user/profile"
                   className="text-white hover:bg-orange-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >
                   <FontAwesomeIcon icon={faUserCircle} className="h-6 w-6 md:h-8 md:w-8 lg:h-10 lg:w-10" />
