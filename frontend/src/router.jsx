@@ -4,7 +4,7 @@ import { Outlet, createBrowserRouter } from "react-router-dom";
 const Home = lazy(() => import("./pages/home/Home"));
 const SignUp = lazy(() => import("./components/auth/signUp/SignUp"));
 const Login = lazy(() => import("./components/auth/login/Login"));
-const Profile = lazy(() => import("./pages/user/profile/Profile"));
+const Profile = lazy(() => import("./pages/user/pages/profile/pages/Profile"));
 const App = lazy(() => import("./App"));
 const ErrorPage = lazy(() => import("./components/Error/ErrorPage/ErrorPage"));
 const Loader = lazy(() => import("./components/loader/Loader"));
