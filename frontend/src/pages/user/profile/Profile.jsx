@@ -1,0 +1,12 @@
+import React from 'react'
+import ProfileForm from '../../../components/form/formProfilUser/FormProfileUser'
+
+const Profile = () => {
+  return (
+    <div className="flex justify-center items-center h-screen mt-10 " >
+      <ProfileForm />
+    </div>
+  )
+}
+
+export default Profile
