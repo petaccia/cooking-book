@@ -1,27 +1,15 @@
 import React, { useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { UserContext } from '../../../../../../contexts/UserContext';
 import Input from '../../../../../../components/form/input';
+import SchemaFormProfile from '../validation/SchemaFormProfile';
 
-const schema = yup.object().shape({
-  pseudo: yup.string().required('Le pseudo est requis'),
-  name: yup.string(),
-  email: yup.string().email("L'email est invalide").required("L'email est requis"),
-  address: yup.object().shape({
-    address: yup.string(),
-    city: yup.string(),
-    postalCode: yup.string(),
-    country: yup.string(),
-    phoneNumber: yup.string(),
-  }),
-});
 
 const ProfileForm = () => {
   const { user } = useContext(UserContext);
   const { register, handleSubmit, setValue, formState: { errors } } = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(SchemaFormProfile),
   });
 
   useEffect(() => {
