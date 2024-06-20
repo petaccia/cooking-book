@@ -43,7 +43,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/login",
+        path: "login",
         element: (
           <Suspense fallback={<Loader />}>
             <Login />
@@ -51,7 +51,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/user",
+        path: "user",
         element: (
           <Suspense fallback={<Loader />}>
             <UserProvider>
@@ -67,6 +67,16 @@ const router = createBrowserRouter([
                 <Profile />
               </Suspense>
             ),
+            children: [
+              {
+                path: ":id",
+                element: (
+                  <Suspense fallback={<Loader />}>
+                    <Profile />
+                  </Suspense>
+                ),
+              },
+            ],
           },
         ],
       },

@@ -5,7 +5,7 @@ import { faBars, faTimes, faUserCircle } from '@fortawesome/free-solid-svg-icons
 import { UserContext } from '../../contexts/UserContext';
 
 const Navbar = () => {
-  const { user, logout } = useContext(UserContext);
+  const { user, logout } = useContext(UserContext) || {};
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -55,10 +55,10 @@ const Navbar = () => {
                   Se déconnecter
                 </button>
                 <Link
-                  to="/user/profile"
-                  className="text-white hover:bg-orange-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                  to={`/user/profile/${user.id}`}
+                  className='text-white hover:bg-orange-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
                 >
-                  <FontAwesomeIcon icon={faUserCircle} className="h-6 w-6 md:h-8 md:w-8 lg:h-10 lg:w-10" />
+                 <FontAwesomeIcon icon={faUserCircle} size="3x" className='ml-4'/>
                 </Link>
               </div>
             ) : (
@@ -79,12 +79,6 @@ const Navbar = () => {
             )}
           </div>
           <div className="md:hidden flex items-center">
-            <Link
-              to="/profile"
-              className="text-white hover:bg-orange-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium mr-4"
-            >
-              <FontAwesomeIcon icon={faUserCircle} className="h-6 w-6" />
-            </Link>
             <button
               onClick={toggleMenu}
               type="button"
@@ -126,6 +120,15 @@ const Navbar = () => {
           >
             À propos
           </Link>
+          {user && (
+            <Link
+              to={`/user/profile/${user.id}`}
+              className='text-white hover:bg-orange-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'
+              onClick={() => setIsOpen(false)}
+            >
+              Information personnelle
+            </Link>
+          )}
         </div>
         {user ? (
           <div className="pt-4 pb-3 border-t border-orange-700">
