@@ -17,7 +17,7 @@ const CardRecipe = ({ recipe }) => {
         <p className="h-14 Text-gray-700 mb-4">{recipe.description}</p>
         <div className="flex justify-between items-center">
           <span className="text-sm font-medium text-gray-500">
-            {recipe.cookingTime} min
+            {recipe.tcookingTime} min
           </span>
           <button className="bg-gradient-to-r from-orange-400 to-orange-500 text-white py-2 px-4 rounded-md hover:from-orange-500 hover:to-orange-600 transition-colors duration-300">
             Voir la recette
