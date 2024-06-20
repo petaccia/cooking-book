@@ -2,7 +2,7 @@ import React from 'react';
 
 const Input = ({ id, label, type = 'text', register, error }) => {
   return (
-    <div className="w-full px-2 mb-4">
+    <div className="w-full md:w-1/2 px-4 mb-4">
       <label htmlFor={id} className="block text-gray-700 font-bold mb-2">
         {label}
       </label>

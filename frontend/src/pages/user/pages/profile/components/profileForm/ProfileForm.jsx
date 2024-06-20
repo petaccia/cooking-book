@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { UserContext } from '../../../../../../contexts/UserContext';
+import Input from '../../../../../../components/form/input';
 
 const schema = yup.object().shape({
   pseudo: yup.string().required('Le pseudo est requis'),
@@ -47,111 +48,67 @@ const ProfileForm = () => {
 
       <div className="flex flex-wrap mx-4">
         {/* Pseudo */}
-        <div className="w-full md:w-1/2 px-4 mb-4">
-          <label htmlFor="pseudo" className="block text-gray-700 font-bold mb-2">
-            Pseudo
-          </label>
-          <input
-            id="pseudo"
-            type="text"
-            {...register('pseudo')}
-            className={`w-full p-2 border border-gray-300 rounded ${errors.pseudo ? 'border-red-500' : ''}`}
-          />
-          {errors.pseudo && <p className="text-red-500 text-sm mt-1">{errors.pseudo.message}</p>}
-        </div>
+        <Input
+          id="pseudo"
+          label="Pseudo"
+          register={register('pseudo')}
+          error={errors.pseudo} />
+
 
         {/* Nom */}
-        <div className="w-full md:w-1/2 px-4 mb-4">
-          <label htmlFor="name" className="block text-gray-700 font-bold mb-2">
-            Nom
-          </label>
-          <input
-            id="name"
-            type="text"
-            {...register('name')}
-            className={`w-full p-2 border border-gray-300 rounded ${errors.name ? 'border-red-500' : ''}`}
-          />
-          {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>}
-        </div>
+        <Input
+          id="name"
+          label="Nom"
+          register={register('name')}
+          error={errors.name} />
 
         {/* Email */}
-        <div className="w-full px-4 mb-4">
-          <label htmlFor="email" className="block text-gray-700 font-bold mb-2">
-            Email
-          </label>
-          <input
-            id="email"
-            type="email"
-            {...register('email')}
-            className={`w-full p-2 border border-gray-300 rounded ${errors.email ? 'border-red-500' : ''}`}
-          />
-          {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
-        </div>
+        <Input
+          id="email"
+          label="Email"
+          type="email"
+          register={register('email')}
+          error={errors.email} />
 
         {/* Adresse */}
-        <div className="w-full px-4 mb-6">
+        <div className="w-full px-4 mb-6 mt-4">
           <h3 className="text-lg font-bold mb-2 text-orange-600">Adresse</h3>
           <div className="flex flex-wrap -mx-4">
-            <div className="w-full md:w-1/2 px-4 mb-4">
-              <label htmlFor="address" className="block text-gray-700 font-bold mb-2">
-                Adresse
-              </label>
-              <input
-                id="address"
-                type="text"
-                {...register('address.address')}
-                className={`w-full p-2 border border-gray-300 rounded ${errors.address?.address ? 'border-red-500' : ''}`}
-              />
-              {errors.address?.address && <p className="text-red-500 text-sm mt-1">{errors.address.address.message}</p>}
-            </div>
-            <div className="w-full md:w-1/2 px-4 mb-4">
-              <label htmlFor="city" className="block text-gray-700 font-bold mb-2">
-                Ville
-              </label>
-              <input
-                id="city"
-                type="text"
-                {...register('address.city')}
-                className={`w-full p-2 border border-gray-300 rounded ${errors.address?.city ? 'border-red-500' : ''}`}
-              />
-              {errors.address?.city && <p className="text-red-500 text-sm mt-1">{errors.address.city.message}</p>}
-            </div>
-            <div className="w-full md:w-1/3 px-4 mb-4">
-              <label htmlFor="postalCode" className="block text-gray-700 font-bold mb-2">
-                Code postal
-              </label>
-              <input
-                id="postalCode"
-                type="text"
-                {...register('address.postalCode')}
-                className={`w-full p-2 border border-gray-300 rounded ${errors.address?.postalCode ? 'border-red-500' : ''}`}
-              />
-              {errors.address?.postalCode && <p className="text-red-500 text-sm mt-1">{errors.address.postalCode.message}</p>}
-            </div>
-            <div className="w-full md:w-1/3 px-4 mb-4">
-              <label htmlFor="country" className="block text-gray-700 font-bold mb-2">
-                Pays
-              </label>
-              <input
-                id="country"
-                type="text"
-                {...register('address.country')}
-                className={`w-full p-2 border border-gray-300 rounded ${errors.address?.country ? 'border-red-500' : ''}`}
-              />
-              {errors.address?.country && <p className="text-red-500 text-sm mt-1">{errors.address.country.message}</p>}
-            </div>
-            <div className="w-full md:w-1/3 px-4 mb-4">
-              <label htmlFor="phoneNumber" className="block text-gray-700 font-bold mb-2">
-                Numéro de téléphone
-              </label>
-              <input
-                id="phoneNumber"
-                type="tel"
-                {...register('address.phoneNumber')}
-                className={`w-full p-2 border border-gray-300 rounded ${errors.address?.phoneNumber ? 'border-red-500' : ''}`}
-              />
-              {errors.address?.phoneNumber && <p className="text-red-500 text-sm mt-1">{errors.address.phoneNumber.message}</p>}
-            </div>
+
+            {/* Adresse */} 
+            <Input
+              id="address"
+              label="Adresse"
+              register={register('address.address')}
+              error={errors.address?.address} />
+
+            {/* Ville */}
+            <Input
+              id="city"
+              label="Ville"
+              register={register('address.city')}
+              error={errors.address?.city} />
+
+            {/* Code postal */}
+            <Input
+              id="postalCode"
+              label="Code postal"
+              register={register('address.postalCode')}
+              error={errors.address?.postalCode} />
+
+            {/* Pays */}
+            <Input
+              id="country"
+              label="Pays"
+              register={register('address.country')}
+              error={errors.address?.country} />
+
+            {/* N° de téléphone */}
+            <Input
+              id="phoneNumber"
+              label="N° de téléphone"
+              register={register('address.phoneNumber')}
+              error={errors.address?.phoneNumber} />
           </div>
         </div>
       </div>
