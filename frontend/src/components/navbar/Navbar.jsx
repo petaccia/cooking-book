@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faTimes, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { UserContext } from '../../contexts/UserContext';
 
 const Navbar = () => {
@@ -27,38 +27,42 @@ const Navbar = () => {
               Cooking Book
             </Link>
           </div>
-          <div className="hidden md:block">
+          <div className="hidden md:flex items-center">
             {user ? (
-              <>
-                <div className="ml-10 flex items-baseline space-x-4">
-                  <Link
-                    to="/"
-                    className="text-white hover:bg-orange-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                  >
-                    Accueil
-                  </Link>
-                  <Link
-                    to="/recipes"
-                    className="text-white hover:bg-orange-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                  >
-                    Recettes
-                  </Link>
-                  <Link
-                    to="/about"
-                    className="text-white hover:bg-orange-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                  >
-                    À propos
-                  </Link>
-                  <button
-                    onClick={handleLogout}
-                    className="text-white hover:bg-orange-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                  >
-                    Se déconnecter
-                  </button>
-                </div>
-              </>
+              <div className="flex items-center space-x-4">
+                <Link
+                  to="/"
+                  className="text-white hover:bg-orange-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  Accueil
+                </Link>
+                <Link
+                  to="/recipes"
+                  className="text-white hover:bg-orange-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  Recettes
+                </Link>
+                <Link
+                  to="/about"
+                  className="text-white hover:bg-orange-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  À propos
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  className="text-white hover:bg-orange-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  Se déconnecter
+                </button>
+                <Link
+                  to="/profile"
+                  className="text-white hover:bg-orange-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  <FontAwesomeIcon icon={faUserCircle} className="h-6 w-6 md:h-8 md:w-8 lg:h-10 lg:w-10" />
+                </Link>
+              </div>
             ) : (
-              <div className="ml-4 flex items-center md:ml-6">
+              <div className="flex items-center space-x-4">
                 <Link
                   to="/login"
                   className="text-white hover:bg-orange-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
@@ -67,20 +71,26 @@ const Navbar = () => {
                 </Link>
                 <Link
                   to="/signup"
-                  className="bg-white text-orange-500 hover:bg-orange-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium ml-4"
+                  className="bg-white text-orange-500 hover:bg-orange-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >
                   S'inscrire
                 </Link>
               </div>
             )}
           </div>
-          <div className="-mr-2 flex md:hidden">
+          <div className="md:hidden flex items-center">
+            <Link
+              to="/profile"
+              className="text-white hover:bg-orange-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium mr-4"
+            >
+              <FontAwesomeIcon icon={faUserCircle} className="h-6 w-6" />
+            </Link>
             <button
               onClick={toggleMenu}
               type="button"
               className="bg-orange-700 inline-flex items-center justify-center p-2 rounded-md text-white hover:bg-orange-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-orange-800 focus:ring-white"
               aria-controls="mobile-menu"
-              aria-expanded="false"
+              aria-expanded={isOpen}
             >
               <span className="sr-only">Open main menu</span>
               {isOpen ? (
@@ -93,42 +103,41 @@ const Navbar = () => {
         </div>
       </div>
 
-      <div className={`md:hidden transition duration-300 ${isOpen ? 'h-screen' : 'hidden'}`} id="mobile-menu">
+      <div className={`md:hidden ${isOpen ? 'block' : 'hidden'}`} id="mobile-menu">
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
           <Link
             to="/"
             className="text-white hover:bg-orange-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+            onClick={() => setIsOpen(false)}
           >
             Accueil
           </Link>
           <Link
             to="/recipes"
             className="text-white hover:bg-orange-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+            onClick={() => setIsOpen(false)}
           >
             Recettes
           </Link>
           <Link
             to="/about"
             className="text-white hover:bg-orange-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+            onClick={() => setIsOpen(false)}
           >
             À propos
           </Link>
         </div>
-        <div className="pt-4 pb-3 border-t border-orange-700">
-          <div className="flex items-center px-5">
-            <div className="flex-shrink-0">
-              <img
-                className="h-10 w-10 rounded-full"
-                src="https://via.placeholder.com/150"
-                alt="Avatar"
-              />
+        {user ? (
+          <div className="pt-4 pb-3 border-t border-orange-700">
+            <div className="flex items-center px-5">
+              <div className="flex-shrink-0">
+                <FontAwesomeIcon icon={faUserCircle} className="h-10 w-10 text-white shadow rounded-full p-2" />
+              </div>
+              <div className="ml-3">
+                <div className="text-base font-medium text-white">{user.pseudo}</div>
+                <div className="text-sm font-medium text-orange-300">{user.email}</div>
+              </div>
             </div>
-            <div className="ml-3">
-              <div className="text-base font-medium text-white">Tom Cook</div>
-              <div className="text-sm font-medium text-orange-300">tom@example.com</div>
-            </div>
-          </div>
-          {user ? (
             <div className="mt-3 px-2">
               <button
                 onClick={handleLogout}
@@ -137,23 +146,25 @@ const Navbar = () => {
                 Se déconnecter
               </button>
             </div>
-          ) : (
-            <div className="mt-3 px-2 space-y-1">
-              <Link
-                to="/login"
-                className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-orange-700 hover:text-white"
-              >
-                Se connecter
-              </Link>
-              <Link
-                to="/signup"
-                className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-orange-700 hover:text-white"
-              >
-                S'inscrire
-              </Link>
-            </div>
-          )}
-        </div>
+          </div>
+        ) : (
+          <div className="mt-3 px-2 space-y-1">
+            <Link
+              to="/login"
+              className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-orange-700 hover:text-white"
+              onClick={() => setIsOpen(false)}
+            >
+              Se connecter
+            </Link>
+            <Link
+              to="/signup"
+              className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-orange-700 hover:text-white"
+              onClick={() => setIsOpen(false)}
+            >
+              S'inscrire
+            </Link>
+          </div>
+        )}
       </div>
     </nav>
   );
