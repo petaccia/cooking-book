@@ -127,3 +127,8 @@ exports.getCurrentUser = async (req, res) => {
     });
   }
 };
+
+// Fonction de déconnexion de l'utilisateur
+exports.logout = (req, res) => {
+  res.clearCookie("token").json({ message: "Déconnexion réussie" });
+};
