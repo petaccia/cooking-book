@@ -32,7 +32,6 @@ const Login = () => {
     try {
       const response = await login(credentials);
       console.log("reponse du serveur :", response);
-      toast.success('Connexion établie !');
       console.log(response);
       navigate('/');
     } catch (error) {
