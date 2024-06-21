@@ -66,8 +66,9 @@ exports.login = async (req, res) => {
     const token = generateToken(payload, secret, options);
 
     // Réponse avec le token et configuration du cookie
-    return res.cookie("token", token, { httpOnly: true }).json({
+    return res.cookie("token", token, { httpOnly: true, secure: true }).json({
       id: user._id,
+      pseudo: user.pseudo,
       status: 200,
       message: "Connexion réussie",
       token,

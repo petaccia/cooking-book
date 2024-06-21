@@ -3,6 +3,7 @@ import { getAllRecipes } from '../../api/recipesApi';
 import CardRecipe from '../../components/utils/cards/cardRecipe/CardRecipe';
 import ModalAccueil from '../../components/utils/modals/ModalAccueil';
 import { UserContext } from '../../contexts/UserContext';
+import {ToastContainer, toast } from 'react-toastify';
 
 const Home = () => {
   const { user } = useContext(UserContext);
@@ -10,6 +11,12 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    if (user) {
+      toast.success('Bonjour ' + user.pseudo + ' !');
+    }
+  }, [user]);
 
   useEffect(() => {
     const fetchRecipes = async () => {
@@ -61,6 +68,7 @@ const Home = () => {
       </div>
 
       <ModalAccueil show={showModal} handleClose={handleCloseModal} />
+      <ToastContainer theme="dark" autoClose={5000} />
     </div>
   );
 };
