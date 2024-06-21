@@ -59,6 +59,7 @@ export const logoutUser = async () => {
     const response = await axios.get(`${UrlBack}/auth/logout`, {
       withCredentials: true,
     });
+    console.log(response.data);
     if (response.status === 200) {
       return response.data;
     } else {
