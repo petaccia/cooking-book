@@ -1,14 +1,20 @@
 // router.jsx
+
+
+// bibliotheque react
 import React, { Suspense, lazy } from "react";
 import { Outlet, createBrowserRouter } from "react-router-dom";
+import { UserProvider } from './contexts/UserContext';
+
+
+// pages
 const Home = lazy(() => import("./pages/home/Home"));
-const SignUp = lazy(() => import("./components/auth/signUp/SignUp"));
-const Login = lazy(() => import("./components/auth/login/Login"));
+const SignUpPage = lazy(() => import("./pages/auth/SignUpPage/SignUpPage")); 
+const LoginPage = lazy(() => import("./pages/auth/LoginPage/LoginPage")); 
 const Profile = lazy(() => import("./pages/user/pages/profile/pages/Profile"));
 const App = lazy(() => import("./App"));
 const ErrorPage = lazy(() => import("./components/Error/ErrorPage/ErrorPage"));
 const Loader = lazy(() => import("./components/loader/Loader"));
-import { UserProvider } from './contexts/UserContext';
 
 const router = createBrowserRouter([
   {
@@ -38,7 +44,7 @@ const router = createBrowserRouter([
         path: "/signup",
         element: (
           <Suspense fallback={<Loader />}>
-            <SignUp />
+            <SignUpPage />
           </Suspense>
         ),
       },
@@ -46,7 +52,7 @@ const router = createBrowserRouter([
         path: "login",
         element: (
           <Suspense fallback={<Loader />}>
-            <Login />
+            <LoginPage />
           </Suspense>
         ),
       },
