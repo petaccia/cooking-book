@@ -7,6 +7,7 @@ const router = express.Router();
 router.post('/signup', authController.signup);
 router.post('/login', authController.login);
 router.get('/currentUser', authController.getCurrentUser);
+router.get('/logout', authController.logout);
 
 // Routes de Google
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
