@@ -54,7 +54,7 @@ export const getCurrentUser = async () => {
 };
 
 // Déconnexion de l'utilisateur
-export const logout = async () => {
+export const logoutUser = async () => {
   try {
     const response = await axios.get(`${UrlBack}/auth/logout`, {
       withCredentials: true,
