@@ -52,5 +52,22 @@ export const getCurrentUser = async () => {
     throw new Error('Une erreur vient du serveur :', error);
   }
 };
+
+// Déconnexion de l'utilisateur
+export const logout = async () => {
+  try {
+    const response = await axios.get(`${UrlBack}/auth/logout`, {
+      withCredentials: true,
+    });
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      throw new Error('Une erreur de la response de la déconnexion :', response.status);
+    }
+  } catch (error) {
+    console.log('Une erreur est survenue :', error);
+    throw new Error('Une erreur est survenue du serveur :', error);
+  }
+};
      
     
