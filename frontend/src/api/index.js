@@ -1,3 +1,3 @@
-export { signUp, loginUser, loginWithGoogle, getCurrentUser } from './authApi';
+export { signUp, loginUser, loginWithGoogle, getCurrentUser, logoutUser } from './authApi';
 
 export { getAllRecipes } from './recipesApi';

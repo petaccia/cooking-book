@@ -1,12 +1,12 @@
-// UserContext.jsx
 import React, { createContext, useState, useEffect } from 'react';
-import { loginUser, getCurrentUser } from '../api';
+import { toast } from 'react-toastify'; // Assurez-vous d'importer toast depuis react-toastify
+import { loginUser, getCurrentUser, logoutUser } from '../api';
 
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  console.log('Utilisateur actuel :', user);
+  const [isLoggedOut, setIsLoggedOut] = useState(false);
 
   useEffect(() => {
     const loadUser = async () => {
@@ -25,23 +25,34 @@ export const UserProvider = ({ children }) => {
     console.log('Connexion de l\'utilisateur :', credentials);
     try {
       const response = await loginUser(credentials.email, credentials.password);
-      console.log('Reponse du serveur pour la connexion dans le context :', response);
-      setUser(response);
-      localStorage.setItem('user', JSON.stringify(response));
-      return response; 
+      setUser(response); // Met à jour l'utilisateur dans le contexte
+      return response;
     } catch (error) {
       console.error('Erreur lors de la connexion :', error);
       throw error;
     }
   };
-  const logout = () => {
-    setUser(null);
-    localStorage.removeItem('user');
-    localStorage.removeItem('token');
+
+  const logout = async () => {
+    try {
+      await logoutUser(); 
+      toast.success(`A bientôt ${user.pseudo} !`); 
+      setUser(null); 
+      setIsLoggedOut(true); 
+    } catch (error) {
+      console.error('Erreur lors de la déconnexion :', error);
+      throw error;
+    }
   };
 
+  useEffect(() => {
+    if (isLoggedOut && user) {
+      setIsLoggedOut(false); 
+    }
+  }, [isLoggedOut, user]);
+
   return (
-    <UserContext.Provider value={{ user, login, logout }}>
+    <UserContext.Provider value={{ user, login, logout, isLoggedOut, setIsLoggedOut }}>
       {children}
     </UserContext.Provider>
   );

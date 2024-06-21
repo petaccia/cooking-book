@@ -69,7 +69,7 @@ const Home = () => {
 
       <ModalAccueil show={showModal} handleClose={handleCloseModal} />
       <div>
-      <ToastContainer theme="dark" autoClose={5000} />
+      <ToastContainer theme="dark" autoClose={5000} position='bottom-right' />
       </div>
 
     </div>
