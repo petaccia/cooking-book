@@ -15,7 +15,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     logout();
-    navigate('/');
+    navigate('/login');
   };
 
   return (
@@ -56,9 +56,9 @@ const Navbar = () => {
                 </button>
                 <Link
                   to={`/user/profile/${user.id}`}
-                  className='text-white hover:bg-orange-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
+                  className="text-white hover:bg-orange-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >
-                 <FontAwesomeIcon icon={faUserCircle} size="3x" className='ml-4'/>
+                  <FontAwesomeIcon icon={faUserCircle} size="3x" className="ml-4" />
                 </Link>
               </div>
             ) : (
@@ -123,7 +123,7 @@ const Navbar = () => {
           {user && (
             <Link
               to={`/user/profile/${user.id}`}
-              className='text-white hover:bg-orange-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'
+              className="text-white hover:bg-orange-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
               onClick={() => setIsOpen(false)}
             >
               Information personnelle
@@ -143,7 +143,10 @@ const Navbar = () => {
             </div>
             <div className="mt-3 px-2">
               <button
-                onClick={handleLogout}
+                onClick={() => {
+                  handleLogout();
+                  toggleMenu();
+                }}
                 className="block w-full px-3 py-2 rounded-md text-base font-medium text-white hover:bg-orange-700 hover:text-white"
               >
                 Se déconnecter

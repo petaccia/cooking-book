@@ -113,7 +113,7 @@ const Login = () => {
           </Link>
         </p>
       </div>
-      <ToastContainer />
+      <ToastContainer theme='dark' autoClose={5000} position='bottom-right' />
     </div>
 
   );
