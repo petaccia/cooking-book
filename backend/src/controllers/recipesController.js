@@ -14,7 +14,9 @@ exports.getRecipes = async (req, res) => {
 
 exports.getRecipeById = async (req, res) => {
   try {
-    const recipe = await Recipes.findById(req.params.id)
+    const id = req.params.id;
+    const recipe = await Recipes.findById(id)
+    .select("-__v") // Nous excluons le champ __v de la réponse
       .populate('ingredients')
       .populate('author', 'username'); // Nous gardons la population de l'auteur
 
