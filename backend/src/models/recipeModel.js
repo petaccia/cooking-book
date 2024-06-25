@@ -38,7 +38,7 @@ const recipeSchema = new mongoose.Schema({
 
   // champs des etapes
   steps: {
-    type: String,
+    type: [String],
   },
   
 
