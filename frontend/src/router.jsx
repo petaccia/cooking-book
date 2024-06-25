@@ -4,7 +4,7 @@
 import React, { Suspense, lazy } from "react";
 import { Outlet, createBrowserRouter } from "react-router-dom";
 import { UserProvider } from './contexts/UserContext';
-import ProtectedRoute from "./components/security/protectedRoute";
+import ProtectedRoute from "./components/security/ProtectedRoute";
 
 {/*pages*/}
 const App = lazy(() => import("./App"));

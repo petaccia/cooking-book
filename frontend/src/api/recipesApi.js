@@ -17,3 +17,20 @@ export const getAllRecipes = async () => {
     throw new Error('Une erreur est survenue :', error);
   }
 };
+
+// Récupérer la recette par son id
+
+export const getRecipeById = async (id) => {
+  try{
+    const response = await axios.get(`${UrlBack}/recipes/${id}`);
+    console.log("recette par id :",response);
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      throw new Error('Une erreur est survenue :', response.status);
+    } 
+  } catch (error) {
+    console.log('Une erreur est survenue :', error);
+    throw new Error('Une erreur est survenue :', error);
+  }
+};
