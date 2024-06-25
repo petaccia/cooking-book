@@ -16,9 +16,9 @@ exports.getRecipeById = async (req, res) => {
   try {
     const id = req.params.id;
     const recipe = await Recipes.findById(id)
-    .select("-__v") // Nous excluons le champ __v de la réponse
-      .populate('ingredients')
-      .populate('author', 'username'); // Nous gardons la population de l'auteur
+    .select("-__v") // Supprimer le champ __v de la réponse
+      .populate('ingredients') // Remplacer les ID des ingrédients par les objets correspondants
+      .populate('author', 'username'); 
 
     if (!recipe) {
       return res.status(404).json({ message: "Recette non trouvée" });
