@@ -34,8 +34,10 @@ const recipeSchema = new mongoose.Schema({
   },
 
   // champs des ingredients
-  ingredients: [{type: mongoose.Schema.Types.ObjectId, ref: "Ingredient"}],
-
+  ingredients: [{
+    ingredientId: { type: mongoose.Schema.Types.ObjectId, ref: 'Ingredient'},
+    quantity: { type: String }
+  }],
   // champs des etapes
   steps: {
     type: [String],

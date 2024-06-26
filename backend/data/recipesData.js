@@ -12,7 +12,11 @@ const recipesData = [
       { name: "Parmesan", quantity: "50g" },
       { name: "Poivre noir", quantity: "1 cuillère à café" }
     ],
-    steps: "1. Faites cuire les pâtes. 2. Mélangez les œufs et le fromage. 3. Ajoutez les pâtes et le bacon.",
+    steps: [
+      "1. Faites cuire les pâtes.", 
+      "2. Mélangez les œufs et le fromage.", 
+      "3. Ajoutez les pâtes et le bacon."
+    ],
     author: "Marie Dupont",
   },
   {
@@ -28,7 +32,10 @@ const recipesData = [
       { name: "Parmesan", quantity: "50g" },
       { name: "Sauce César", quantity: "100ml" }
     ],
-    steps: "1. Mélangez la laitue avec la sauce. 2. Ajoutez les croûtons et le poulet.",
+    steps: [
+      "1. Mélangez la laitue avec la sauce.",
+      "2. Ajoutez les croûtons et le poulet."
+    ],
     author: "Pierre Leroy",
   },
   {
@@ -44,7 +51,10 @@ const recipesData = [
       { name: "Tomates concassées", quantity: "400g" },
       { name: "Crème fraîche", quantity: "200ml" }
     ],
-    steps: "1. Faites mariner le poulet. 2. Faites cuire avec la sauce.",
+    steps: [
+      "1. Faites mariner le poulet.",
+      "2. Faites cuire avec la sauce."
+    ],
     author: "Sophie Martin",
   },
   {
@@ -60,7 +70,10 @@ const recipesData = [
       { name: "Œufs", quantity: "3" },
       { name: "Gruyère râpé", quantity: "100g" }
     ],
-    steps: "1. Préparez la pâte. 2. Mélangez les ingrédients et faites cuire.",
+    steps: [
+      "1. Préparez la pâte.",
+      "2. Mélangez les ingrédients et faites cuire."
+    ],
     author: "Jean Petit",
   },
   {
@@ -77,7 +90,10 @@ const recipesData = [
       { name: "Oignon", quantity: "1" },
       { name: "Herbes de Provence", quantity: "1 cuillère à soupe" }
     ],
-    steps: "1. Coupez les légumes. 2. Faites cuire avec des herbes.",
+    steps: [
+      "1. Coupez les légumes.",
+      "2. Faites cuire avec des herbes."
+    ],
     author: "Claire Delaunay",
   },
   {
@@ -93,7 +109,10 @@ const recipesData = [
       { name: "Pain", quantity: "4 tranches" },
       { name: "Gruyère râpé", quantity: "100g" }
     ],
-    steps: "1. Caramélisez les oignons. 2. Ajoutez le bouillon et faites cuire.",
+    steps: [
+      "1. Caramélisez les oignons.",
+      "2. Ajoutez le bouillon et faites cuire."
+    ],
     author: "Sebastien Loup",
   },
   {
@@ -109,7 +128,10 @@ const recipesData = [
       { name: "Oignon", quantity: "1" },
       { name: "Ail", quantity: "2 gousses" }
     ],
-    steps: "1. Faites cuire les légumes avec les épices. 2. Ajoutez le lait de coco.",
+    steps: [
+      "1. Faites cuire les légumes avec les épices.",
+      "2. Ajoutez le lait de coco."
+    ],
     author: "Laure Cafe",
   },
   {
@@ -124,7 +146,10 @@ const recipesData = [
       { name: "Beurre", quantity: "100g" },
       { name: "Pâte feuilletée", quantity: "1" }
     ],
-    steps: "1. Caramélisez les pommes. 2. Couvrez de pâte et faites cuire.",
+    steps: [
+      "1. Caramélisez les pommes.",
+      "2. Couvrez de pâte et faites cuire."
+    ],
     author: "Marie Dupont",
   },
   {
@@ -140,7 +165,10 @@ const recipesData = [
       { name: "Safran", quantity: "1 pincée" },
       { name: "Fumet de poisson", quantity: "1 litre" }
     ],
-    steps: "1. Préparez le bouillon. 2. Ajoutez les poissons et faites cuire.",
+    steps: [
+      "1. Préparez le bouillon.",
+      "2. Ajoutez les poissons et faites cuire."
+    ],
     author: "Pierre Leroy",
   },
   {
@@ -156,7 +184,10 @@ const recipesData = [
       { name: "Farine", quantity: "100g" },
       { name: "Œufs", quantity: "4" }
     ],
-    steps: "1. Mélangez les ingrédients. 2. Faites cuire au four.",
+    steps: [
+      "1. Mélangez les ingrédients.",
+      "2. Faites cuire au four."
+    ],
     author: "Marie Dupont",
   },
   {
@@ -172,7 +203,10 @@ const recipesData = [
       { name: "Oignons", quantity: "2" },
       { name: "Champignons", quantity: "200g" }
     ],
-    steps: "1. Faites mariner le bœuf. 2. Faites cuire avec les légumes et le vin.",
+    steps: [
+      "1. Faites mariner le bœuf.",
+      "2. Faites cuire avec les légumes et le vin."
+    ],
     author: "Claire Delaunay",
   },
   {
@@ -188,7 +222,10 @@ const recipesData = [
       { name: "Oignon", quantity: "1" },
       { name: "Épices à tajine", quantity: "2 cuillères à soupe" }
     ],
-    steps: "1. Faites cuire le poulet avec les épices. 2. Ajoutez les olives et les citrons.",
+    steps: [
+      "1. Faites cuire le poulet avec les épices.",
+      "2. Ajoutez les olives et les citrons."
+    ],
     author: "Sebastien Loup",
   },
   {
@@ -204,7 +241,10 @@ const recipesData = [
       { name: "Parmesan", quantity: "50g" },
       { name: "Vin blanc", quantity: "100ml" }
     ],
-    steps: "1. Faites cuire le riz avec le bouillon. 2. Ajoutez les champignons et le fromage.",
+    steps: [
+      "1. Faites cuire le riz avec le bouillon.",
+      "2. Ajoutez les champignons et le fromage."
+    ],
     author: "Marie Dupont",
   },
   {
@@ -220,7 +260,10 @@ const recipesData = [
       { name: "Béchamel", quantity: "500ml" },
       { name: "Parmesan", quantity: "100g" }
     ],
-    steps: "1. Faites cuire la viande avec la sauce. 2. Assemblez les couches et faites cuire.",
+    steps: [
+      "1. Faites cuire la viande avec la sauce.",
+      "2. Assemblez les couches et faites cuire."
+    ],
     author: "Laure Cafe",
   },
   {
@@ -236,7 +279,10 @@ const recipesData = [
       { name: "Courgettes", quantity: "2" },
       { name: "Pois chiches", quantity: "200g" }
     ],
-    steps: "1. Faites cuire la viande et les légumes. 2. Préparez la semoule et servez.",
+    steps: [
+      "1. Faites cuire la viande et les légumes.",
+      "2. Préparez la semoule et servez."
+    ],
     author: "Marie Dupont",
   },
   {
@@ -252,7 +298,10 @@ const recipesData = [
       { name: "Tomates cerises", quantity: "100g" },
       { name: "Huile d'olive", quantity: "2 cuillères à soupe" }
     ],
-    steps: "1. Faites cuire les pâtes. 2. Faites revenir les crevettes avec l'ail et les tomates.",
+    steps: [
+      "1. Faites cuire les pâtes.",
+      "2. Faites revenir les crevettes avec l'ail et les tomates."
+    ],
     author: "Laure Cafe",
   },
   {
@@ -268,7 +317,10 @@ const recipesData = [
       { name: "Poivron", quantity: "1" },
       { name: "Épices chili", quantity: "2 cuillères à soupe" }
     ],
-    steps: "1. Faites revenir la viande avec les épices. 2. Ajoutez les légumes et les haricots.",
+    steps: [
+      "1. Faites revenir la viande avec les épices.",
+      "2. Ajoutez les légumes et les haricots."
+    ],
     author: "Pierre Leroy",
   },
   {
@@ -284,7 +336,10 @@ const recipesData = [
       { name: "Petits pois", quantity: "100g" },
       { name: "Safran", quantity: "1 pincée" }
     ],
-    steps: "1. Faites revenir le poulet et les fruits de mer. 2. Ajoutez le riz et le bouillon.",
+    steps: [
+      "1. Faites revenir le poulet et les fruits de mer.",
+      "2. Ajoutez le riz et le bouillon."
+    ],
     author: "Jean Petit",
   },
   {
@@ -300,7 +355,10 @@ const recipesData = [
       { name: "Herbes de Provence", quantity: "1 cuillère à soupe" },
       { name: "Pommes de terre", quantity: "500g" }
     ],
-    steps: "1. Assaisonnez le poulet. 2. Faites cuire au four avec les pommes de terre.",
+    steps: [
+      "1. Assaisonnez le poulet.",
+      "2. Faites cuire au four avec les pommes de terre."
+    ],
     author: "Marie Dupont",
   },
   {
@@ -316,7 +374,10 @@ const recipesData = [
       { name: "Crème fraîche", quantity: "200ml" },
       { name: "Bouillon de veau", quantity: "1 litre" }
     ],
-    steps: "1. Faites cuire le veau avec les légumes. 2. Ajoutez la crème avant de servir.",
+    steps: [
+      "1. Faites cuire le veau avec les légumes.",
+      "2. Ajoutez la crème avant de servir."
+    ],
     author: "Pierre Leroy",
   },
   {
@@ -333,7 +394,10 @@ const recipesData = [
       { name: "Biscuits à la cuillère", quantity: "200g" },
       { name: "Cacao en poudre", quantity: "2 cuillères à soupe" }
     ],
-    steps: "1. Mélangez le mascarpone et les œufs. 2. Trempez les biscuits dans le café et assemblez les couches.",
+    steps: [
+      "1. Mélangez le mascarpone et les œufs.",
+      "2. Trempez les biscuits dans le café et assemblez les couches."
+    ],
     author: "Laure Cafe",
   },
   {
@@ -350,7 +414,10 @@ const recipesData = [
       { name: "Ail", quantity: "2 gousses" },
       { name: "Vinaigre de vin", quantity: "2 cuillères à soupe" }
     ],
-    steps: "1. Mixez tous les ingrédients ensemble. 2. Servez froid.",
+    steps: [
+      "1. Mixez tous les ingrédients ensemble.",
+      "2. Servez froid."
+    ],
     author: "Sophie Martin",
   }
 ];
