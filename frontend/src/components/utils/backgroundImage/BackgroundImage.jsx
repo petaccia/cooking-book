@@ -5,7 +5,7 @@ const BackgroundImage = ({ children }) => {
 
   return (
     <div
-      className="bg-cover bg-center min-h-screen inset-0"
+      className="bg-cover bg-center min-h-screen inset-0 pt-24 md:pt-32 md:pb-16"
       style={{ 
         backgroundImage: `url(${backgroundImageUrl})`,
         

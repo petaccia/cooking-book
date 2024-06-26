@@ -1,6 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { UserContext } from '../../../../contexts/UserContext';
+import { useNavigate } from 'react-router-dom';
 
 const CardRecipe = ({ recipe }) => {
+  const { user } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  const handleCardClick = () => {
+    if (user) {
+      navigate(`/recipe/${recipe._id}`);
+    } else {
+      navigate('/login');
+    }
+    }
   return (
     <div className="max-w-80 bg-white rounded-lg shadow-lg shadow-gray-900 overflow-hidden transition-transform transform hover:scale-105">
       <div className="relative">
@@ -19,7 +31,7 @@ const CardRecipe = ({ recipe }) => {
           <span className="text-sm font-medium text-gray-500">
             {recipe.tcookingTime} min
           </span>
-          <button className="bg-gradient-to-r from-orange-400 to-orange-500 text-white py-2 px-4 rounded-md hover:from-orange-500 hover:to-orange-600 transition-colors duration-300">
+          <button onClick={handleCardClick} className="bg-gradient-to-r from-orange-400 to-orange-500 text-white py-2 px-4 rounded-md hover:from-orange-500 hover:to-orange-600 transition-colors duration-300">
             Voir la recette
           </button>
         </div>
