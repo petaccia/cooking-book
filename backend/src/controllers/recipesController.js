@@ -16,9 +16,12 @@ exports.getRecipeById = async (req, res) => {
   try {
     const id = req.params.id;
     const recipe = await Recipes.findById(id)
-    .select("-__v") // Supprimer le champ __v de la réponse
-      .populate('ingredients') // Remplacer les ID des ingrédients par les objets correspondants
-      .populate('author', 'username'); 
+      .select("-__v") // Supprimer le champ __v de la réponse
+      .populate({
+        path: 'ingredients.ingredientId', // Peupler les détails des ingrédients
+        select: 'name image' // Sélectionner les champs nécessaires
+      })
+      .populate('author', 'name'); // Peupler les détails de l'auteur
 
     if (!recipe) {
       return res.status(404).json({ message: "Recette non trouvée" });
@@ -29,5 +32,3 @@ exports.getRecipeById = async (req, res) => {
     res.status(500).json({ message: "Erreur lors de la récupération de la recette", error: error.message });
   }
 };
-
-
