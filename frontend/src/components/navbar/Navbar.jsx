@@ -37,10 +37,10 @@ const Navbar = () => {
                   Accueil
                 </Link>
                 <Link
-                  to="/recipes"
+                  to={`/user/myBookCook/${user.id}`}
                   className="text-white hover:bg-orange-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >
-                  Recettes
+                  Mon livre de Cuisine
                 </Link>
                 <Link
                   to="/about"

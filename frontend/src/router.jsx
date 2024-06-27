@@ -15,6 +15,7 @@ const SignUpPage = lazy(() => import("./pages/auth/SignUpPage/SignUpPage"));
 const LoginPage = lazy(() => import("./pages/auth/LoginPage/LoginPage")); 
 const Home = lazy(() => import("./pages/home/Home"));
 const Profile = lazy(() => import("./pages/user/pages/profile/pages/Profile"));
+const MyBookCook = lazy(() => import("./pages/user/pages/myCookBook/MyBookCook")); 
 const RecipePage = lazy(() => import("./pages/Recipe/pages/RecipePage"));
 
 {/*components*/}
@@ -93,6 +94,24 @@ const router = createBrowserRouter([
               },
             ],
           }, 
+          {
+            path: "myBookCook",
+            element: (
+              <Suspense fallback={<Loader />}>
+                <MyBookCook />
+              </Suspense>
+            ),
+            children: [
+              {
+                path: ":id",
+                element: (
+                  <Suspense fallback={<Loader />}>
+                    <MyBookCook />
+                  </Suspense>
+                ),
+              },
+            ],
+          }
         ],
       },
       {
