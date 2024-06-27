@@ -71,3 +71,20 @@ export const addFavoriteRecipe = async (userId, recipeId) => {
   }
 }
 
+
+// Supprimer une recette des favoris d'un utilisateur
+
+export const deleteFavoriteRecipe = async (userId, recipeId) => {
+  try{
+    const response = await axios.delete(`${UrlBack}/recipes/favorites/${userId}`, {data: {recipeId}});
+    console.log("recette supprime des favoris :",response);
+    if (response && response.data) {
+      return response.data;
+    } else {
+      throw new Error('Une erreur est survenue :', response.status);
+    }
+  } catch (error) { 
+    console.log('Une erreur est survenue :', error);
+    throw new Error('Une erreur est survenue :', + error.response.data.message);
+  }
+}

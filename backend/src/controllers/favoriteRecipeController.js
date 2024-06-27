@@ -29,3 +29,15 @@ exports.addFavoriteRecipe = async (req, res) => {
     res.status(500).json({ message: "Erreur lors de l'enregistrement de la recette", error: error.message });
   }
 }
+
+
+exports.deleteFavoriteRecipe = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { recipeId } = req.body;
+    await FavoriteRecipe.deleteOne({ user: userId, recipe: recipeId });
+    res.status(200).json({ message: "Recette supprimée" });
+  } catch (error) {
+    res.status(500).json({ message: "Erreur lors de la suppression de la recette", error: error.message });
+  }
+};
