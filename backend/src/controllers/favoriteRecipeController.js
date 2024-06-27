@@ -2,7 +2,7 @@ const FavoriteRecipe = require("../models/favoriteRecipeModel");
 
 
 
-exports.getFavoriteRecipe = async (req, res) => {
+exports.getFavoriteRecipes= async (req, res) => {
   try {
     const { userId } = req.params;
     const favoriteRecipes = await FavoriteRecipe.find({ user: userId });
