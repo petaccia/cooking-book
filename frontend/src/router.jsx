@@ -1,12 +1,14 @@
 // router.jsx
 
-{/*Bibloitheques*/}
+// Bibliotheques
 import React, { Suspense, lazy } from "react";
 import { Outlet, createBrowserRouter } from "react-router-dom";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { UserProvider } from './contexts/UserContext';
 import ProtectedRoute from "./components/security/ProtectedRoute";
 
-{/*pages*/}
+//  pages
 const App = lazy(() => import("./App"));
 const ErrorPage = lazy(() => import("./components/Error/ErrorPage/ErrorPage"));
 const SignUpPage = lazy(() => import("./pages/auth/SignUpPage/SignUpPage")); 
@@ -18,15 +20,19 @@ const RecipePage = lazy(() => import("./pages/Recipe/pages/RecipePage"));
 {/*components*/}
 const Loader = lazy(() => import("./components/loader/Loader"));
 
+const AppWrapper = () => (
+  <UserProvider>
+    <App />
+    <ToastContainer theme="dark" autoClose={5000} position='bottom-right' />
+  </UserProvider>
+);
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
       <Suspense fallback={<Loader />}>
-        <UserProvider>
-          <App />
-        </UserProvider>
+        <AppWrapper />
       </Suspense>
     ),
     errorElement: (
@@ -63,11 +69,9 @@ const router = createBrowserRouter([
         path: "user",
         element: (
           <ProtectedRoute>
-          <Suspense fallback={<Loader />}>
-            <UserProvider>
+            <Suspense fallback={<Loader />}>
               <Outlet />
-            </UserProvider>
-          </Suspense>
+            </Suspense>
           </ProtectedRoute>
         ),
         children: [
@@ -95,9 +99,9 @@ const router = createBrowserRouter([
         path: "recipe/:id",
         element: (
           <ProtectedRoute>
-          <Suspense fallback={<Loader />}>
-            <RecipePage />
-          </Suspense>
+            <Suspense fallback={<Loader />}>
+              <RecipePage />
+            </Suspense>
           </ProtectedRoute>
         ),
       }

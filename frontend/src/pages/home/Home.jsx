@@ -3,7 +3,7 @@ import { getAllRecipes } from '../../api/recipesApi';
 import CardRecipe from '../../components/utils/cards/cardRecipe/CardRecipe';
 import ModalAccueil from '../../components/utils/modals/ModalAccueil';
 import { UserContext } from '../../contexts/UserContext';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Home = () => {
@@ -80,7 +80,6 @@ const Home = () => {
       </div>
 
       <ModalAccueil show={showModal} handleClose={handleCloseModal} />
-      <ToastContainer theme="dark" autoClose={5000} position='bottom-right' />
     </div>
   );
 };

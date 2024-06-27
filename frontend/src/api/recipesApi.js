@@ -2,6 +2,7 @@ import axios from "axios";
 
 const UrlBack = import.meta.env.VITE_BACK_URL;
 
+// Récupérer toutes les recettes
 
 export const getAllRecipes = async () => {
   try{
@@ -34,3 +35,39 @@ export const getRecipeById = async (id) => {
     throw new Error('Une erreur est survenue :', error);
   }
 };
+
+// Récupérer les recettes favorites d'un utilisateur
+
+export const getFavoriteRecipes = async (userId) => {
+  try{
+    const response = await axios.get(`${UrlBack}/recipes/favorites/${userId}`);
+    console.log("recettes favorites :",response);
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      throw new Error('Une erreur est survenue :', response.status);
+    } 
+  } catch (error) {
+    console.log('Une erreur est survenue :', error);
+    throw new Error('Une erreur est survenue :', error);
+  }
+}
+
+
+// Ajouter une recette aux favoris d'un utilisateur
+
+export const addFavoriteRecipe = async (userId, recipeId) => {
+  try{
+    const response = await axios.post(`${UrlBack}/recipes/favorites/${userId}`, {recipeId});
+    console.log("recette ajoute aux favoris :",response);
+    if (response && response.data) {
+      return response.data;
+    } else {
+      throw new Error('Une erreur est survenue :', response.status);
+    }
+  } catch (error) { 
+    console.log('Une erreur est survenue :', error);
+    throw new Error('Une erreur est survenue :', + error.response.data.message);
+  }
+}
+
