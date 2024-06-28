@@ -1,31 +1,66 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { UserContext } from '../../../../contexts/UserContext';
 import Logo from '../../../../components/utils/logo/Logo';
+import { getFavoriteRecipes } from '../../../../api';
 
 const MyBookCook = () => {
   const { user } = useContext(UserContext);
-  const { id } = useParams();
   const [currentPage, setCurrentPage] = useState(0);
   const [recipes, setRecipes] = useState([]);
+  const [direction, setDirection] = useState(0);
 
-  // Simulons le chargement des recettes (à remplacer par un vrai appel API)
   useEffect(() => {
-    // Remplacez ceci par votre logique de chargement des recettes
-    setRecipes([
-      { id: 1, title: "Recette 1", description: "Description de la recette 1" },
-      { id: 2, title: "Recette 2", description: "Description de la recette 2" },
-      // ... ajoutez plus de recettes ici
-    ]);
-  }, [id]);
+    const fetchFavoriteRecipes = async () => {
+      if (user) {
+        try {
+          const favoriteRecipes = await getFavoriteRecipes(user._id);
+          setRecipes(favoriteRecipes.map(fav => fav.recipe));
+        } catch (error) {
+          console.error('Erreur lors du chargement des recettes favorites:', error);
+        }
+      }
+    };
+    fetchFavoriteRecipes();
+  }, [user]);
 
   const nextPage = () => {
-    if (currentPage < recipes.length) setCurrentPage(currentPage + 1);
+    if (currentPage < recipes.length - 1) {
+      setDirection(1);
+      setCurrentPage(currentPage + 1);
+    }
   };
 
   const prevPage = () => {
-    if (currentPage > 0) setCurrentPage(currentPage - 1);
+    if (currentPage > 0) {
+      setDirection(-1);
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const pageVariants = {
+    enter: (direction) => ({
+      x: direction > 0 ? 1000 : -1000,
+      opacity: 0,
+      rotateY: direction > 0 ? -180 : 180,
+    }),
+    center: {
+      zIndex: 1,
+      x: 0,
+      opacity: 1,
+      rotateY: 0,
+    },
+    exit: (direction) => ({
+      zIndex: 0,
+      x: direction < 0 ? 1000 : -1000,
+      opacity: 0,
+      rotateY: direction < 0 ? -180 : 180,
+    }),
+  };
+
+  const pageTransition = {
+    type: 'tween',
+    duration: 0.5,
   };
 
   return (
@@ -41,59 +76,64 @@ const MyBookCook = () => {
           &#8592; Page précédente
         </button>
         
-        <div className="relative w-[800px] h-[600px] bg-orange-100 rounded-lg shadow-2xl overflow-hidden ">
-          {/* Couverture du livre de cuisine */}
-          {currentPage === 0 && (
-            <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-600 clip-cover">
-              <div className="absolute top-4 left-4 w-24 h-24">
-                <Logo />
-              </div>
-              <div className="absolute inset-0 flex flex-col justify-center items-center text-white p-8">
-                <h1 className="text-4xl font-serif mb-4">Mon Livre de Cuisine</h1>
-                <p className="text-lg"> {user?.pseudo || 'Anonyme'}</p>
-              </div>
-            </div>
-          )}
-          
-          {/* Pages */}
-          {currentPage > 0 && (
-            <motion.div 
-              className="absolute inset-0 bg-white transform-style-preserve-3d transform-origin-left"
-              initial={{ rotateY: 0 }}
-              animate={{ rotateY: currentPage * -180 }}
-              transition={{ duration: 0.5 }}
+        <div className="relative w-[800px] h-[600px] bg-orange-100 rounded-lg shadow-2xl overflow-hidden">
+          <AnimatePresence initial={false} custom={direction}>
+            <motion.div
+              key={currentPage}
+              custom={direction}
+              variants={pageVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={pageTransition}
+              className="absolute inset-0 flex"
+              style={{ perspective: 1000 }}
             >
-              <div className="absolute inset-0 p-8 flex flex-col justify-center items-center backface-hidden">
-                <h2 className="text-2xl font-serif text-orange-800 mb-4">{recipes[currentPage - 1]?.title}</h2>
-                <p className="text-gray-600">{recipes[currentPage - 1]?.description}</p>
-              </div>
-              <div className="absolute inset-0 p-8 flex flex-col justify-center items-center backface-hidden transform rotate-y-180">
-                <h2 className="text-2xl font-serif text-orange-800 mb-4">{recipes[currentPage]?.title}</h2>
-                <p className="text-gray-600">{recipes[currentPage]?.description}</p>
-              </div>
+              {currentPage === 0 ? (
+                <div className="w-full h-full bg-gradient-to-r from-orange-400 to-orange-600" style={{ clipPath: 'polygon(0 0, 100% 0, 85% 100%, 0% 100%)' }}>
+                  <div className="absolute top-4 left-4 w-24 h-24">
+                    <Logo />
+                  </div>
+                  <div className="absolute inset-0 flex flex-col justify-center items-center text-white p-8">
+                    <h1 className="text-4xl font-serif mb-4">Mon Livre de Cuisine</h1>
+                    <p className="text-lg">{user?.pseudo || 'Anonyme'}</p>
+                  </div>
+                </div>
+              ) : (
+                <>
+                  <div className="w-1/2 h-full bg-orange-100 flex flex-col justify-center items-center p-8">
+                    <h2 className="text-2xl font-serif text-orange-800 mb-4">{recipes[currentPage - 1]?.title}</h2>
+                    <p className="text-gray-600">{recipes[currentPage - 1]?.description}</p>
+                  </div>
+                  <div className="w-0.5 h-full bg-gray-300"></div>
+                  <div className="w-1/2 h-full bg-orange-100 flex flex-col justify-center items-center p-8">
+                    <h2 className="text-2xl font-serif text-orange-800 mb-4">{recipes[currentPage]?.title}</h2>
+                    <p className="text-gray-600">{recipes[currentPage]?.description}</p>
+                  </div>
+                </>
+              )}
             </motion.div>
-          )}
+          </AnimatePresence>
         </div>
         
         <button 
           onClick={nextPage} 
           className="bg-orange-500 text-white px-4 py-2 rounded-full" 
-          disabled={currentPage >= recipes.length}
+          disabled={currentPage >= recipes.length - 1}
         >
           Page suivante &#8594;
         </button>
       </div>
 
-      {/* Version mobile */}
       <div className="md:hidden">
         {currentPage === 0 ? (
-          <div className="bg-gradient-to-r from-orange-400 to-orange-600 clip-cover p-8 rounded-lg shadow-lg text-white text-center">
+          <div className="bg-gradient-to-r from-orange-400 to-orange-600 p-8 rounded-lg shadow-lg text-white text-center">
             <Logo />
             <h1 className="text-4xl font-serif mb-4">Bienvenue dans Mon Livre de Cuisine</h1>
             <p className="text-lg">Par {user?.pseudo || 'Anonyme'}</p>
           </div>
         ) : (
-          <div className="bg-white rounded-lg shadow-md p-4 mb-4">
+          <div className="bg-orange-100 rounded-lg shadow-md p-4 mb-4">
             <h2 className="text-2xl font-serif text-orange-800 mb-2">{recipes[currentPage - 1]?.title}</h2>
             <p className="text-gray-600 mb-4">{recipes[currentPage - 1]?.description}</p>
             <div className="flex justify-between">
@@ -107,7 +147,7 @@ const MyBookCook = () => {
               <button 
                 onClick={nextPage} 
                 className="bg-orange-500 text-white px-3 py-1 rounded" 
-                disabled={currentPage >= recipes.length}
+                disabled={currentPage >= recipes.length - 1}
               >
                 Suivant
               </button>
