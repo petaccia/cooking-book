@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, useRef } from 'react';
 import { getAllRecipes } from '../../api/recipesApi';
 import CardRecipe from '../../components/utils/cards/cardRecipe/CardRecipe';
 import ModalAccueil from '../../components/utils/modals/ModalAccueil';
@@ -12,10 +12,12 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const hasShownToastRef = useRef(false);
 
   useEffect(() => {
-    if (user) {
+    if (user && !hasShownToastRef.current) {
       toast.success('Bonjour ' + user.pseudo + ' !');
+      hasShownToastRef.current = true;
     }
   }, [user]);
 
