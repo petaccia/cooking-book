@@ -2,26 +2,3 @@
 @tailwind components;
 @tailwind utilities;
 
-.perspective {
-  perspective: 1000px;
-}
-
-.backface-hidden {
-  backface-visibility: hidden;
-}
-
-.transform-style-preserve-3d {
-  transform-style: preserve-3d;
-}
-
-.transform-origin-left {
-  transform-origin: left;
-}
-
-.clip-cover {
-  clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
-}
-
-.rotate-y-180 {
-  transform: rotateY(180deg);
-}
