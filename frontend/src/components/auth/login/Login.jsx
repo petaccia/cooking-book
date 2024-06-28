@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { Link, useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {  loginWithGoogle } from '../../../api';
 import { UserContext} from '../../../contexts/UserContext';
@@ -113,7 +113,6 @@ const Login = () => {
           </Link>
         </p>
       </div>
-      <ToastContainer theme='dark' autoClose={5000} position='bottom-right' />
     </div>
 
   );
