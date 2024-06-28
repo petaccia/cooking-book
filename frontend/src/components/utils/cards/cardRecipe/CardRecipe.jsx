@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { UserContext } from '../../../../contexts/UserContext';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { addFavoriteRecipe } from '../../../../api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -52,7 +52,7 @@ const CardRecipe = ({ recipe }) => {
             alt={recipe.title}
             className="w-full h-48 object-cover transition-opacity duration-300 hover:opacity-90"
           />
-          <button
+          <Link
             onClick={handleFavoriteClick}
             className="absolute top-2 right-2 bg-orange-500 text-white p-2 rounded-full hover:bg-orange-600 transition-colors duration-300"
           >
@@ -60,7 +60,7 @@ const CardRecipe = ({ recipe }) => {
               icon={isFavorite ? faHeartSolid : faHeartRegular}
               className="w-6 h-6"
             />
-          </button>
+          </Link>
           <div className="absolute bottom-0 left-0 bg-gradient-to-t from-orange-800 to-transparent w-full p-2">
             <h3 className="text-lg font-serif font-semibold text-white shadow-text">{recipe.title}</h3>
           </div>
