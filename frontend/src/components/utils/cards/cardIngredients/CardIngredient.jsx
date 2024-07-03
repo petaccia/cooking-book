@@ -1,6 +1,10 @@
 import React from 'react';
 
 const CardIngredient = ({ ingredient }) => {
+
+  if (!ingredient || !ingredient.ingredientId) {
+    return <div className="flex items-center justify-center h-full">Ingrédient non disponible</div>;
+  }
   return (
     <div className="flex flex-col items-center mb-6">
       <div className='card-ingredient bg-white rounded-lg shadow-lg p-4 flex flex-col items-center transition-transform hover:scale-105 w-full'>
