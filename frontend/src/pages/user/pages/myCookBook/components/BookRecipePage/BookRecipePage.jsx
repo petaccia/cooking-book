@@ -1,6 +1,7 @@
 import React from 'react';
 import './BookRecipePage.css';
 import CardIngredient from '../../../../../../components/utils/cards/cardIngredients/CardIngredient';
+import CardSteps from '../../../../../../components/utils/cards/cardSteps/CardSteps';
 
 const BookRecipePage = ({ recipe }) => {
   if (!recipe) {
@@ -34,11 +35,11 @@ const BookRecipePage = ({ recipe }) => {
         </div>
 
         <h3 className="text-2xl font-semibold mb-2 text-sepia-800">Instructions</h3>
-        <ol className="list-decimal list-inside space-y-2">
+        <div className="list-decimal list-inside space-y-2">
           {recipe.steps && recipe.steps.map((step, index) => (
-            <li key={index} className="bg-cream-100 p-3 rounded shadow-sm">{step}</li>
+            <CardSteps key={index} step={step} index={index} />
           ))}
-        </ol>
+        </div>
       </div>
     </div>
   );
