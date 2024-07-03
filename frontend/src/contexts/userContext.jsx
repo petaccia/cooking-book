@@ -41,6 +41,7 @@ export const UserProvider = ({ children }) => {
       await logoutUser();
       if (user) {
         toast.success(`A bientôt ${user.pseudo} !`);
+        localStorage.removeItem('hasShownWelcomeToast');
       }
       setUser(null);
     } catch (error) {

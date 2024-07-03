@@ -16,9 +16,12 @@ const Home = () => {
   const hasShownToastRef = useRef(false);
 
   useEffect(() => {
-    if (user && !hasShownToastRef.current) {
-      toast.success('Bonjour ' + user.pseudo + ' !');
-      hasShownToastRef.current = true;
+    if (user) {
+      const hasShownWelcomeToast = localStorage.getItem('hasShownWelcomeToast');
+      if (!hasShownWelcomeToast) {
+        toast.success('Bonjour ' + user.pseudo + ' !');
+        localStorage.setItem('hasShownWelcomeToast', 'true');
+      }
     }
   }, [user]);
 
