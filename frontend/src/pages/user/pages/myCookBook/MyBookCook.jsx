@@ -5,6 +5,7 @@ import HTMLFlipBook from 'react-pageflip';
 import BookCover from './components/BookCover/BookCover';
 import BookRecipePage from './components/BookRecipePage/BookRecipePage';
 import MobileRecipeCard from '../../../../components/utils/cards/MobileRecipeCard/MobileRecipeCard';
+import BackCover from './components/BackCover/BackCover';
 
 const MyBookCook = () => {
   const { user } = useContext(UserContext);
@@ -67,26 +68,30 @@ const MyBookCook = () => {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center  py-8 bg-beige-100">
-      <div className="w-full max-w-5xl"> {/* Réduit la largeur maximale */}
+    <div className="flex flex-col items-center justify-center py-8 bg-beige-100">
+      <div className="w-full max-w-5xl">
         <HTMLFlipBook
-          width={650} 
-          height={1000} 
+          width={650}
+          height={1000}
           size="stretch"
-          minWidth={500} 
+          minWidth={500}
           maxWidth={700}
-          minHeight={700} 
-          maxHeight={1000} 
+          minHeight={700}
+          maxHeight={1000}
           maxShadowOpacity={0.5}
           showCover={true}
           mobileScrollSupport={true}
           className="recipe-book"
           ref={bookRef}
         >
+          {/* page de couverture */}
           <div className="demoPage">
             <BookCover user={user} />
           </div>
+          {/* page blanche (verso de la couverture) */}
+          <div className="demoPage bg-orange-100 border-r-8 border-orange-50"></div>
           
+          {/* page des recettes favorites */}
           {recipes && recipes.length > 0 ? (
             recipes.map((recipe, index) => (
               <div key={recipe._id || `recipe-${index}`} className="demoPage">
@@ -100,6 +105,12 @@ const MyBookCook = () => {
               </div>
             </div>
           )}
+
+
+          {/* page de couverture (verso) */}
+          <div className="demoPage">
+            <BackCover user={user} />
+          </div>
         </HTMLFlipBook>
       </div>
       
