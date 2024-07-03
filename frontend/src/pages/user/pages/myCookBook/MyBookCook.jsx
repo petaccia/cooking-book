@@ -1,14 +1,27 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, useRef } from 'react';
 import { UserContext } from '../../../../contexts/UserContext';
+import { getFavoriteRecipes } from '../../../../api';
+import HTMLFlipBook from 'react-pageflip';
 import BookCover from './components/BookCover/BookCover';
 import BookRecipePage from './components/BookRecipePage/BookRecipePage';
-import HTMLFlipBook from 'react-pageflip';
-import { getFavoriteRecipes } from '../../../../api';
+import MobileRecipeCard from '../../../../components/utils/cards/MobileRecipeCard/MobileRecipeCard';
 
 const MyBookCook = () => {
   const { user } = useContext(UserContext);
   const [recipes, setRecipes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
+  const bookRef = useRef();
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     const fetchFavoriteRecipes = async () => {
@@ -34,39 +47,66 @@ const MyBookCook = () => {
     return <div className="flex items-center justify-center min-h-screen">Chargement...</div>;
   }
 
-  return (
-    <div className=" flex flex-col items-center justify-center  py-6">
-      <HTMLFlipBook 
-        width={450}
-        height={750}
-        size="stretch"
-        minWidth={250}
-        maxWidth={450}
-        minHeight={400}
-        maxHeight={750}
-        maxShadowOpacity={0.5}
-        showCover={true}
-        mobileScrollSupport={true}
-        className="recipe-book transform-gpu preserve-3d"
-      >
-        <div key="cover" className="page cover">
-          <BookCover user={user} />
-        </div>
+  if (isMobile) {
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <h1 className="text-2xl font-bold text-center mb-6 text-sepia-800">Mes Recettes Favorites</h1>
         {recipes && recipes.length > 0 ? (
-          recipes.map((fav, index) => (
-            <div key={fav._id || `recipe-${fav.recipe.title}-${index}`} className="page bg-orange-100 shadow-inner">
-              <BookRecipePage recipe={fav} />
-            </div>
-          ))
+          <div className="space-y-4">
+            {recipes.map((recipe) => (
+              <MobileRecipeCard key={recipe._id} recipe={recipe} />
+            ))}
+          </div>
         ) : (
-          <div key="no-recipes" className="page bg-beige-100">
-            <div className="flex items-center justify-center h-full">
-              <p>Aucune recette favorite pour le moment.</p>
-            </div>
+          <div className="text-center py-8 bg-cream-100 rounded-lg">
+            <p className="text-lg text-sepia-800">Aucune recette favorite pour le moment.</p>
           </div>
         )}
-      </HTMLFlipBook>
-     <div className="book-spine absolute top-0 left-1/2 h-full w-10 -translate-x-1/2 pointer-events-none z-10 book-fold"></div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen py-8 bg-beige-100">
+      <div className="w-full max-w-5xl"> {/* Réduit la largeur maximale */}
+        <HTMLFlipBook
+          width={650} 
+          height={850} 
+          size="stretch"
+          minWidth={500} 
+          maxWidth={700}
+          minHeight={700} 
+          maxHeight={900} 
+          maxShadowOpacity={0.5}
+          showCover={true}
+          mobileScrollSupport={true}
+          className="recipe-book"
+          ref={bookRef}
+        >
+          <div className="demoPage">
+            <BookCover user={user} />
+          </div>
+          
+          {recipes && recipes.length > 0 ? (
+            recipes.map((recipe, index) => (
+              <div key={recipe._id || `recipe-${index}`} className="demoPage">
+                <BookRecipePage recipe={recipe} />
+              </div>
+            ))
+          ) : (
+            <div className="demoPage">
+              <div className="flex items-center justify-center h-full text-center p-4">
+                <p className="text-xl text-sepia-800">Aucune recette favorite pour le moment.</p>
+              </div>
+            </div>
+          )}
+        </HTMLFlipBook>
+      </div>
+      
+      <div className="mt-6 space-x-6">
+        <button onClick={() => bookRef.current.pageFlip().flipPrev()} className="px-5 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition text-base">Précédent</button>
+        <button onClick={() => bookRef.current.pageFlip().flipNext()} className="px-5 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition text-base">Suivant</button>
+      </div>
     </div>
   );
 };
