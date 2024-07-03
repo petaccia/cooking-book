@@ -25,10 +25,10 @@ const MyBookCook = () => {
 
   useEffect(() => {
     const fetchFavoriteRecipes = async () => {
-      if (user && user.id) {
+      if (user && user._id) {
         try {
           setIsLoading(true);
-          const favoriteRecipes = await getFavoriteRecipes(user.id);
+          const favoriteRecipes = await getFavoriteRecipes(user._id);
           setRecipes(favoriteRecipes.map(fav => fav.recipe));
         } catch (error) {
           console.error('Erreur lors du chargement des recettes favorites:', error);
@@ -67,16 +67,16 @@ const MyBookCook = () => {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-8 bg-beige-100">
+    <div className="flex flex-col items-center justify-center  py-8 bg-beige-100">
       <div className="w-full max-w-5xl"> {/* Réduit la largeur maximale */}
         <HTMLFlipBook
           width={650} 
-          height={850} 
+          height={1000} 
           size="stretch"
           minWidth={500} 
           maxWidth={700}
           minHeight={700} 
-          maxHeight={900} 
+          maxHeight={1000} 
           maxShadowOpacity={0.5}
           showCover={true}
           mobileScrollSupport={true}
