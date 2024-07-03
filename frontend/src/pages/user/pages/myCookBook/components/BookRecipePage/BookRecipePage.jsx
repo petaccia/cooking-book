@@ -7,7 +7,7 @@ const BookRecipePage = ({ recipe }) => {
   }
 
   return (
-    <div className="h-full p-6 bg-orange-100 font-serif overflow-hidden flex flex-col">
+    <div className="h-full p-6 bg-orange-100 border-r-8 border-orange-50 font-serif overflow-hidden flex flex-col">
       <h2 className="text-3xl font-bold mb-2 text-sepia-800 text-center font-display">{recipe.title}</h2>
       
       <div className="flex-1 overflow-y-auto custom-scrollbar pr-4"> {/* Ajout de padding-right pour la scrollbar */}
