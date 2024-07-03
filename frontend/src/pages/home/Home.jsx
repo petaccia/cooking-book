@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext, useRef } from 'react';
-import { getAllRecipes } from '../../api/recipesApi';
+import { getAllRecipes, getFavoriteRecipes } from '../../api/recipesApi';
 import CardRecipe from '../../components/utils/cards/cardRecipe/CardRecipe';
 import ModalAccueil from '../../components/utils/modals/ModalAccueil';
 import { UserContext } from '../../contexts/UserContext';
@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const Home = () => {
   const { user } = useContext(UserContext);
   const [recipes, setRecipes] = useState([]);
+  const [favoriteRecipes, setFavoriteRecipes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -33,8 +34,32 @@ const Home = () => {
         setLoading(false);
       }
     };
+
+    const fetchFavoriteRecipes = async () => {
+      if (user) {
+        try {
+          const favoriteResponse = await getFavoriteRecipes(user._id);
+          console.log("favoriteResponse in Home :", favoriteResponse);
+          const favoriteRecipesIds = favoriteResponse.map(fav => fav.recipe._id);
+          console.log("favoriteRecipesIds in Home :", favoriteRecipesIds);
+          setFavoriteRecipes(favoriteRecipesIds);
+        } catch (error) {
+          console.error('Erreur lors du chargement des recettes favorites:', error);
+        }
+      }
+    };
+
     fetchRecipes();
+    fetchFavoriteRecipes();
   }, [user]);
+
+  const updateFavoriteStatus = (recipeId, isFavorite) => {
+    setFavoriteRecipes(prevFavorites => 
+      isFavorite 
+        ? [...prevFavorites, recipeId]
+        : prevFavorites.filter(id => id !== recipeId)
+    );
+  };
 
   const handleOpenModal = () => {
     if (!user) {
@@ -47,7 +72,7 @@ const Home = () => {
   };
 
   return (
-    <div className="relative min-h-screen  p-4" onClick={handleOpenModal}>
+    <div className="relative min-h-screen p-4" onClick={handleOpenModal}>
       <div className="max-w-4xl mx-auto bg-white shadow-2xl rounded-lg overflow-hidden">
         {/* Couverture du livre */}
         <div className="bg-gradient-to-r from-orange-500 to-orange-700 p-8 text-center">
@@ -73,7 +98,11 @@ const Home = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {recipes.map((recipe) => (
                 <div key={recipe._id} className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 border border-orange-200">
-                  <CardRecipe recipe={recipe} />
+                  <CardRecipe 
+                    recipe={recipe} 
+                    isFavorite={favoriteRecipes.includes(recipe._id)} 
+                    updateFavoriteStatus={updateFavoriteStatus}
+                  />
                 </div>
               ))}
             </div>

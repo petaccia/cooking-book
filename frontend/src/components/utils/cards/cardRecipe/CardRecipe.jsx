@@ -1,15 +1,14 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { UserContext } from '../../../../contexts/UserContext';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { addFavoriteRecipe, deleteFavoriteRecipe } from '../../../../api/recipesApi';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
 
-const CardRecipe = ({ recipe, isFavorite: initialFavorite }) => {
+const CardRecipe = ({ recipe, isFavorite, updateFavoriteStatus }) => {
   const { user } = useContext(UserContext);
-  const [isFavorite, setIsFavorite] = useState(initialFavorite);
   const navigate = useNavigate();
 
   const handleCardClick = () => {
@@ -20,22 +19,21 @@ const CardRecipe = ({ recipe, isFavorite: initialFavorite }) => {
     }
   };
 
-  const handleFavoriteClick = async () => {
+  const handleFavoriteClick = async (e) => {
+    e.stopPropagation();
     if (user) {
       try {
         if (isFavorite) {
-          const response = await deleteFavoriteRecipe(user._id, recipe._id);
-          console.log("Suppression d'une recette des favoris :", response);
+          await deleteFavoriteRecipe(user._id, recipe._id);
           toast.info('Recette supprimée des favoris !');
-          setIsFavorite(false);
+          updateFavoriteStatus(recipe._id, false);
         } else {
-          const response = await addFavoriteRecipe(user._id, recipe._id);
-          console.log("Ajout d'une recette aux favoris :", response);
+          await addFavoriteRecipe(user._id, recipe._id);
           toast.success('Recette ajoutée aux favoris !');
-          setIsFavorite(true);
+          updateFavoriteStatus(recipe._id, true);
         }
       } catch (error) {
-        console.error("Erreur lors de l'ajout d'une recette aux favoris :", error);
+        console.error("Erreur lors de la gestion des favoris :", error);
         toast.error('Une erreur est survenue : ' + error.message);
       }
     } else {
