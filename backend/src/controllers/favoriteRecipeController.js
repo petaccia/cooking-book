@@ -1,6 +1,7 @@
 const FavoriteRecipe = require('../models/favoriteRecipeModel');
 const Recipe = require('../models/recipeModel'); 
 
+// Ajouter une recette aux favoris
 exports.addFavoriteRecipe = async (req, res) => {
   try {
     const { userId } = req.params;
@@ -21,22 +22,26 @@ exports.addFavoriteRecipe = async (req, res) => {
     // Créer une nouvelle entrée favorite
     const newFavorite = new FavoriteRecipe({
       user: userId,
-      recipe: recipeId,
-      ingredients: recipe.ingredients.map(ingred => ingred.ingredientId)
+      recipe: recipeId
     });
-    console.log("newFavorite : ", newFavorite);
 
     await newFavorite.save();
-    console.log("newFavorite : ", newFavorite);
+
     // Récupérer la recette favorite avec les détails peuplés
     const populatedFavorite = await FavoriteRecipe.findById(newFavorite._id)
-      .populate('recipe')
       .populate({
-        path: 'ingredients',
-        select: 'name image' 
+        path: 'recipe',
+        populate: {
+          path: 'ingredients.ingredientId',
+          model: 'Ingredient',
+          select: 'name image'
+        }
+      })
+      .populate({
+        path: 'recipe.author',
+        model: 'User',
+        select: 'pseudo'
       });
-
-    console.log("populatedFavorite : ", populatedFavorite);
 
     res.status(201).json({ message: "Recette ajoutée aux favoris avec succès", favoriteRecipe: populatedFavorite });
   } catch (error) {
@@ -44,28 +49,26 @@ exports.addFavoriteRecipe = async (req, res) => {
   }
 };
 
+// Récupérer les recettes favorites
 exports.getFavoriteRecipes = async (req, res) => {
   try {
-    // Récupérer Id de l'utilisateur
     const { userId } = req.params;
 
-    // Récuperer les recettes favorites de l'utilisateur
     const favoriteRecipes = await FavoriteRecipe.find({ user: userId })
       .populate({
         path: 'recipe',
-        populate: {
-          path: 'ingredients.ingredientId',
-          model: 'Ingredient',
-          select: 'name image', 
-        }
-      })
-      .populate({
-        path: 'recipe',
-        populate: {
-          path: 'author',
-          model: 'User',
-          select: 'pseudo',
-        }
+        populate: [
+          {
+            path: 'ingredients.ingredientId',
+            model: 'Ingredient',
+            select: 'name image'
+          },
+          {
+            path: 'author',
+            model: 'User',
+            select: 'pseudo'
+          }
+        ]
       });
 
     res.status(200).json(favoriteRecipes);
@@ -74,12 +77,11 @@ exports.getFavoriteRecipes = async (req, res) => {
   }
 };
 
+// Supprimer une recette des favoris
 exports.deleteFavoriteRecipe = async (req, res) => {
   try {
-    // Récuperer le Id de l'utilisateur et de la recette
     const { userId, recipeId } = req.params;
     
-    // Supprimer la recette favorite
     const result = await FavoriteRecipe.findOneAndDelete({ user: userId, recipe: recipeId });
     
     if (result) {

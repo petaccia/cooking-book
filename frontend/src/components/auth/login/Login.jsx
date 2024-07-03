@@ -9,7 +9,7 @@ import {  loginWithGoogle } from '../../../api';
 import { UserContext} from '../../../contexts/UserContext';
 
 const Login = () => {
-  const { login } = useContext(UserContext);
+  const { login, loadUser } = useContext(UserContext);
   const defaultValues = {
     email: '',
     password: '',
@@ -30,9 +30,8 @@ const Login = () => {
   const onSubmit = async (credentials) => {
     console.log("Cookies avant la connexion :", document.cookie);
     try {
-      const response = await login(credentials);
-      console.log("reponse du serveur :", response);
-      console.log(response);
+      await login(credentials);
+      await loadUser();
       navigate('/');
     } catch (error) {
       toast.error('Erreur lors de la connexion');
