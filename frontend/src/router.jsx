@@ -1,6 +1,6 @@
 // router.jsx
 
-// Bibliotheques
+// Bibliothèques
 import React, { Suspense, lazy } from "react";
 import { Outlet, createBrowserRouter } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { UserProvider } from './contexts/UserContext';
 import ProtectedRoute from "./components/security/ProtectedRoute";
 
-//  pages
+// Pages
 const App = lazy(() => import("./App"));
 const ErrorPage = lazy(() => import("./components/Error/ErrorPage/ErrorPage"));
 const SignUpPage = lazy(() => import("./pages/auth/SignUpPage/SignUpPage")); 
@@ -18,7 +18,7 @@ const Profile = lazy(() => import("./pages/user/pages/profile/pages/Profile"));
 const MyBookCook = lazy(() => import("./pages/user/pages/myCookBook/MyBookCook")); 
 const RecipePage = lazy(() => import("./pages/Recipe/pages/RecipePage"));
 
-{/*components*/}
+// Components
 const Loader = lazy(() => import("./components/loader/Loader"));
 
 const AppWrapper = () => (
@@ -51,7 +51,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/signup",
+        path: "signup",
         element: (
           <Suspense fallback={<Loader />}>
             <SignUpPage />
@@ -77,41 +77,21 @@ const router = createBrowserRouter([
         ),
         children: [
           {
-            path: "profile",
+            path: "profile/:id",
             element: (
               <Suspense fallback={<Loader />}>
                 <Profile />
               </Suspense>
             ),
-            children: [
-              {
-                path: ":id",
-                element: (
-                  <Suspense fallback={<Loader />}>
-                    <Profile />
-                  </Suspense>
-                ),
-              },
-            ],
-          }, 
+          },
           {
-            path: "myBookCook",
+            path: "myBookCook/:id",
             element: (
               <Suspense fallback={<Loader />}>
                 <MyBookCook />
               </Suspense>
             ),
-            children: [
-              {
-                path: ":id",
-                element: (
-                  <Suspense fallback={<Loader />}>
-                    <MyBookCook />
-                  </Suspense>
-                ),
-              },
-            ],
-          }
+          },
         ],
       },
       {
@@ -123,7 +103,15 @@ const router = createBrowserRouter([
             </Suspense>
           </ProtectedRoute>
         ),
-      }
+      },
+      {
+        path: "*",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <ErrorPage />
+          </Suspense>
+        ),
+      },
     ],
   },
 ]);
