@@ -28,7 +28,7 @@ export const UserProvider = ({ children }) => {
     console.log('Connexion de l\'utilisateur :', credentials);
     try {
       const response = await loginUser(credentials.email, credentials.password);
-      setUser(response); // Met à jour l'utilisateur dans le contexte
+      setUser(response); 
       return response;
     } catch (error) {
       console.error('Erreur lors de la connexion :', error);
