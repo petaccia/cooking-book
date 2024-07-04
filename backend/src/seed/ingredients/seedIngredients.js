@@ -1,8 +1,8 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
-const Ingredient = require('../models/ingredientModel');
-const connectDB = require('../database/config');
-const ingredientsData = require('../../data/ingredientsData');
+const Ingredient = require('../../models/ingredientModel');
+const connectDB = require('../../database/config');
+const ingredientsData = require('../../../data/ingredientsData');
 
 
 const createIngredients = async () => {
