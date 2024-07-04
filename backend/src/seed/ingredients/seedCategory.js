@@ -1,6 +1,6 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
-const Category = require('../../models/categoriesModel');
+const Category = require('../../models/ingredients/categoriesModel');
 const connectDB = require('../../database/config');
 const categoriesData = require('../../../data/categoryIngredientsData');
 
