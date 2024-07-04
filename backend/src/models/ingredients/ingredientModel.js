@@ -7,25 +7,19 @@ const ingredientSchema = new mongoose.Schema({
     unique: true,
   },
 
-  quantity: {
-    type: Number,
-  },
-
-  unit: {
-    type: String,
-  },
-
   image: {
     type: String,
   },
 
-  category: {
-    type: String,
-  },
+  category:[ {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Category",
+  }],
 
-  type: {
-    type: String,
-  },
+  type: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Type",
+  }],
 
 });
 
