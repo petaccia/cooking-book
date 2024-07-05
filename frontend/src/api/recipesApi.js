@@ -75,16 +75,15 @@ export const addFavoriteRecipe = async (userId, recipeId) => {
 // Supprimer une recette des favoris d'un utilisateur
 
 export const deleteFavoriteRecipe = async (userId, recipeId) => {
-  try{
-    const response = await axios.delete(`${UrlBack}/recipes/favorites/${userId}`, {data: {recipeId}});
-    console.log("recette supprime des favoris :",response);
-    if (response && response.data) {
-      return response.data;
+  try {
+    const response = await axios.delete(`${UrlBack}/recipes/favorites/${userId}/${recipeId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Erreur lors de la suppression du favori :', error);
+    if (error.response) {
+      throw new Error(error.response.data.message || 'Erreur lors de la suppression du favori');
     } else {
-      throw new Error('Une erreur est survenue :', response.status);
+      throw new Error('Erreur de réseau lors de la suppression du favori');
     }
-  } catch (error) { 
-    console.log('Une erreur est survenue :', error);
-    throw new Error('Une erreur est survenue :', + error.response.data.message);
   }
-}
+};
