@@ -1,6 +1,6 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
-const Ingredient = require('../../models/ingredientModel');
+const Ingredient = require('../../models/ingredients/ingredientModel');
 const connectDB = require('../../database/config');
 const recipesData = require('../../../data/recipesData');
 const Recipe = require('../../models/recipeModel');
@@ -9,6 +9,9 @@ const User = require('../../models/userModel');
 const createRecipes = async () => {
   try {
     await connectDB();
+
+    // Supprimer toutes les recettes existantes
+    await Recipe.deleteMany({});
 
     // Récupérer tous les ingrédients existants
     const existIngredients = await Ingredient.find();

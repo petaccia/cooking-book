@@ -45,8 +45,8 @@ const recipesData = [
     tcookingTime: 40,
     level: "Moyen",
     ingredients: [
-      { name: "Poulet", quantity: "500g" },
-      { name: "Yaourt", quantity: "200g" },
+      { name: "Blancs de poulet", quantity: "500g" },
+      { name: "Yaourt nature", quantity: "200g" },
       { name: "Épices Tikka", quantity: "2 cuillères à soupe" },
       { name: "Tomates concassées", quantity: "400g" },
       { name: "Crème fraîche", quantity: "200ml" }
@@ -83,11 +83,11 @@ const recipesData = [
     tcookingTime: 50,
     level: "Facile",
     ingredients: [
-      { name: "Aubergine", quantity: "1" },
-      { name: "Courgette", quantity: "1" },
-      { name: "Poivron", quantity: "1" },
-      { name: "Tomate", quantity: "4" },
-      { name: "Oignon", quantity: "1" },
+      { name: "Aubergines", quantity: "1" },
+      { name: "Courgettes", quantity: "1" },
+      { name: "Poivrons", quantity: "1" },
+      { name: "Tomates", quantity: "4" },
+      { name: "Oignons", quantity: "1" },
       { name: "Herbes de Provence", quantity: "1 cuillère à soupe" }
     ],
     steps: [
@@ -122,10 +122,13 @@ const recipesData = [
     tcookingTime: 45,
     level: "Moyen",
     ingredients: [
-      { name: "Légumes variés", quantity: "500g" },
+      { name: "Aubergines", quantity: "4" },
+      { name: "Carottes", quantity: "4" },
+      { name: "Pommes de terre", quantity: "2" },
+      { name: "Courgettes", quantity: "4" },
       { name: "Lait de coco", quantity: "400ml" },
-      { name: "Pâte de curry", quantity: "2 cuillères à soupe" },
-      { name: "Oignon", quantity: "1" },
+      { name: "Épices Tikka", quantity: "2 cuillères à soupe" },
+      { name: "Oignons", quantity: "1" },
       { name: "Ail", quantity: "2 gousses" }
     ],
     steps: [
@@ -159,7 +162,8 @@ const recipesData = [
     tcookingTime: 90,
     level: "Difficile",
     ingredients: [
-      { name: "Poisson varié", quantity: "1kg" },
+      { name: "Saumon", quantity: "500g" },
+      { name: "Thon", quantity: "500g" },
       { name: "Tomates", quantity: "4" },
       { name: "Ail", quantity: "3 gousses" },
       { name: "Safran", quantity: "1 pincée" },
@@ -216,10 +220,10 @@ const recipesData = [
     tcookingTime: 90,
     level: "Moyen",
     ingredients: [
-      { name: "Poulet", quantity: "1kg" },
-      { name: "Olives", quantity: "200g" },
+      { name: "Blancs de poulet", quantity: "1kg" },
+      { name: "Olives vertes", quantity: "200g" },
       { name: "Citrons confits", quantity: "2" },
-      { name: "Oignon", quantity: "1" },
+      { name: "Oignons", quantity: "1" },
       { name: "Épices à tajine", quantity: "2 cuillères à soupe" }
     ],
     steps: [
@@ -274,7 +278,7 @@ const recipesData = [
     level: "Moyen",
     ingredients: [
       { name: "Semoule", quantity: "200g" },
-      { name: "Poulet", quantity: "500g" },
+      { name: "Blancs de poulet", quantity: "500g" },
       { name: "Carottes", quantity: "4" },
       { name: "Courgettes", quantity: "2" },
       { name: "Pois chiches", quantity: "200g" }
@@ -314,8 +318,8 @@ const recipesData = [
       { name: "Viande hachée", quantity: "500g" },
       { name: "Haricots rouges", quantity: "400g" },
       { name: "Tomates concassées", quantity: "400g" },
-      { name: "Poivron", quantity: "1" },
-      { name: "Épices chili", quantity: "2 cuillères à soupe" }
+      { name: "Poivrons", quantity: "1" },
+      { name: "Épices à chili", quantity: "2 cuillères à soupe" }
     ],
     steps: [
       "1. Faites revenir la viande avec les épices.",
@@ -331,7 +335,7 @@ const recipesData = [
     level: "Difficile",
     ingredients: [
       { name: "Riz", quantity: "300g" },
-      { name: "Poulet", quantity: "300g" },
+      { name: "Blancs de poulet", quantity: "300g" },
       { name: "Crevettes", quantity: "200g" },
       { name: "Petits pois", quantity: "100g" },
       { name: "Safran", quantity: "1 pincée" }
@@ -368,11 +372,11 @@ const recipesData = [
     tcookingTime: 150,
     level: "Difficile",
     ingredients: [
-      { name: "Veau", quantity: "1kg" },
+      { name: "Blanquettes de veau", quantity: "1kg" },
       { name: "Carottes", quantity: "4" },
       { name: "Champignons", quantity: "200g" },
       { name: "Crème fraîche", quantity: "200ml" },
-      { name: "Bouillon de veau", quantity: "1 litre" }
+      { name: "Fond de veau", quantity: "1 litre" }
     ],
     steps: [
       "1. Faites cuire le veau avec les légumes.",
@@ -408,11 +412,11 @@ const recipesData = [
     level: "Facile",
     ingredients: [
       { name: "Tomates", quantity: "1kg" },
-      { name: "Concombre", quantity: "1" },
-      { name: "Poivron", quantity: "1" },
-      { name: "Oignon", quantity: "1" },
+      { name: "Concombres", quantity: "1" },
+      { name: "Poivrons", quantity: "1" },
+      { name: "Oignons", quantity: "1" },
       { name: "Ail", quantity: "2 gousses" },
-      { name: "Vinaigre de vin", quantity: "2 cuillères à soupe" }
+      { name: "Vinaigre de vins", quantity: "2 cuillères à soupe" }
     ],
     steps: [
       "1. Mixez tous les ingrédients ensemble.",

@@ -1,5 +1,5 @@
 const Recipes = require("../models/recipeModel");
-const Ingredients = require("../models/ingredientModel");
+const Ingredients = require("../models/ingredients/ingredientModel");
 
 
 exports.getRecipes = async (req, res) => {
