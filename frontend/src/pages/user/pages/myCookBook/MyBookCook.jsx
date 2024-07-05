@@ -67,6 +67,16 @@ const MyBookCook = () => {
     );
   }
 
+  // Si ne nombre de recettes est impair, on ajoute une page vide en fin de liste
+  const calculateBlankPages = (numRecipes) => {
+    if (numRecipes % 2 === 1) {
+      return 0;
+    }
+    return 1;
+  };
+
+  const blankPages = calculateBlankPages(recipes.length);
+
   return (
     <div className="flex flex-col items-center justify-center py-8 bg-beige-100">
       <div className="w-full max-w-5xl">
@@ -106,6 +116,11 @@ const MyBookCook = () => {
             </div>
           )}
 
+          
+          {/* page vide en mapping le nombre de pages (verso des recettes favorites) */}
+          {[...Array(blankPages)].map(( index) => (
+            <div key={index} className="demoPage bg-orange-100 border-r-8 border-orange-50"></div>
+          ))}
 
           {/* page de couverture (verso) */}
           <div className="demoPage">
