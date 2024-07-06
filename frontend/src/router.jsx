@@ -7,6 +7,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { UserProvider } from './contexts/UserContext';
 import ProtectedRoute from "./components/security/ProtectedRoute";
+import CreateRecipe from "./pages/user/pages/CreateRecipe/CreateRecipe";
 
 // Pages
 const App = lazy(() => import("./App"));
@@ -89,6 +90,14 @@ const router = createBrowserRouter([
             element: (
               <Suspense fallback={<Loader />}>
                 <MyBookCook />
+              </Suspense>
+            ),
+          },
+          {
+            path: "recipe/createRecipe",
+            element: (
+              <Suspense fallback={<Loader />}>
+                <CreateRecipe />
               </Suspense>
             ),
           },
