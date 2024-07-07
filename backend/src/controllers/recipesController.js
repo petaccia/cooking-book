@@ -34,8 +34,9 @@ exports.getRecipeById = async (req, res) => {
 };
 
 // Ajouter une nouvelle recette
-exports.addRecipe = async (req, res) => {
-  try { 
+exports.createRecipe = async (req, res) => {
+  try {
+    // Extraire les données de la recette depuis le corps de la requête
     const {
       title,
       description,
@@ -45,8 +46,10 @@ exports.addRecipe = async (req, res) => {
       ingredients,
       steps
     } = req.body;
+
     console.log("Données de la recette :", req.body);
     console.log("req.user dans addRecipe:", req.user);
+
     // Validation des champs requis
     const requiredFields = ['title', 'image', 'tcookingTime', 'level', 'ingredients', 'steps'];
     const missingFields = requiredFields.filter(field => !req.body[field]);
@@ -72,21 +75,21 @@ exports.addRecipe = async (req, res) => {
       return res.status(401).json({ message: "Veuillez vous connecter pour ajouter une recette" });
     }
 
-    console.log("ID de l'utilisateur :", req.user.id);
+    console.log("ID de l'utilisateur :", req.user._id);
 
     // Vérification des ingrédients
-    const verifiedIngredients = await Promise.all(
-      ingredients.map(async (ingredient) => {
-        if (!ingredient.ingredientId) {
-          throw new Error("ID d'ingrédient manquant");
-        }
-        const foundIngredient = await Ingredients.findById(ingredient.ingredientId);
-        if (!foundIngredient) {
-          throw new Error(`Ingrédient non trouvé: ${ingredient.ingredientId}`);
-        }
-        return { ingredientId: foundIngredient._id };
-      })
-    );
+    const ingredientIds = ingredients.map(ing => ing._id);  // Extraire les IDs des ingrédients
+    if (ingredientIds.some(id => !id)) {
+      return res.status(400).json({ message: "ID d'ingrédient manquant" });
+    }
+
+    // Requête pour vérifier les ingrédients en une seule fois
+    const validIngredients = await Ingredients.find({ '_id': { $in: ingredientIds } });
+
+    // Vérifiez que tous les ingrédients envoyés existent dans la base de données
+    if (validIngredients.length !== ingredientIds.length) {
+      return res.status(400).json({ message: 'Certains ingrédients sont invalides' });
+    }
 
     // Création de la nouvelle recette
     const newRecipe = new Recipes({
@@ -96,20 +99,25 @@ exports.addRecipe = async (req, res) => {
       tcookingTime,
       level,
       author: req.user._id,
-      ingredients: verifiedIngredients,
+      ingredients: validIngredients.map(ingredient => ({ _id: ingredient._id })),  // Mettez à jour avec les ingrédients valides
       steps,
     });
 
+    // Sauvegarde de la recette
     const savedRecipe = await newRecipe.save();
-    res.status(201).json(savedRecipe);
+    res.status(201).json({message : "Recette ajoutée avec succès", recipe: savedRecipe});
+
   } catch (error) {
     console.error("Erreur lors de l'ajout de la recette:", error);
+
     if (error.code === 11000) {
       return res.status(409).json({ message: "Recette existante" });
     }
+
     if (error.name === "ValidationError") {
       return res.status(400).json({ message: "Données de recette invalides", details: error.message });
-    } 
+    }
+
     res.status(500).json({ message: "Erreur lors de l'ajout de la recette", error: error.message });
-  } 
+  }
 };
