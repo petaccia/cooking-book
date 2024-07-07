@@ -36,6 +36,22 @@ export const getRecipeById = async (id) => {
   }
 };
 
+// Créer une nouvelle recette
+
+export const createRecipeApi = async (recipeData) => {
+  try {
+    const response = await axios.post(`http://localhost:3000/recipes/add/${recipeData.creator}`, recipeData, {
+      withCredentials: true,  // Envoyer les cookies avec la requête
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Erreur lors de la création de la recette", error);
+    throw error;  // Propagation de l'erreur pour la gestion dans le composant
+  }
+};
 // Récupérer les recettes favorites d'un utilisateur
 
 export const getFavoriteRecipes = async (userId) => {
