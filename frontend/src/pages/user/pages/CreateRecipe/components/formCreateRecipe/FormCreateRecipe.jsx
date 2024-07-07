@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
 import { getAllIngredients, createRecipeApi } from '../../../../../../api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -9,18 +8,12 @@ import {
   faListUl, faPlus, faMinus, faListOl, faTrash
 } from '@fortawesome/free-solid-svg-icons';
 import { UserContext } from '../../../../../../contexts/UserContext';
+import schemaValidationCreateRecipe from './components/validationCreateRecipe/ValidationCreateRecipe';
 
 // Définir les temps de cuisson
 const COOKING_TIMES = Array.from({ length: 20 }, (_, i) => (i + 1) * 5);
 
 // Définir le schéma de validation avec yup
-const schema = yup.object().shape({
-  title: yup.string().required('Le titre est obligatoire'),
-  description: yup.string().required('La description est obligatoire'),
-  image: yup.string().url('Entrez une URL valide').required('L\'image est obligatoire'),
-  tcookingTime: yup.number().positive('Le temps doit être positif').required('Le temps de cuisson est obligatoire'),
-  level: yup.string().oneOf(['Facile', 'Moyen', 'Difficile'], 'Choisissez un niveau valide').required('Le niveau est obligatoire'),
-});
 
 const FormCreateRecipe = () => {
   const { user } = useContext(UserContext);
@@ -33,7 +26,7 @@ const FormCreateRecipe = () => {
 
   // Initialiser les fonctions du formulaire avec react-hook-form
   const { register, handleSubmit, formState: { errors } } = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schemaValidationCreateRecipe),
   });
 
   // Charger les ingrédients lors du premier rendu
