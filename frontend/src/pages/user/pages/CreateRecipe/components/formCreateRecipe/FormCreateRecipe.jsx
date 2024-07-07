@@ -11,6 +11,7 @@ import { UserContext } from '../../../../../../contexts/UserContext';
 import schemaValidationCreateRecipe from './components/validationCreateRecipe/ValidationCreateRecipe';
 import SelectCookingTime from './components/select/selectTCookIngTime/SelectCookingTime';
 import SelectLevel from './components/select/selectLevel/SelectLevel';
+import InputTitle from './components/inputTitle/InputTitle';
 
 
 // Définir le schéma de validation avec yup
@@ -148,14 +149,8 @@ const FormCreateRecipe = () => {
       {error && <p className="text-red-600 mb-4">{error}</p>}
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <label htmlFor="title" className="flex items-center text-sm font-medium text-orange-700">
-              <FontAwesomeIcon icon={faUtensils} className="mr-2" />
-              Nom de la recette
-            </label>
-            <input {...register('title')} type="text" id="title" className="mt-1 block w-full rounded-md border-orange-300 shadow-sm focus:border-orange-500 focus:ring focus:ring-orange-200 focus:ring-opacity-50" />
-            {errors.title && <p className="mt-1 text-sm text-red-600">{errors.title.message}</p>}
-          </div>
+
+          <InputTitle register={register} errors={errors} />
           <div>
             <label htmlFor="image" className="flex items-center text-sm font-medium text-orange-700">
               <FontAwesomeIcon icon={faImage} className="mr-2" />
