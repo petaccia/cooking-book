@@ -6,6 +6,7 @@ import BookCover from './components/BookCover/BookCover';
 import BookRecipePage from './components/BookRecipePage/BookRecipePage';
 import MobileRecipeCard from '../../../../components/utils/cards/MobileRecipeCard/MobileRecipeCard';
 import BackCover from './components/BackCover/BackCover';
+import ButtonCreateRecipeNavigation from '../../components/buttons/ButtonCreateRecipeNavigation/ButtonCreateRecipeNavigation';
 
 const MyBookCook = () => {
   const { user } = useContext(UserContext);
@@ -79,6 +80,9 @@ const MyBookCook = () => {
 
   return (
     <div className="flex flex-col items-center justify-center py-8 bg-beige-100">
+      <div className='fixed top-9 right-4 z-10'>
+        <ButtonCreateRecipeNavigation />
+      </div>
       <div className="w-full max-w-5xl">
         <HTMLFlipBook
           width={650}
