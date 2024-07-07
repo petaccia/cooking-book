@@ -4,12 +4,13 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { getAllIngredients, createRecipeApi } from '../../../../../../api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faUtensils, faImage, faChartBar,
+  faUtensils, faImage,
   faListUl, faPlus, faMinus, faListOl, faTrash
 } from '@fortawesome/free-solid-svg-icons';
 import { UserContext } from '../../../../../../contexts/UserContext';
 import schemaValidationCreateRecipe from './components/validationCreateRecipe/ValidationCreateRecipe';
-import SelectCookingTime from './components/selectTCookIngTime/SelectCookingTime';
+import SelectCookingTime from './components/select/selectTCookIngTime/SelectCookingTime';
+import SelectLevel from './components/select/selectLevel/SelectLevel';
 
 
 // Définir le schéma de validation avec yup
@@ -180,19 +181,7 @@ const FormCreateRecipe = () => {
             errors={errors} 
           />
           
-          <div>
-            <label htmlFor="level" className="flex items-center text-sm font-medium text-orange-700">
-              <FontAwesomeIcon icon={faChartBar} className="mr-2" />
-              Niveau de difficulté
-            </label>
-            <select {...register('level')} id="level" className="mt-1 block w-full rounded-md border-orange-300 shadow-sm focus:border-orange-500 focus:ring focus:ring-orange-200 focus:ring-opacity-50">
-              <option value="">Sélectionnez un niveau</option>
-              <option value="Facile">Facile</option>
-              <option value="Moyen">Moyen</option>
-              <option value="Difficile">Difficile</option>
-            </select>
-            {errors.level && <p className="mt-1 text-sm text-red-600">{errors.level.message}</p>}
-          </div>
+         <SelectLevel register={register} errors={errors} />
         </div>
 
         <div>
