@@ -4,14 +4,13 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { getAllIngredients, createRecipeApi } from '../../../../../../api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faUtensils, faImage, faClock, faChartBar,
+  faUtensils, faImage, faChartBar,
   faListUl, faPlus, faMinus, faListOl, faTrash
 } from '@fortawesome/free-solid-svg-icons';
 import { UserContext } from '../../../../../../contexts/UserContext';
 import schemaValidationCreateRecipe from './components/validationCreateRecipe/ValidationCreateRecipe';
+import SelectCookingTime from './components/selectTCookIngTime/SelectCookingTime';
 
-// Définir les temps de cuisson
-const COOKING_TIMES = Array.from({ length: 20 }, (_, i) => (i + 1) * 5);
 
 // Définir le schéma de validation avec yup
 
@@ -79,10 +78,6 @@ const FormCreateRecipe = () => {
       </option>
     ));
 
-  // Créer les options pour le sélecteur de temps de cuisson
-  const cookingTimeOptions = COOKING_TIMES.map(time => (
-    <option key={time} value={time}>{time}</option>
-  ));
 
   // Convertir les étapes en éléments de liste
   const stepsList = steps.map((step, index) => (
@@ -180,17 +175,11 @@ const FormCreateRecipe = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <label htmlFor="tcookingTime" className="flex items-center text-sm font-medium text-orange-700">
-              <FontAwesomeIcon icon={faClock} className="mr-2" />
-              Temps de cuisson (minutes)
-            </label>
-            <select {...register('tcookingTime')} id="tcookingTime" className="mt-1 block w-full rounded-md border-orange-300 shadow-sm focus:border-orange-500 focus:ring focus:ring-orange-200 focus:ring-opacity-50">
-              <option value="">Sélectionnez un temps</option>
-              {cookingTimeOptions}
-            </select>
-            {errors.tcookingTime && <p className="mt-1 text-sm text-red-600">{errors.tcookingTime.message}</p>}
-          </div>
+          <SelectCookingTime 
+            register={register} 
+            errors={errors} 
+          />
+          
           <div>
             <label htmlFor="level" className="flex items-center text-sm font-medium text-orange-700">
               <FontAwesomeIcon icon={faChartBar} className="mr-2" />
