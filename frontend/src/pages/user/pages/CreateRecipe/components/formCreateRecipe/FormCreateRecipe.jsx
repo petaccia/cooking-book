@@ -12,6 +12,7 @@ import schemaValidationCreateRecipe from './components/validationCreateRecipe/Va
 import SelectCookingTime from './components/select/selectTCookIngTime/SelectCookingTime';
 import SelectLevel from './components/select/selectLevel/SelectLevel';
 import InputTitle from './components/inputTitle/InputTitle';
+import InputImage from './components/inputImage/InputImage';
 
 
 // Définir le schéma de validation avec yup
@@ -151,14 +152,7 @@ const FormCreateRecipe = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
           <InputTitle register={register} errors={errors} />
-          <div>
-            <label htmlFor="image" className="flex items-center text-sm font-medium text-orange-700">
-              <FontAwesomeIcon icon={faImage} className="mr-2" />
-              Image (URL)
-            </label>
-            <input {...register('image')} type="text" id="image" className="mt-1 block w-full rounded-md border-orange-300 shadow-sm focus:border-orange-500 focus:ring focus:ring-orange-200 focus:ring-opacity-50" />
-            {errors.image && <p className="mt-1 text-sm text-red-600">{errors.image.message}</p>}
-          </div>
+          <InputImage register={register} errors={errors} />
         </div>
 
         <div>
