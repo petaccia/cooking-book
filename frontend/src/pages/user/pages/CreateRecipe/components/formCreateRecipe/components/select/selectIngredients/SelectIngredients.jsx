@@ -1,28 +1,35 @@
 import React, { useState, useEffect } from 'react';
-import { getAllIngredients } from '../../../../../../../../../api';
+import { getAllIngredients, getAllCategories } from '../../../../../../../../../api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faMinus, faListOl } from '@fortawesome/free-solid-svg-icons';
 
 const SelectIngredients = ({ setSelectedIngredients, selectedIngredients, setIngredients, ingredients }) => {
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
   const [error, setError] = useState(null);
 
-  // Charger les ingrédients
   useEffect(() => {
     const fetchIngredients = async () => {
       try {
-        const response = await getAllIngredients();
-        setIngredients(response);
+        const [ingredientResponse, categoryResponse] = await Promise.all([
+          getAllIngredients(),
+          getAllCategories()
+        ]);
+        setIngredients(ingredientResponse);
+        setCategories(categoryResponse);
       } catch (err) {
-        console.error("Erreur lors de la récupération des ingrédients", err);
+        console.error("Erreur lors de la récupération des données des ingrédients", err);
         setError("Impossible de charger les ingrédients. Veuillez réessayer plus tard.");
       }
     };
     fetchIngredients();
-  }, [setIngredients]);
+  }, [setIngredients]); 
 
-  
+  const handleChangeCategory = (event) => {
+    setSelectedCategory(event.target.value);
+  };
 
-  // Ajouter un ingrédient à la liste
+  // Ajouter un ingrédient à la liste sélectionnée
   const handleIngredientSelect = (event) => {
     const selectedId = event.target.value;
     const ingredient = ingredients.find(ing => ing._id === selectedId);
@@ -31,19 +38,14 @@ const SelectIngredients = ({ setSelectedIngredients, selectedIngredients, setIng
     }
   };
 
-  // Supprimer un ingrédient de la liste
   const removeIngredient = (id) => {
     setSelectedIngredients(selectedIngredients.filter(ing => ing._id !== id));
   };
 
-    // Convertir les ingrédients sélectionnés en éléments d'affichage
-  const filteredIngredientOptions = ingredients
+  // Filtrer les ingrédients par catégorie si une catégorie est sélectionnée
+  const filteredIngredients = ingredients
     .filter(ing => !selectedIngredients.some(selected => selected._id === ing._id))
-    .map(ingredient => (
-      <option key={ingredient._id} value={ingredient._id}>
-        {ingredient.name}
-      </option>
-    ));
+    .filter(ing => !selectedCategory || ing.category.includes(selectedCategory)); 
 
   const selectedIngredientsList = selectedIngredients.map(ingredient => (
     <div key={ingredient._id} className="bg-white rounded-lg shadow p-4 flex flex-col items-center">
@@ -62,21 +64,46 @@ const SelectIngredients = ({ setSelectedIngredients, selectedIngredients, setIng
 
   return (
     <>
-      <div>
-        <label htmlFor="ingredients" className="flex items-center text-sm font-medium text-orange-700">
-          <FontAwesomeIcon icon={faPlus} className="mr-2" />
-          Ajouter des ingrédients
-        </label>
-        <select
-          onChange={handleIngredientSelect}
-          className="mt-1 block w-full rounded-md border-orange-300 shadow-sm focus:border-orange-500 focus:ring focus:ring-orange-200 focus:ring-opacity-50"
-        >
-          <option value="">Sélectionnez un ingrédient</option>
-          {filteredIngredientOptions}
-        </select>
+      <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+        <div>
+          <label htmlFor="category" className="flex items-center text-sm font-medium text-orange-700">
+            <FontAwesomeIcon icon={faListOl} className="mr-2" />
+            Catégorie
+          </label>
+          <select
+            id="category"
+            value={selectedCategory}
+            onChange={handleChangeCategory}
+            className="mt-1 block w-full rounded-md border-orange-300 shadow-sm focus:border-orange-500 focus:ring focus:ring-orange-200 focus:ring-opacity-50"
+          >
+            <option value="">Toutes</option>
+            {categories.map(category => (
+              <option key={category._id} value={category._id}>
+                {category.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label htmlFor="ingredients" className="flex items-center text-sm font-medium text-orange-700">
+            <FontAwesomeIcon icon={faPlus} className="mr-2" />
+            Ajouter des ingrédients
+          </label>
+          <select
+            onChange={handleIngredientSelect}
+            className="mt-1 block w-full rounded-md border-orange-300 shadow-sm focus:border-orange-500 focus:ring focus:ring-orange-200 focus:ring-opacity-50"
+          >
+            <option value="">Sélectionnez un ingrédient</option>
+            {filteredIngredients.map(ingredient => (
+              <option key={ingredient._id} value={ingredient._id}>
+                {ingredient.name}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
         {selectedIngredientsList}
       </div>
       {error && <p className="text-red-600">{error}</p>}
