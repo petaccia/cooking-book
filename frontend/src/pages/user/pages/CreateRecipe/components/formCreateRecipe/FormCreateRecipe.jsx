@@ -2,8 +2,6 @@ import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { createRecipeApi } from '../../../../../../api';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUtensils } from '@fortawesome/free-solid-svg-icons';
 import { UserContext } from '../../../../../../contexts/UserContext';
 import schemaValidationCreateRecipe from './components/validationCreateRecipe/ValidationCreateRecipe';
 import SelectCookingTime from './components/select/selectTCookIngTime/SelectCookingTime';
@@ -13,13 +11,13 @@ import InputImage from './components/inputs/inputImage/InputImage';
 import InputSteps from './components/inputs/inputSteps/InputSteps';
 import SelectIngredients from './components/select/selectIngredients/SelectIngredients';
 import TextareaDescription from './components/textarea/TextareaDescription';
+import ButtonCreateRecipe from './components/Buttons/ButtonCreateRecipe';
 
 
 // Définir le schéma de validation avec yup
 
 const FormCreateRecipe = () => {
   const { user } = useContext(UserContext);
-  console.log("user in FormCreateRecipe :", user);
   const [ingredients, setIngredients] = useState([]);
   const [selectedIngredients, setSelectedIngredients] = useState([]);
   const [steps, setSteps] = useState([]);
@@ -68,30 +66,48 @@ const FormCreateRecipe = () => {
       <h2 className="text-3xl font-bold mb-6 text-orange-800 text-center">Créer une nouvelle recette</h2>
       {error && <p className="text-red-600 mb-4">{error}</p>}
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-          <InputTitle register={register} errors={errors} />
-          <InputImage register={register} errors={errors} />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <InputTitle 
+            register={register} 
+            errors={errors} 
+          />
+          <InputImage 
+            register={register} 
+            errors={errors} 
+          />
         </div>
 
-        <TextareaDescription register={register} errors={errors} />
+        <TextareaDescription 
+          register={register} 
+          errors={errors} 
+        />
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <SelectCookingTime
             register={register}
             errors={errors}
           />
-
-          <SelectLevel register={register} errors={errors} />
+          <SelectLevel 
+            register={register} 
+            errors={errors} />
         </div>
 
-        <SelectIngredients register={register} errors={errors} ingredients={ingredients} setIngredients={setIngredients} selectedIngredients={selectedIngredients} setSelectedIngredients={setSelectedIngredients} />
-          <InputSteps register={register} errors={errors} steps={steps} setSteps={setSteps} />
-        <div>
-          <button type="submit" className="w-full bg-orange-600 text-white px-4 py-2 rounded-md hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50 transition duration-300 flex items-center justify-center">
-            <FontAwesomeIcon icon={faUtensils} className="mr-2" />
-            Créer la recette
-          </button>
-        </div>
+        <SelectIngredients 
+          register={register} 
+          errors={errors} 
+          ingredients={ingredients} 
+          setIngredients={setIngredients} 
+          selectedIngredients={selectedIngredients} 
+          setSelectedIngredients={setSelectedIngredients} 
+        />
+          <InputSteps 
+            register={register} 
+            errors={errors} 
+            steps={steps} 
+            setSteps={setSteps} 
+          />
+          <ButtonCreateRecipe />
       </form>
     </div>
   );
