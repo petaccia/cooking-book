@@ -1,20 +1,18 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { getAllIngredients, createRecipeApi } from '../../../../../../api';
+import { createRecipeApi } from '../../../../../../api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faUtensils,
-  faListUl, faPlus, faMinus, faListOl, faTrash
-} from '@fortawesome/free-solid-svg-icons';
+import { faUtensils } from '@fortawesome/free-solid-svg-icons';
 import { UserContext } from '../../../../../../contexts/UserContext';
 import schemaValidationCreateRecipe from './components/validationCreateRecipe/ValidationCreateRecipe';
 import SelectCookingTime from './components/select/selectTCookIngTime/SelectCookingTime';
 import SelectLevel from './components/select/selectLevel/SelectLevel';
-import InputTitle from './components/inputTitle/InputTitle';
-import InputImage from './components/inputImage/InputImage';
-import InputSteps from './components/inputSteps/InputSteps';
+import InputTitle from './components/inputs/inputTitle/InputTitle';
+import InputImage from './components/inputs/inputImage/InputImage';
+import InputSteps from './components/inputs/inputSteps/InputSteps';
 import SelectIngredients from './components/select/selectIngredients/SelectIngredients';
+import TextareaDescription from './components/textarea/TextareaDescription';
 
 
 // Définir le schéma de validation avec yup
@@ -31,15 +29,6 @@ const FormCreateRecipe = () => {
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schemaValidationCreateRecipe),
   });
-
-
-  // Gérer l'ajout des ingrédients sélectionnés
-
-  // Ajouter une étape à la liste des étapes
-
-
-
-  // Convertir les étapes en éléments de liste
 
 
   // Gérer la soumission du formulaire
@@ -85,15 +74,7 @@ const FormCreateRecipe = () => {
           <InputImage register={register} errors={errors} />
         </div>
 
-        <div>
-          <label htmlFor="description" className="flex items-center text-sm font-medium text-orange-700">
-            <FontAwesomeIcon icon={faListUl} className="mr-2" />
-            Description
-          </label>
-          <textarea {...register('description')} id="description" rows="3" className="mt-1 block w-full rounded-md border-orange-300 shadow-sm focus:border-orange-500 focus:ring focus:ring-orange-200 focus:ring-opacity-50"></textarea>
-          {errors.description && <p className="mt-1 text-sm text-red-600">{errors.description.message}</p>}
-        </div>
-
+        <TextareaDescription register={register} errors={errors} />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <SelectCookingTime
             register={register}
