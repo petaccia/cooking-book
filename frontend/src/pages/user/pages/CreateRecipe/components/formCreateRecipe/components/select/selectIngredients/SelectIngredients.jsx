@@ -11,6 +11,7 @@ const SelectIngredients = ({ selectedIngredients, setSelectedIngredients }) => {
   const [selectedType, setSelectedType] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [showIngredients, setShowIngredients] = useState(false); // Nouvel état pour afficher les ingrédients
 
   // Fonction pour récupérer les ingrédients, les catégories et les types depuis l'API
   const fetchData = async () => {
@@ -51,21 +52,25 @@ const SelectIngredients = ({ selectedIngredients, setSelectedIngredients }) => {
         )
       );
       setFilteredTypes(newFilteredTypes);
+      setShowIngredients(true); // Afficher les ingrédients après sélection de la catégorie
     } else {
       setFilteredTypes(types);  // Afficher tous les types si aucune catégorie n'est sélectionnée
+      setShowIngredients(false); // Cacher les ingrédients si aucune catégorie n'est sélectionnée
     }
   }, [selectedCategory, types, ingredients]);
 
   useEffect(() => {
     // Filtrer les ingrédients en fonction de la catégorie et du type sélectionnés
-    const newFilteredIngredients = ingredients.filter(ingredient => {
-      return (
-        (selectedCategory === '' || ingredient.category.includes(selectedCategory)) &&
-        (selectedType === '' || ingredient.type.includes(selectedType))
-      );
-    });
-    setFilteredIngredients(newFilteredIngredients);
-  }, [selectedCategory, selectedType, ingredients]);
+    if (showIngredients) {
+      const newFilteredIngredients = ingredients.filter(ingredient => {
+        return (
+          (selectedCategory === '' || ingredient.category.includes(selectedCategory)) &&
+          (selectedType === '' || ingredient.type.includes(selectedType))
+        );
+      });
+      setFilteredIngredients(newFilteredIngredients);
+    }
+  }, [selectedCategory, selectedType, ingredients, showIngredients]);
 
   const handleCategoryChange = (e) => {
     setSelectedCategory(e.target.value);
@@ -131,6 +136,7 @@ const SelectIngredients = ({ selectedIngredients, setSelectedIngredients }) => {
                 value={selectedType}
                 onChange={handleTypeChange}
                 className="w-full p-2 border border-orange-300 rounded-md focus:ring-2 focus:ring-orange-500 focus:border-transparent bg-white"
+                disabled={!showIngredients} // Désactiver le sélecteur de type si aucune catégorie n'est sélectionnée
               >
                 <option value="">Tous les types</option>
                 {filteredTypes.map(type => (
@@ -157,6 +163,7 @@ const SelectIngredients = ({ selectedIngredients, setSelectedIngredients }) => {
                   }
                 }}
                 className="w-full p-2 border border-orange-300 rounded-md focus:ring-2 focus:ring-orange-500 focus:border-transparent bg-white"
+                disabled={!showIngredients} // Désactiver le sélecteur d'ingrédients si aucune catégorie n'est sélectionnée
               >
                 <option value="">Choisir un ingrédient</option>
                 {filteredIngredients.map(ingredient => (
@@ -169,39 +176,41 @@ const SelectIngredients = ({ selectedIngredients, setSelectedIngredients }) => {
           </div>
 
           {/* Affichage des ingrédients filtrés */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-            {filteredIngredients.map(ingredient => (
-              <div
-                key={ingredient._id}
-                className={`relative p-4 border rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer ${selectedIngredients.some(selected => selected._id === ingredient._id)
-                    ? 'border-orange-500 bg-orange-200 ring-2 ring-orange-300'
-                    : 'border-orange-200 bg-white'
-                  }`}
-                onClick={() => handleIngredientToggle(ingredient)}
-              >
-                <img
-                  src={ingredient.image}
-                  alt={ingredient.name}
-                  className="w-full h-24 object-cover rounded-md mb-2"
-                />
-                <p className="text-sm font-medium text-center text-brown-800">{ingredient.name}</p>
-                <p className="text-xs text-center text-brown-600 mt-1">
-                  {(() => {
-                    const categoryId = ingredient.category[0];
-                    const category = categories.find(c => c._id === categoryId);
-                    return category ? category.name : "Catégorie non trouvée";
-                  })()}
-                </p>
-                <p className="text-xs text-center text-brown-600">
-                  {(() => {
-                    const typeId = ingredient.type[0];
-                    const type = types.find(t => t._id === typeId);
-                    return type ? type.name : "Type non trouvé";
-                  })()}
-                </p>
-              </div>
-            ))}
-          </div>
+          {showIngredients && (
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+              {filteredIngredients.map(ingredient => (
+                <div
+                  key={ingredient._id}
+                  className={`relative p-4 border rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer ${selectedIngredients.some(selected => selected._id === ingredient._id)
+                      ? 'border-orange-500 bg-orange-200 ring-2 ring-orange-300'
+                      : 'border-orange-200 bg-white'
+                    }`}
+                  onClick={() => handleIngredientToggle(ingredient)}
+                >
+                  <img
+                    src={ingredient.image}
+                    alt={ingredient.name}
+                    className="w-full h-24 object-cover rounded-md mb-2"
+                  />
+                  <p className="text-sm font-medium text-center text-brown-800">{ingredient.name}</p>
+                  <p className="text-xs text-center text-brown-600 mt-1">
+                    {(() => {
+                      const categoryId = ingredient.category[0];
+                      const category = categories.find(c => c._id === categoryId);
+                      return category ? category.name : "Catégorie non trouvée";
+                    })()}
+                  </p>
+                  <p className="text-xs text-center text-brown-600">
+                    {(() => {
+                      const typeId = ingredient.type[0];
+                      const type = types.find(t => t._id === typeId);
+                      return type ? type.name : "Type non trouvé";
+                    })()}
+                  </p>
+                </div>
+              ))}
+            </div>
+          )}
 
           {/* Ingrédients sélectionnés */}
           {selectedIngredients.length > 0 && (
