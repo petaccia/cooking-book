@@ -5,3 +5,5 @@ export { getAllRecipes, getRecipeById, createRecipeApi, getFavoriteRecipes, addF
 export { getAllIngredients } from './ingredientsApi';
 
 export { getAllCategories } from './categoryApi';
+
+export { getAllTypes } from './typeApi';
