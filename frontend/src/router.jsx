@@ -8,6 +8,7 @@ import Layout from './components/layout/Layout';
 import Navbar from './components/navbar/Navbar';
 import ProtectedRoute from './components/security/ProtectedRoute';
 import ErrorPage from './components/Error/ErrorPage/ErrorPage';
+import ErrorBoundary from './components/Error/errorBoundary/ErrorBoundary';
 
 import Home from './pages/home/Home';
 import LoginPage from './pages/loginPage/LoginPage';
@@ -21,6 +22,7 @@ import MyCookBook from './pages/user/pages/myCookBook/MyBookCook';
 const Router = () => {
   return (
     <BrowserRouter>
+    <ErrorBoundary>
       <Navbar />
       <ToastContainer position='bottom-right' autoClose={3000}  theme="dark" hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss={false} draggable={false} pauseOnHover={false} />
       <Routes>
@@ -28,10 +30,10 @@ const Router = () => {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignUpPage />} />
+          <Route path="recipe/:id" element={<RecipePage />} />
 
           <Route path="/user" element={<ProtectedRoute><User /></ProtectedRoute>}>
             <Route path="profile/:id" element={<Profile />} />
-            <Route path="recipe/:id" element={<RecipePage />} />
             <Route path="create-recipe" element={<CreateRecipe />} />
             <Route path="my-cookbook/:id" element={<MyCookBook />} />
           </Route>
@@ -39,6 +41,7 @@ const Router = () => {
           <Route path="*" element={<ErrorPage />} />
         </Route>
       </Routes>
+    </ErrorBoundary>
     </BrowserRouter>
   );
 };

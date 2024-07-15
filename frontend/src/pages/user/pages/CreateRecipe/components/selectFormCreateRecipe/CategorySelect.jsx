@@ -1,15 +1,18 @@
 import React from 'react';
-import Select from '../form/Select';
-import { faList } from '@fortawesome/free-solid-svg-icons';
+import { faList } from "@fortawesome/free-solid-svg-icons";
+import Select from '../../../../../../components/form/Select'; 
 
-const TypeSelect = ({ selectedType, filteredTypes, handleTypeChange, showIngredients }) => {
-  const option = [
-    { value : '', label: 'Tous les types' },
-    ...filteredTypes.map(type => ({ value: type._id, label: type.name })),
+const CategorySelect = ({ selectedCategory, categories, handleCategoryChange }) => {
+  const options = [
+    { value: '', label: 'Toutes les catégories' },
+    ...categories.map(category => ({
+      value: category._id,
+      label: category.name
+    }))
   ];
 
   const handleChange = (option) => {
-    handleTypeChange({ target: { value: option.value } });
+    handleCategoryChange({ target: { value: option.value } });
   };
 
   const customClassNames = {
@@ -17,18 +20,19 @@ const TypeSelect = ({ selectedType, filteredTypes, handleTypeChange, showIngredi
     option: "block w-full px-4 py-2 text-left text-orange-700 hover:bg-orange-100 transition-colors duration-200",
     dropdownContainer: "absolute z-10 w-full bg-white rounded-md shadow-lg mt-1 overflow-auto",
   };
+
   return (
     <Select
-      options={option}
+      options={options}
       onChange={handleChange}
-      label="Type"
+      label="Catégorie"
       icon={faList}
-      value={selectedType}
-      placeholder="Sélectionnez un type"
+      value={selectedCategory}
+      placeholder="Sélectionnez une catégorie"
       customClassNames={customClassNames}
-      maxHeight="200px" // Vous pouvez ajuster cette valeur selon vos besoins
+      maxHeight="200px" 
     />
   );
 };
 
-export default TypeSelect;
+export default CategorySelect;
