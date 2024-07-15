@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { UserContext } from '../../../../contexts/UserContext';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { addFavoriteRecipe, deleteFavoriteRecipe } from '../../../../api/recipesApi';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,13 +11,6 @@ const CardRecipe = ({ recipe, isFavorite, updateFavoriteStatus }) => {
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
 
-  const handleCardClick = () => {
-    if (user) {
-      navigate(`/recipe/${recipe._id}`);
-    } else {
-      navigate('/login');
-    }
-  };
 
   const handleFavoriteClick = async (e) => {
     e.stopPropagation();
@@ -68,12 +61,12 @@ const CardRecipe = ({ recipe, isFavorite, updateFavoriteStatus }) => {
           <span className="text-sm font-medium text-orange-600">
             {recipe.tcookingTime} min
           </span>
-          <button
-            onClick={handleCardClick}
+          <Link
+            to={`/recipe/${recipe._id}`}
             className="bg-gradient-to-r from-orange-500 to-orange-600 text-white py-2 px-4 rounded-md hover:from-orange-600 hover:to-orange-700 transition-colors duration-300 text-sm font-medium shadow-md"
           >
             Voir la recette
-          </button>
+          </Link>
         </div>
       </div>
     </div>

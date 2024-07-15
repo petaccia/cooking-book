@@ -9,14 +9,13 @@ import { UserContext } from "../../../../../contexts/UserContext";
 
 // Importation des composants
 import schemaValidationCreateRecipe from "./validationCreateRecipe/ValidationCreateRecipe";
-import SelectCookingTime from "./SelectCookingTime";
-import SelectLevel from "./SelectLevel";
-import InputTitle from "./InputTitle";
-import InputImage from "./InputImage";
-import InputSteps from "./InputSteps";
-import SelectIngredients from "./SelectIngredients";
+import SelectCookingTime from "./selectFormCreateRecipe/SelectCookingTime";
+import SelectLevel from "./selectFormCreateRecipe/SelectLevel";
+import InputTitle from "./inputFormCreateRecipe/InputTitle";
+import InputImage from "./inputFormCreateRecipe/InputImage";
+import InputSteps from "./inputFormCreateRecipe/InputSteps";
+import SelectIngredients from "./selectedIngredient/SelectIngredients";
 import TextareaDescription from "./TextareaDescription";
-import ButtonCreateRecipe from "./ButtonCreateRecipe";
 
 // Gestion des messages d'erreurs
 const ErrorMessage = ({ message }) =>
@@ -39,9 +38,13 @@ const FormCreateRecipe = () => {
   } = useForm({
     resolver: yupResolver(schemaValidationCreateRecipe),
   });
+  console.log("errors :", errors);
 
   const onSubmit = async (data) => {
-    console.log("data :", data);
+    console.log("Données soumises :", data);
+    console.log("cookingTime:", data.cookingTime);
+    console.log("level:", data.level);
+    
     if (!user || !user._id) {
       setFormState((errstate) => ({
         ...errstate,
@@ -118,7 +121,13 @@ const FormCreateRecipe = () => {
             setFormState((prevState) => ({ ...prevState, steps }))
           }
         />
-        <ButtonCreateRecipe />
+        <button 
+        type="submit" 
+        className="bg-orange-500 text-white py-2 px-4 rounded-lg hover:bg-orange-600"
+        onClick={() => console.log("Bouton cliqué")}
+        >
+          Creer la recette
+        </button>
       </form>
     </div>
   );

@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom'
 
 const User = () => {
   return (
-    <div className="w-full h-screen flex justify-center items-center">
+    <div className="w-full  flex justify-center items-center">
       <Outlet />
     </div>
   )

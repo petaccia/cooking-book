@@ -1,3 +1,5 @@
+// Affiche les ingrédients sélectionnés
+
 import React from 'react';
 
 const SelectedIngredientsDisplay = ({ selectedIngredients, setSelectedIngredients }) => {

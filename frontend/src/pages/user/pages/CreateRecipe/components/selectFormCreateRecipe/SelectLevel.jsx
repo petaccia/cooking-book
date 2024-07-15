@@ -1,9 +1,8 @@
 import React from 'react'
 import { faChartBar } from '@fortawesome/free-solid-svg-icons';
-import Select from '../../../../../components/form/Select';
+import Select from '../../../../../../components/form/Select';
 
 const SelectLevel = ({ register, errors }) => {
-
   const levels = ["Facile", "Moyen", "Difficile"];
   const levelOptions = levels.map((level) => ({
     value: level,
@@ -15,10 +14,13 @@ const SelectLevel = ({ register, errors }) => {
     option: "block w-full px-4 py-2 text-left text-orange-700 hover:bg-orange-100 transition-colors duration-200",
     dropdownContainer: "absolute z-10 w-full bg-white rounded-md shadow-lg mt-1 overflow-auto",
   };
-  
+
+  const { onChange, onBlur, name, ref } = register("level", { required: "Le niveau est obligatoire" });
+
   const handleChange = (option) => {
-    register("level").onChange({
+    onChange({
       target: {
+        name: "level",
         value: option.value
       }
     });
@@ -26,14 +28,18 @@ const SelectLevel = ({ register, errors }) => {
 
   return (
     <Select
-      label="Temps de cuisson (minutes)"
+      label="Niveau de difficulté"
       placeholder="Sélectionnez un niveau"
       options={levelOptions}
       onChange={handleChange}
+      onBlur={onBlur}
+      name={name}
+      inputRef={ref}
       error={errors.level?.message}
       customClassNames={customClassNames}
       icon={faChartBar}
     />
   )
 }
+
 export default SelectLevel
