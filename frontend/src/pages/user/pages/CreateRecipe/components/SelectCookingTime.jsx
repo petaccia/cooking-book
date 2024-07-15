@@ -1,6 +1,6 @@
 import React from 'react';
 import { faClock } from '@fortawesome/free-solid-svg-icons';
-import Select from '../../../../../../../../../components/form/Select';
+import Select from '../../../../../components/form/Select';
 
 const SelectCookingTime = ({ register, errors }) => {
   // Définir les temps de cuisson

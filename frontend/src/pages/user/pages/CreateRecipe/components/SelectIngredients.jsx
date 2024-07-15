@@ -1,18 +1,19 @@
 import React from 'react';
-import useIngredientsData from '../../../../../../../../../hooks/useIngredientsData';
-import useFilters from '../../../../../../../../../hooks/useFilters';
-import CategorySelect from '../../../../../../../../../components/SelectIngredients/CategorySelect';
-import TypeSelect from '../../../../../../../../../components/SelectIngredients/TypeSelect';
-import FilteredIngredientsDisplay from '../../../../../../../../../components/SelectIngredients/FilteredIngredientsDisplay';
-import SelectedIngredientsDisplay from '../../../../../../../../../components/SelectIngredients/SelectedIngredientsDisplay';
-import IngredientSelect from '../../../../../../../../../components/SelectIngredients/IngredientSelect';
+import useIngredientsData from '../../../../../hooks/useIngredientsData';
+import useFilters from '../../../../../hooks/useFilters';
+import CategorySelect from '../../../../../components/SelectIngredients/CategorySelect';
+import TypeSelect from '../../../../../components/SelectIngredients/TypeSelect';
+import FilteredIngredientsDisplay from '../../../../../components/SelectIngredients/FilteredIngredientsDisplay';
+import SelectedIngredientsDisplay from '../../../../../components/SelectIngredients/SelectedIngredientsDisplay';
+import IngredientSelect from '../../../../../components/SelectIngredients/IngredientSelect';
 
-const SelectIngredients = ({ selectedIngredients, setSelectedIngredients }) => {
+const SelectIngredients = ({ selectedIngredients, setSelectedIngredients, register}) => {
   const { data, error, loading } = useIngredientsData();
   const { filters, filteredTypes, filteredIngredients, showIngredients, handleFilterChange } = useFilters(data.ingredients, data.types);
   const handleIngredientToggle = (ingredient) => {
+    let newSelectedIngredients = [...selectedIngredients];
     if (selectedIngredients.some(selected => selected._id === ingredient._id)) {
-      setSelectedIngredients(selectedIngredients.filter(selected => selected._id !== ingredient._id));
+      newSelectedIngredients = selectedIngredients.filter(selected => selected._id !== ingredient._id);
     } else {
       const fullIngredient = {
         ...ingredient,
@@ -27,10 +28,12 @@ const SelectIngredients = ({ selectedIngredients, setSelectedIngredients }) => {
             ? [data.types.find(t => t._id === ingredient.type)].filter(Boolean)
             : []
       };
-      setSelectedIngredients([...selectedIngredients, fullIngredient]);
+      newSelectedIngredients = [...selectedIngredients, fullIngredient];
     }
+    setSelectedIngredients(newSelectedIngredients);
+    register("selectedIngredients").onChange({ target: { name: "selectedIngredients", value: newSelectedIngredients } });
   };
-  
+
   return (
     <div className="max-w-4xl mx-auto p-6 bg-orange-100 rounded-lg shadow-xl border-2 border-orange-300">
       <h1 className="text-3xl font-bold mb-6 text-center text-orange-600">Sélection d'ingrédients</h1>

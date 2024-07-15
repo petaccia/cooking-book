@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faTimes, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { UserContext } from '../../contexts/UserContext';
@@ -40,6 +40,11 @@ const Navbar = () => {
               <FontAwesomeIcon icon={isOpen ? faTimes : faBars} className="block h-6 w-6" aria-hidden="true" />
             </button>
           </div>
+          {user && (
+            <Link to={`/user/profile/${user._id}`} className="hidden md:block">
+              <FontAwesomeIcon icon={faUserCircle} className="h-10 w-10 text-white shadow rounded-full p-2" />
+            </Link>
+          )}
         </div>
       </div>
 
@@ -50,9 +55,9 @@ const Navbar = () => {
         {user && (
           <div className="pt-4 pb-3 border-t border-orange-700">
             <div className="flex items-center px-5">
-              <div className="flex-shrink-0">
+              <Link to={`/user/profile/${user._id}`} className="flex-shrink-0">
                 <FontAwesomeIcon icon={faUserCircle} className="h-10 w-10 text-white shadow rounded-full p-2" />
-              </div>
+              </Link>
               <div className="ml-3">
                 <div className="text-base font-medium text-white">{user.pseudo}</div>
                 <div className="text-sm font-medium text-orange-300">{user.email}</div>

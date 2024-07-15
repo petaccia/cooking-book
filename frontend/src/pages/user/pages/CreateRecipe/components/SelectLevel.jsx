@@ -1,6 +1,6 @@
 import React from 'react'
 import { faChartBar } from '@fortawesome/free-solid-svg-icons';
-import Select from '../../../../../../../../../components/form/Select';
+import Select from '../../../../../components/form/Select';
 
 const SelectLevel = ({ register, errors }) => {
 

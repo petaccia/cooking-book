@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getRecipeById } from '../../../api';
-import Loader from '../../../components/loader/Loader';
+import { getRecipeById } from '../../api';
+import Loader from '../../components/loader/Loader';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserPlus, faClock} from '@fortawesome/free-solid-svg-icons';
 
