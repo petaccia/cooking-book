@@ -1,25 +1,39 @@
 import React from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChartBar } from '@fortawesome/free-solid-svg-icons';
+import Select from '../../../../../../../../../components/form/Select';
 
-const SelectLevel = ({register, errors}) => {
+const SelectLevel = ({ register, errors }) => {
 
-const levels = ["Facile", "Moyen", "Difficile"];
-const level = levels.map((level) => <option key={level}>{level}</option>);
+  const levels = ["Facile", "Moyen", "Difficile"];
+  const levelOptions = levels.map((level) => ({
+    value: level,
+    label: level
+  }));
+
+  const customClassNames = {
+    button: "w-full text-left relative cursor-pointer bg-gradient-to-t from-orange-700 to-orange-300 text-white rounded-lg border-2 border-orange-300 p-3 shadow-md hover:shadow-lg transition-shadow duration-300",
+    option: "block w-full px-4 py-2 text-left text-orange-700 hover:bg-orange-100 transition-colors duration-200",
+    dropdownContainer: "absolute z-10 w-full bg-white rounded-md shadow-lg mt-1 overflow-auto",
+  };
+  
+  const handleChange = (option) => {
+    register("level").onChange({
+      target: {
+        value: option.value
+      }
+    });
+  };
 
   return (
-    <div>
-            <label htmlFor="level" className="flex items-center text-sm font-medium text-orange-700">
-              <FontAwesomeIcon icon={faChartBar} className="mr-2" />
-              Niveau de difficulté
-            </label>
-            <select {...register('level')} id="level" className="mt-1 block w-full rounded-md border-orange-300 shadow-sm focus:border-orange-500 focus:ring focus:ring-orange-200 focus:ring-opacity-50">
-              <option value="">Sélectionnez un niveau</option>
-              {level}
-            </select>
-            {errors.level && <p className="mt-1 text-sm text-red-600">{errors.level.message}</p>}
-          </div>
+    <Select
+      label="Temps de cuisson (minutes)"
+      placeholder="Sélectionnez un niveau"
+      options={levelOptions}
+      onChange={handleChange}
+      error={errors.level?.message}
+      customClassNames={customClassNames}
+      icon={faChartBar}
+    />
   )
 }
-
 export default SelectLevel

@@ -1,25 +1,37 @@
 import React from 'react';
+import { faList } from "@fortawesome/free-solid-svg-icons";
+import Select from '../form/Select'; // Assurez-vous que le chemin d'importation est correct
 
 const CategorySelect = ({ selectedCategory, categories, handleCategoryChange }) => {
+  const options = [
+    { value: '', label: 'Toutes les catégories' },
+    ...categories.map(category => ({
+      value: category._id,
+      label: category.name
+    }))
+  ];
+
+  const handleChange = (option) => {
+    handleCategoryChange({ target: { value: option.value } });
+  };
+
+  const customClassNames = {
+    button: "w-full text-left relative cursor-pointer bg-gradient-to-t from-orange-700 to-orange-300 text-white rounded-lg border-2 border-orange-300 p-3 shadow-md hover:shadow-lg transition-shadow duration-300",
+    option: "block w-full px-4 py-2 text-left text-orange-700 hover:bg-orange-100 transition-colors duration-200",
+    dropdownContainer: "absolute z-10 w-full bg-white rounded-md shadow-lg mt-1 overflow-auto",
+  };
+
   return (
-    <div>
-      <label htmlFor="category" className="block text-sm font-medium text-brown-700 mb-2">
-        Catégorie
-      </label>
-      <select
-        id="category"
-        value={selectedCategory}
-        onChange={handleCategoryChange}
-        className="w-full p-2 border border-orange-300 rounded-md focus:ring-2 focus:ring-orange-500 focus:border-transparent bg-white"
-      >
-        <option value="">Toutes les catégories</option>
-        {categories.map(category => (
-          <option key={category._id} value={category._id}>
-            {category.name}
-          </option>
-        ))}
-      </select>
-    </div>
+    <Select
+      options={options}
+      onChange={handleChange}
+      label="Catégorie"
+      icon={faList}
+      value={selectedCategory}
+      placeholder="Sélectionnez une catégorie"
+      customClassNames={customClassNames}
+      maxHeight="200px" // Vous pouvez ajuster cette valeur selon vos besoins
+    />
   );
 };
 

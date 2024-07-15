@@ -20,7 +20,11 @@ const useIngredientsData = () => {
         ]);
 
         setData({
-          ingredients: ingredientsRes || [],
+          ingredients: (ingredientsRes || []).map(ingredient => ({
+            ...ingredient,
+            category: Array.isArray(ingredient.category) ? ingredient.category : [ingredient.category],
+            type: Array.isArray(ingredient.type) ? ingredient.type : [ingredient.type]
+          })),
           categories: categoriesRes || [],
           types: typesRes || []
         });
