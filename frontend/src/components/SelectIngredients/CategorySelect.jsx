@@ -1,6 +1,6 @@
 import React from 'react';
 import { faList } from "@fortawesome/free-solid-svg-icons";
-import Select from '../form/Select'; // Assurez-vous que le chemin d'importation est correct
+import Select from '../form/Select'; 
 
 const CategorySelect = ({ selectedCategory, categories, handleCategoryChange }) => {
   const options = [
@@ -30,7 +30,7 @@ const CategorySelect = ({ selectedCategory, categories, handleCategoryChange }) 
       value={selectedCategory}
       placeholder="Sélectionnez une catégorie"
       customClassNames={customClassNames}
-      maxHeight="200px" // Vous pouvez ajuster cette valeur selon vos besoins
+      maxHeight="200px" 
     />
   );
 };

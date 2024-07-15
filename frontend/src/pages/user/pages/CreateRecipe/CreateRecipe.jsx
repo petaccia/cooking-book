@@ -1,5 +1,5 @@
 import React from 'react'
-import FormCreateRecipe from './components/formCreateRecipe/FormCreateRecipe'
+import FormCreateRecipe from './components/FormCreateRecipe'
 
 const CreateRecipe = () => {
   return (

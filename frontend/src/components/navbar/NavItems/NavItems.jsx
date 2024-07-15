@@ -7,7 +7,7 @@ const NavItems = ({ user, handleLogout, toggleMenu }) => {
     return (
       <>
         <NavItem to="/" onClick={toggleMenu}>Accueil</NavItem>
-        <NavItem to={`/user/myBookCook/${user._id}`} onClick={toggleMenu}>Mon livre de Cuisine</NavItem>
+        <NavItem to={`/user/my-cookbook/${user._id}`} onClick={toggleMenu}>Mon livre de Cuisine</NavItem>
         <NavItem to="/about" onClick={toggleMenu}>À propos</NavItem>
         <NavItem to="/contact" onClick={toggleMenu}>Contact</NavItem>
         <button

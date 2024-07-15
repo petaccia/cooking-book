@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown} from "@fortawesome/free-solid-svg-icons";
 
 // Composant Select
-const Select = ({ options, onChange, label, icon, value, placeholder, customClassNames = {}, error }) => {
+const Select = ({ options, onChange, label, icon, placeholder, customClassNames = {}, error }) => {
   const [isOpen, setIsOpen] = useState(false); // État pour gérer l'ouverture/fermeture du menu déroulant
   const [selectedOption, setSelectedOption] = useState(null); // État pour gérer l'option sélectionnée
   const dropdownRef = useRef(null); // Référence pour le menu déroulant

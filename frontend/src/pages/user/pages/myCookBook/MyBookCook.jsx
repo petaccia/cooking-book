@@ -6,7 +6,7 @@ import BookCover from './components/BookCover/BookCover';
 import BookRecipePage from './components/BookRecipePage/BookRecipePage';
 import MobileRecipeCard from '../../../../components/utils/cards/MobileRecipeCard/MobileRecipeCard';
 import BackCover from './components/BackCover/BackCover';
-import ButtonCreateRecipeNavigation from '../../components/buttons/ButtonCreateRecipeNavigation/ButtonCreateRecipeNavigation';
+import ButtonCreateRecipeNavigation from '../myCookBook/components/ButtonCreateRecipeNavigation/ButtonCreateRecipeNavigation';
 
 const MyBookCook = () => {
   const { user } = useContext(UserContext);

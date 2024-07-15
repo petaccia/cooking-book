@@ -6,13 +6,10 @@ const SelectedIngredientsDisplay = ({ selectedIngredients, setSelectedIngredient
       <h2 className="text-xl font-bold mb-4 text-orange-700">Ingrédients sélectionnés</h2>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
         {selectedIngredients.map(ingredient => {
-          console.log("Ingredient:", ingredient);
           
           const category = ingredient.category && ingredient.category[0];
           const type = ingredient.type && ingredient.type[0];
           
-          console.log("Category:", category);
-          console.log("Type:", type);
 
           return (
             <div key={ingredient._id} className="relative p-4 border border-orange-300 rounded-lg shadow-md bg-white hover:shadow-lg transition-shadow">
