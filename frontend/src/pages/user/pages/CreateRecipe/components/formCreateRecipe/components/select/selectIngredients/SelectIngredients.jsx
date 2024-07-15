@@ -10,15 +10,27 @@ import IngredientSelect from '../../../../../../../../../components/SelectIngred
 const SelectIngredients = ({ selectedIngredients, setSelectedIngredients }) => {
   const { data, error, loading } = useIngredientsData();
   const { filters, filteredTypes, filteredIngredients, showIngredients, handleFilterChange } = useFilters(data.ingredients, data.types);
-
   const handleIngredientToggle = (ingredient) => {
     if (selectedIngredients.some(selected => selected._id === ingredient._id)) {
       setSelectedIngredients(selectedIngredients.filter(selected => selected._id !== ingredient._id));
     } else {
-      setSelectedIngredients([...selectedIngredients, ingredient]);
+      const fullIngredient = {
+        ...ingredient,
+        category: Array.isArray(ingredient.category) 
+          ? ingredient.category.map(catId => data.categories.find(cat => cat._id === catId)).filter(Boolean)
+          : ingredient.category 
+            ? [data.categories.find(cat => cat._id === ingredient.category)].filter(Boolean)
+            : [],
+        type: Array.isArray(ingredient.type)
+          ? ingredient.type.map(typeId => data.types.find(t => t._id === typeId)).filter(Boolean)
+          : ingredient.type
+            ? [data.types.find(t => t._id === ingredient.type)].filter(Boolean)
+            : []
+      };
+      setSelectedIngredients([...selectedIngredients, fullIngredient]);
     }
   };
-
+  
   return (
     <div className="max-w-4xl mx-auto p-6 bg-orange-100 rounded-lg shadow-xl border-2 border-orange-300">
       <h1 className="text-3xl font-bold mb-6 text-center text-orange-600">Sélection d'ingrédients</h1>
