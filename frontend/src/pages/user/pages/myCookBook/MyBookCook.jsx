@@ -93,12 +93,12 @@ const MyBookCook = () => {
           minHeight={700}
           maxHeight={1000}
           flippingTime={1000}
-  usePortrait={false}
-  startPage={0}
-  useMouseEvents={true}
-  swipeDistance={30}
-  showPageCorners={true}
-  disableFlipByClick={false}
+          usePortrait={false}
+          startPage={0}
+          useMouseEvents={true}
+          swipeDistance={30}
+          showPageCorners={true}
+          disableFlipByClick={false}
           maxShadowOpacity={0.5}
           showCover={true}
           mobileScrollSupport={true}
@@ -111,7 +111,7 @@ const MyBookCook = () => {
           </div>
           {/* page blanche (verso de la couverture) */}
           <div className="demoPage bg-orange-100 border-r-8 border-orange-50"></div>
-          
+
           {/* page des recettes favorites */}
           {recipes && recipes.length > 0 ? (
             recipes.map((recipe, index) => (
@@ -127,9 +127,9 @@ const MyBookCook = () => {
             </div>
           )}
 
-          
+
           {/* page vide en mapping le nombre de pages (verso des recettes favorites) */}
-          {[...Array(blankPages)].map(( index) => (
+          {[...Array(blankPages)].map((index) => (
             <div key={index} className="demoPage bg-orange-100 border-r-8 border-orange-50"></div>
           ))}
 
@@ -139,7 +139,7 @@ const MyBookCook = () => {
           </div>
         </HTMLFlipBook>
       </div>
-      
+
       <div className="mt-6 space-x-6">
         <button onClick={() => bookRef.current.pageFlip().flipPrev()} className="px-5 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition text-base">Précédent</button>
         <button onClick={() => bookRef.current.pageFlip().flipNext()} className="px-5 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition text-base">Suivant</button>
