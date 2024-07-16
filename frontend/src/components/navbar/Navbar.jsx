@@ -27,7 +27,7 @@ const Navbar = () => {
             </NavLink>
           </div>
           <div className="hidden md:flex items-center">
-            <NavItems user={user} handleLogout={handleLogout} />
+            <NavItems user={user} handleLogout={handleLogout} toggleMenu={toggleMenu} />
           </div>
           <div className="md:hidden flex items-center">
             <button

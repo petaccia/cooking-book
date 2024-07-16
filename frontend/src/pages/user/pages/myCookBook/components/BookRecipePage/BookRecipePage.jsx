@@ -22,7 +22,7 @@ const BookRecipePage = ({ recipe }) => {
         <p className="text-lg mb-4 text-sepia-600 italic h-16">{recipe.description}</p>
         
         <div className="flex items-center justify-between text-sepia-700 mb-4 bg-white rounded-xl px-4 py-2 shadow-md">
-          <p>👨‍🍳 {recipe.author[0].pseudo}</p>
+          <p>👨‍🍳 {recipe.author.pseudo}</p>
           <p>⏱ {recipe.tcookingTime} min</p>
           <p>🔥 {recipe.level}</p>
         </div>
