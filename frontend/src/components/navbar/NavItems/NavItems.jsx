@@ -1,4 +1,3 @@
-// NavItems.jsx
 import React from 'react';
 import NavItem from '../NavItem/NavItem';
 

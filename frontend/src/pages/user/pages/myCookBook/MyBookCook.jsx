@@ -68,7 +68,7 @@ const MyBookCook = () => {
     );
   }
 
-  // Si ne nombre de recettes est impair, on ajoute une page vide en fin de liste
+  // Si le nombre de recettes est impair, on ajoute une page vide en fin de liste
   const calculateBlankPages = (numRecipes) => {
     if (numRecipes % 2 === 1) {
       return 0;
@@ -92,6 +92,13 @@ const MyBookCook = () => {
           maxWidth={700}
           minHeight={700}
           maxHeight={1000}
+          flippingTime={1000}
+  usePortrait={false}
+  startPage={0}
+  useMouseEvents={true}
+  swipeDistance={30}
+  showPageCorners={true}
+  disableFlipByClick={false}
           maxShadowOpacity={0.5}
           showCover={true}
           mobileScrollSupport={true}
