@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { createRecipeApi } from "../../../../../api";
 import { UserContext } from "../../../../../contexts/UserContext";
+import { toast } from "react-toastify";
 
 // Importation des composants
 import schemaValidationCreateRecipe from "./validationCreateRecipe/ValidationCreateRecipe";
@@ -41,15 +42,13 @@ const FormCreateRecipe = () => {
   console.log("errors :", errors);
 
   const onSubmit = async (data) => {
-    console.log("Données soumises :", data);
-    console.log("cookingTime:", data.cookingTime);
-    console.log("level:", data.level);
-    
+
     if (!user || !user._id) {
       setFormState((errstate) => ({
         ...errstate,
         error: "Utilisateur non connecté.",
       }));
+      toast.error("Utilisateur non connecté.");
       return;
     }
 
@@ -58,6 +57,7 @@ const FormCreateRecipe = () => {
         ...errstate,
         error: "Veuillez sélectionner au moins un ingrédient.",
       }));
+      toast.error("Veuillez sélectionner au moins un ingrédient.");
       return;
     }
 
@@ -66,11 +66,13 @@ const FormCreateRecipe = () => {
         ...errstate,
         error: "Veuillez ajouter au moins une étape.",
       }));
+      toast.error("Veuillez ajouter au moins une étape.");
       return;
     }
 
     const recipeData = {
       ...data,
+      tcookingTime: data.cookingTime,
       ingredients: formState.selectedIngredients.map((ing) => ({
         _id: ing._id,
       })),
@@ -80,13 +82,14 @@ const FormCreateRecipe = () => {
     console.log("recipeData :", recipeData);
     try {
       await createRecipeApi(recipeData);
-      console.log("Recette créée avec succès !");
+      toast.success("Recette créée avec succès !");
     } catch (err) {
-      console.error("Erreur lors de la création de la recette", err);
+      console.error("Erreur lors de la création de la recette :", err.response || err.message);
       setFormState((errstate) => ({
         ...errstate,
         error: "Impossible de créer la recette. Veuillez réessayer plus tard.",
       }));
+      toast.error(`${err.response?.data.message || err.message}`);
     }
   };
 
@@ -121,10 +124,10 @@ const FormCreateRecipe = () => {
             setFormState((prevState) => ({ ...prevState, steps }))
           }
         />
-        <button 
-        type="submit" 
-        className="bg-orange-500 text-white py-2 px-4 rounded-lg hover:bg-orange-600"
-        onClick={() => console.log("Bouton cliqué")}
+        <button
+          type="submit"
+          className="bg-orange-500 text-white py-2 px-4 rounded-lg hover:bg-orange-600"
+          onClick={() => console.log("Bouton cliqué")}
         >
           Creer la recette
         </button>
