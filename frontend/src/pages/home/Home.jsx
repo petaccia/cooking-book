@@ -42,9 +42,13 @@ const Home = () => {
         try {
           const favoriteResponse = await getFavoriteRecipes(user._id);
           console.log("favoriteResponse in Home :", favoriteResponse);
-          const favoriteRecipesIds = favoriteResponse.map(fav => fav.recipe._id);
+          if (favoriteResponse && Array.isArray(favoriteResponse)) {
+          const favoriteRecipesIds = favoriteResponse.map(fav => fav.recipe?._id).filter(Boolean);
           console.log("favoriteRecipesIds in Home :", favoriteRecipesIds);
           setFavoriteRecipes(favoriteRecipesIds);
+          } else {
+            setFavoriteRecipes([]);
+          }
         } catch (error) {
           console.error('Erreur lors du chargement des recettes favorites:', error);
         }
