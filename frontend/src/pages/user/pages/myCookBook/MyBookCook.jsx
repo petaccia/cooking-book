@@ -31,7 +31,7 @@ const MyBookCook = () => {
         try {
           setIsLoading(true);
           const favoriteRecipes = await getFavoriteRecipes(user._id);
-          setRecipes(favoriteRecipes.map(fav => fav.recipe));
+          setRecipes(favoriteRecipes.map(fav => fav.recipe).filter(recipe => recipe && recipe._id));
         } catch (error) {
           console.error('Erreur lors du chargement des recettes favorites:', error);
         } finally {
