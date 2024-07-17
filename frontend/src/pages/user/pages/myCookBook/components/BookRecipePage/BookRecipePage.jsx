@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './BookRecipePage.css';
 import CardIngredient from '../../../../../../components/utils/cards/cardIngredients/CardIngredient';
 import CardSteps from '../../../../../../components/utils/cards/cardSteps/CardSteps';
@@ -10,6 +11,10 @@ const BookRecipePage = ({ recipe }) => {
 
   return (
     <div className="h-full p-6 bg-orange-100 border-r-8 border-orange-50 font-serif overflow-hidden flex flex-col">
+      {/*Ajouter le bouton pour modifier la recette*/}
+      <Link to={`/user/edit-recipe/${recipe._id}`}>
+        <button className="text-white bg-orange-500 hover:bg-orange-600 font-bold py-2 px-4 rounded shadow-md">Modifier</button>
+      </Link>
       <h2 className="text-3xl font-bold mb-2 text-sepia-800 text-center font-display">{recipe.title}</h2>
       
       <div className="flex-1 overflow-y-auto custom-scrollbar pr-4"> {/* Ajout de padding-right pour la scrollbar */}

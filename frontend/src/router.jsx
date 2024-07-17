@@ -18,6 +18,7 @@ import Profile from './pages/user/pages/profile/pages/Profile';
 import RecipePage from './pages/recipePage/RecipePage';
 import CreateRecipe from './pages/user/pages/CreateRecipe/CreateRecipe';
 import MyCookBook from './pages/user/pages/myCookBook/MyBookCook';
+import EditRecipe from './pages/user/pages/EditRecipe/EditRecipe';
 
 const Router = () => {
   return (
@@ -35,6 +36,7 @@ const Router = () => {
           <Route path="/user" element={<ProtectedRoute><User /></ProtectedRoute>}>
             <Route path="profile/:id" element={<Profile />} />
             <Route path="create-recipe" element={<CreateRecipe />} />
+            <Route path="edit-recipe/:id" element={<EditRecipe />} />
             <Route path="my-cookbook/:id" element={<MyCookBook />} />
           </Route>
 

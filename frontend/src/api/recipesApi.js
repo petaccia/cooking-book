@@ -53,6 +53,20 @@ export const createRecipeApi = async (recipeData) => {
     throw error;  // Propagation de l'erreur pour la gestion dans le composant
   }
 };
+
+// Modifier une recette
+export const updateRecipeApi = async (recipeData) => {
+  console.log("Données soumises :", recipeData);
+  try {
+    const response = await axios.put(`${UrlBack}/recipes/${recipeData._id}/${recipe.creator}`, recipeData, {
+    });
+    console.log("recette mise à jour :",response);
+    return response.data;
+  } catch (error) {
+    console.error("Erreur lors de la mise à jour de la recette", error.response || error.message);
+    throw new Error('Une erreur est survenue :', error);  
+  } 
+}
 // Récupérer les recettes favorites d'un utilisateur
 
 export const getFavoriteRecipes = async (userId) => {

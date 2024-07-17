@@ -10,13 +10,13 @@ import { toast } from "react-toastify";
 
 // Importation des composants
 import schemaValidationCreateRecipe from "./validationCreateRecipe/ValidationCreateRecipe";
-import SelectCookingTime from "./selectFormCreateRecipe/SelectCookingTime";
-import SelectLevel from "./selectFormCreateRecipe/SelectLevel";
-import InputTitle from "./inputFormCreateRecipe/InputTitle";
-import InputImage from "./inputFormCreateRecipe/InputImage";
-import InputSteps from "./inputFormCreateRecipe/InputSteps";
-import SelectIngredients from "./selectedIngredient/SelectIngredients";
-import TextareaDescription from "./TextareaDescription";
+import SelectCookingTime from "../../components/selectForm/SelectCookingTime";
+import SelectLevel from "../../components/selectForm/SelectLevel";
+import InputTitle from "../../components/inputForm/InputTitle";
+import InputImage from "../../components/inputForm/InputImage";
+import InputSteps from "../../components/inputForm/InputSteps";
+import SelectIngredients from "../../components/selectedIngredient/SelectIngredients";
+import TextareaDescription from "../../components/TextareaDescription";
 
 // Gestion des messages d'erreurs
 const ErrorMessage = ({ message }) =>

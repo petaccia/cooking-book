@@ -1,8 +1,8 @@
 import React from 'react'
-import CategorySelect from '../../selectFormCreateRecipe/CategorySelect';
-import TypeSelect from '../../selectFormCreateRecipe/TypeSelect';
-import IngredientSelect from '../../selectFormCreateRecipe/IngredientSelect';
-import FilteredIngredientsDisplay from '../../FilteredIngredientsDisplay';
+import CategorySelect from '../selectForm/CategorySelect';
+import TypeSelect from '../selectForm/TypeSelect';
+import IngredientSelect from '../selectForm/IngredientSelect';
+import FilteredIngredientsDisplay from '../FilteredIngredientsDisplay';
 
 const FilterControls = ({ filters, data, handleFilterChange, filteredTypes, filteredIngredients, showIngredients, handleIngredientToggle }) => {
   return (

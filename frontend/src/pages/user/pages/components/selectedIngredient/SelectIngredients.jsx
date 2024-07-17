@@ -1,10 +1,10 @@
 import React from 'react';
-import useIngredientsData from '../../../../../../hooks/useIngredientsData';
-import useFilters from '../../../../../../hooks/useFilters';
-import SelectedIngredientsDisplay from '../../components/selectFormCreateRecipe/SelectedIngredientsDisplay';
-import getFullIngredient from './components/getFullIngredient';
-import FilterControls from './components/FilterControls';
-import Loader from '../../../../../../components/loader/Loader';
+import useIngredientsData from '../../../../../hooks/useIngredientsData';
+import useFilters from '../../../../../hooks/useFilters';
+import SelectedIngredientsDisplay from '../selectForm/SelectedIngredientsDisplay';
+import getFullIngredient from './getFullIngredient';
+import FilterControls from './FilterControls';
+import Loader from '../../../../../components/loader/Loader';
 
 // Composant principal
 const SelectIngredients = ({ selectedIngredients, setSelectedIngredients}) => {

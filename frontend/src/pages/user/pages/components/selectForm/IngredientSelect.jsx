@@ -1,5 +1,5 @@
 import React from 'react';
-import Select from '../../../../../../components/form/Select';
+import Select from '../../../../../components/form/Select';
 import { faList } from '@fortawesome/free-solid-svg-icons';
 
 const IngredientSelect = ({ filteredIngredients, handleIngredientToggle, showIngredients }) => {
