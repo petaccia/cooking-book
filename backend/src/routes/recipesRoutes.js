@@ -12,6 +12,7 @@ router.get("/favorites/:userId", favoriteRecipeController.getFavoriteRecipes);
 router.get("/:id", recipesController.getRecipeById);
 router.post("/add/:userId", authMiddleware, recipesController.createRecipe);
 router.post("/favorites/:userId",favoriteRecipeController.addFavoriteRecipe);
+router.put("/:id/:userId", authMiddleware, recipesController.updateRecipe);
 router.delete("/favorites/:userId/:recipeId",favoriteRecipeController.deleteFavoriteRecipe);
 
 

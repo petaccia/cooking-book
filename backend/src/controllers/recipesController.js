@@ -134,3 +134,81 @@ exports.createRecipe = async (req, res) => {
     res.status(500).json({ message: "Erreur lors de l'ajout de la recette", error: error.message });
   }
 };
+
+// Mettre à jour une recette
+exports.updateRecipe = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { title, description, image, tcookingTime, level, ingredients, steps } = req.body;
+
+    console.log("ID de la recette à mettre à jour:", id);
+    console.log("Données de la requête:", { title, description, image, tcookingTime, level, ingredients, steps });
+
+    const update = {};
+
+    // Vérifier si la recette existe
+    const existingRecipe = await Recipes.findById(id);
+    if (!existingRecipe) {
+      console.log("Recette non trouvée");
+      return res.status(404).json({ message: "Recette non trouvée" });
+    }
+
+    console.log("Recette existante:", existingRecipe);
+
+    // Vérifier si le titre de la recette est différent de la recette existante
+    if (existingRecipe.title !== title) {
+      // Vérifier si un autre recette avec le même titre existe
+      const recipeWithSameTitle = await Recipes.findOne({ title });
+      if (recipeWithSameTitle) {
+        console.log("Titre de la recette existe déjà");
+        return res.status(400).json({ message: "Titre de la recette existe déjà" });
+      }
+      update.title = title;
+    }
+
+    // Vérifier si l'image de la recette est différente de la recette existante
+    if (existingRecipe.image !== image) {
+      update.image = image;
+    }
+
+    // Vérifier si le temps de cuisson de la recette est différent de la recette existante
+    if (existingRecipe.tcookingTime !== tcookingTime) {
+      update.tcookingTime = tcookingTime;
+    }
+
+    // Vérifier si le niveau de la recette est différent de la recette existante
+    if (existingRecipe.level !== level) {
+      update.level = level;
+    }
+
+    // Vérifier si les ingrédients de la recette sont différents de la recette existante
+    if (JSON.stringify(existingRecipe.ingredients) !== JSON.stringify(ingredients)) {
+      update.ingredients = ingredients;
+    }
+
+    // Vérifier si les étapes de la recette sont différentes de la recette existante
+    if (JSON.stringify(existingRecipe.steps) !== JSON.stringify(steps)) {
+      update.steps = steps;
+    }
+
+    // Vérifier si la description de la recette est différente de la recette existante
+    if (existingRecipe.description !== description) {
+      update.description = description;
+    }
+
+    console.log("Mises à jour détectées:", update);
+
+    // Mettre à jour la recette si des changements ont été détectés
+    if (Object.keys(update).length > 0) {
+      const updatedRecipe = await Recipes.findByIdAndUpdate(id, update, { new: true });
+      console.log("Recette mise à jour:", updatedRecipe);
+      res.status(200).json({ message: "Recette mise à jour avec succès", recipe: updatedRecipe });
+    } else {
+      console.log("Aucun changement détecté");
+      res.status(400).json({ message: "Aucun changement détecté" });
+    }
+  } catch (error) {
+    console.error("Erreur lors de la mise à jour de la recette:", error);
+    res.status(500).json({ message: "Erreur lors de la mise à jour de la recette", error: error.message });
+  }
+};
