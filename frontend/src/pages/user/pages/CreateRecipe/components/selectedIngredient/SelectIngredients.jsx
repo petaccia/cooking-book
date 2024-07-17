@@ -7,7 +7,7 @@ import FilterControls from './components/FilterControls';
 import Loader from '../../../../../../components/loader/Loader';
 
 // Composant principal
-const SelectIngredients = ({ selectedIngredients, setSelectedIngredients, register }) => {
+const SelectIngredients = ({ selectedIngredients, setSelectedIngredients}) => {
   const { data, error, loading } = useIngredientsData();
   const { filters, filteredTypes, filteredIngredients, showIngredients, handleFilterChange } = useFilters(data.ingredients, data.types);
 
@@ -18,7 +18,6 @@ const SelectIngredients = ({ selectedIngredients, setSelectedIngredients, regist
       : [...selectedIngredients, getFullIngredient(ingredient, data.categories, data.types)];
 
     setSelectedIngredients(newSelectedIngredients);
-    register("selectedIngredients").onChange({ target: { name: "selectedIngredients", value: newSelectedIngredients } });
   };
 
   return (
