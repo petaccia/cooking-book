@@ -73,6 +73,7 @@ const FormCreateRecipe = () => {
     const recipeData = {
       ...data,
       title: data.title,
+      image: data.image,
       tcookingTime: data.cookingTime,
       ingredients: formState.selectedIngredients.map((ing) => ({
         _id: ing._id,

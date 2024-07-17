@@ -63,6 +63,12 @@ exports.createRecipe = async (req, res) => {
       return res.status(400).json({ message: "Titre de la recette existe déjà , veuillez en choisir un autre" });
     }
 
+    // Vérification de l'image de la recette est unique
+    const existingImage = await Recipes.findOne({ image });
+    if (existingImage) {
+      return res.status(400).json({ message: "Image de la recette existe déjà , veuillez en choisir une autre" });
+    }
+
 
     // Vérifications supplémentaires
     if (!Array.isArray(ingredients) || ingredients.length === 0) {
