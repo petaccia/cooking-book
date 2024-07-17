@@ -19,6 +19,7 @@ const recipeSchema = new mongoose.Schema({
   // champs de l'image
   image: {
     type: String,
+    unique: true, // l'image doit être unique
   },
 
   // champs du temps
