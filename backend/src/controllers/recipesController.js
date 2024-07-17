@@ -57,6 +57,13 @@ exports.createRecipe = async (req, res) => {
       return res.status(400).json({ message: `Champs manquants : ${missingFields.join(', ')}` });
     }
 
+    // Vérification du titre de la recette est unique
+    const existingRecipe = await Recipes.findOne({ title });
+    if (existingRecipe) {
+      return res.status(400).json({ message: "Titre de la recette existe déjà , veuillez en choisir un autre" });
+    }
+
+
     // Vérifications supplémentaires
     if (!Array.isArray(ingredients) || ingredients.length === 0) {
       return res.status(400).json({ message: "Données d'ingrédients invalides ou manquantes" });
