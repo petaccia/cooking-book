@@ -42,34 +42,21 @@ const FormCreateRecipe = () => {
   console.log("errors :", errors);
 
   const onSubmit = async (data) => {
-
     if (!user || !user._id) {
-      setFormState((errstate) => ({
-        ...errstate,
-        error: "Utilisateur non connecté.",
-      }));
       toast.error("Utilisateur non connecté.");
       return;
     }
-
+  
     if (formState.selectedIngredients.length === 0) {
-      setFormState((errstate) => ({
-        ...errstate,
-        error: "Veuillez sélectionner au moins un ingrédient.",
-      }));
       toast.error("Veuillez sélectionner au moins un ingrédient.");
       return;
     }
-
+  
     if (formState.steps.length === 0) {
-      setFormState((errstate) => ({
-        ...errstate,
-        error: "Veuillez ajouter au moins une étape.",
-      }));
       toast.error("Veuillez ajouter au moins une étape.");
       return;
     }
-
+  
     const recipeData = {
       ...data,
       title: data.title,
@@ -81,20 +68,17 @@ const FormCreateRecipe = () => {
       steps: formState.steps,
       creator: user._id,
     };
-    console.log("recipeData :", recipeData);
+  
     try {
       await createRecipeApi(recipeData);
       toast.success("Recette créée avec succès !");
     } catch (err) {
       console.error("Erreur lors de la création de la recette :", err.response || err.message);
-      setFormState((errstate) => ({
-        ...errstate,
-        error: "Impossible de créer la recette. Veuillez réessayer plus tard.",
-      }));
       toast.error(`${err.response?.data.message || err.message}`);
     }
   };
 
+  
   return (
     <div className="max-w-4xl mx-auto bg-orange-100 p-8 rounded-lg shadow-xl">
       <h2 className="text-3xl font-bold mb-6 text-orange-800 text-center">
