@@ -17,6 +17,7 @@ import InputImage from "../../components/inputForm/InputImage";
 import InputSteps from "../../components/inputForm/InputSteps";
 import SelectIngredients from "../../components/selectedIngredient/SelectIngredients";
 import TextareaDescription from "../../components/TextareaDescription";
+import ButtonCreateRecipe from "./ButtonCreateRecipe";
 
 // Gestion des messages d'erreurs
 const ErrorMessage = ({ message }) =>
@@ -110,13 +111,7 @@ const FormCreateRecipe = () => {
             setFormState((prevState) => ({ ...prevState, steps }))
           }
         />
-        <button
-          type="submit"
-          className="bg-orange-500 text-white py-2 px-4 rounded-lg hover:bg-orange-600"
-          onClick={() => console.log("Bouton cliqué")}
-        >
-          Creer la recette
-        </button>
+        <ButtonCreateRecipe />
       </form>
     </div>
   );
