@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getRecipeById } from '../../api';
+import { getRecipeByIdApi } from '../../api';
 import Loader from '../../components/loader/Loader';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserPlus, faClock} from '@fortawesome/free-solid-svg-icons';
@@ -16,7 +16,7 @@ const RecipePage = () => {
     const fetchRecipe = async () => {
       try {
         if (id) {
-          const data = await getRecipeById(id);
+          const data = await getRecipeByIdApi(id);
           setRecipe(data);
         } else {
           throw new Error("L'identifiant de la recette est manquant");

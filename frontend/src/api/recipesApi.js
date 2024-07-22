@@ -21,7 +21,7 @@ export const getAllRecipes = async () => {
 
 // Récupérer la recette par son id
 
-export const getRecipeById = async (id) => {
+export const getRecipeByIdApi = async (id) => {
   try{
     const response = await axios.get(`${UrlBack}/recipes/${id}`);
     console.log("recette par id :",response);

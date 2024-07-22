@@ -19,7 +19,11 @@ exports.getRecipeById = async (req, res) => {
       .select("-__v") // Supprimer le champ __v de la réponse
       .populate({
         path: 'ingredients.ingredientId', // Peupler les détails des ingrédients
-        select: 'name image' // Sélectionner les champs nécessaires
+        populate: [
+          { path: 'category', select: 'name' }, // Peupler les détails des catégories
+          { path: 'type', select: 'name' } // Peupler les détails des types
+        ],
+        select: 'name image category type' // Sélectionner les champs nécessaires
       })
       .populate('author', 'name'); // Peupler les détails de l'auteur
 
@@ -32,6 +36,7 @@ exports.getRecipeById = async (req, res) => {
     res.status(500).json({ message: "Erreur lors de la récupération de la recette", error: error.message });
   }
 };
+
 
 // Ajouter une nouvelle recette
 exports.createRecipe = async (req, res) => {
