@@ -10,14 +10,7 @@ import { toast } from "react-toastify";
 
 // Importation des composants
 import schemaValidationCreateRecipe from "./validationCreateRecipe/ValidationCreateRecipe";
-import SelectCookingTime from "../../components/selectForm/SelectCookingTime";
-import SelectLevel from "../../components/selectForm/SelectLevel";
-import InputTitle from "../../components/inputForm/InputTitle";
-import InputImage from "../../components/inputForm/InputImage";
-import InputSteps from "../../components/inputForm/InputSteps";
-import SelectIngredients from "../../components/selectedIngredient/SelectIngredients";
-import TextareaDescription from "../../components/TextareaDescription";
-import ButtonCreateRecipe from "./ButtonCreateRecipe";
+import FormRecipe from "../../components/FormRecipe/FormRecipe";
 
 // Gestion des messages d'erreurs
 const ErrorMessage = ({ message }) =>
@@ -86,33 +79,14 @@ const FormCreateRecipe = () => {
         Créer une nouvelle recette
       </h2>
       <ErrorMessage message={formState.error} />
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <InputTitle register={register} errors={errors} />
-          <InputImage register={register} errors={errors} />
-        </div>
-        <TextareaDescription register={register} errors={errors} />
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <SelectCookingTime register={register} errors={errors} />
-          <SelectLevel register={register} errors={errors} />
-        </div>
-        <SelectIngredients
-          register={register}
-          selectedIngredients={formState.selectedIngredients}
-          setSelectedIngredients={(selectedIngredients) =>
-            setFormState((prevState) => ({ ...prevState, selectedIngredients }))
-          }
-        />
-        <InputSteps
-          register={register}
-          errors={errors}
-          steps={formState.steps}
-          setSteps={(steps) =>
-            setFormState((prevState) => ({ ...prevState, steps }))
-          }
-        />
-        <ButtonCreateRecipe />
-      </form>
+      <FormRecipe 
+        onSubmit={onSubmit} 
+        handleSubmit={handleSubmit} 
+        register={register} 
+        errors={errors} 
+        formState={formState} 
+        setFormState={setFormState} 
+      />
     </div>
   );
 };
