@@ -13,6 +13,8 @@ exports.getRecipes = async (req, res) => {
 
 // Récupérer une recette par son id
 exports.getRecipeById = async (req, res) => {
+  console.log("ID de la recette :", req.params.id);
+  console.log("Données de la requête :", req.body);
   try {
     const id = req.params.id;
     const recipe = await Recipes.findById(id)
@@ -49,7 +51,8 @@ exports.createRecipe = async (req, res) => {
       tcookingTime,
       level,
       ingredients,
-      steps
+      steps,
+      creator
     } = req.body;
 
     console.log("Données de la recette :", req.body);
@@ -93,7 +96,7 @@ exports.createRecipe = async (req, res) => {
       return res.status(401).json({ message: "Veuillez vous connecter pour ajouter une recette" });
     }
 
-    console.log("ID de l'utilisateur :", req.user._id);
+    console.log("ID de l'utilisateur :", req.user.id);
 
     // Vérification des ingrédients
     const ingredientIds = ingredients.map(ing => ing._id);  // Extraire les IDs des ingrédients
@@ -116,7 +119,7 @@ exports.createRecipe = async (req, res) => {
       image,
       tcookingTime,
       level,
-      author: req.user._id,
+      author: creator,
       ingredients: validIngredients.map(ingredient => ({ _id: ingredient._id })),  // Mettez à jour avec les ingrédients valides
       steps,
     });

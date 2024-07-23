@@ -60,7 +60,7 @@ const FormCreateRecipe = () => {
         _id: ing._id,
       })),
       steps: formState.steps,
-      creator: user._id,
+      creator: [user._id],
     };
   
     try {
