@@ -11,10 +11,8 @@ import { toast } from "react-toastify";
 // Importation des composants
 import schemaValidationCreateRecipe from "./validationCreateRecipe/ValidationCreateRecipe";
 import FormRecipe from "../../components/FormRecipe/FormRecipe";
+import ErrorMessage from "../../../../../components/Error/errorMessage/ErrorMessage";
 
-// Gestion des messages d'erreurs
-const ErrorMessage = ({ message }) =>
-  message && <p className="text-red-600 mb-4">{message}</p>;
 
 const FormCreateRecipe = () => {
   const { user } = useContext(UserContext);
